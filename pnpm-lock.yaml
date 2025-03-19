@@ -21,6 +21,12 @@ importers:
       astro:
         specifier: ^5.5.3
         version: 5.5.3(rollup@4.34.9)(typescript@5.8.2)
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
 
 packages:
 
