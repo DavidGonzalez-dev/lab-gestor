@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../features/products/components/ValidarCodigo.js';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+
+<Layout>
+<section>
+    <div id="logo"><img src="../public/LabGestorLogo.svg" alt="logo"></div>  
+    <article id="codigo">
+        <div id="atras">
+            <img src="../public/atrasFlecha.svg" alt="atras">
+            <h2>Código de Verificación</h2>
+        </div>
+        <div id="imagen"><img src="../public/codigo.svg" alt="codigo"></div>
+        <h3>Ingrese el código de  enviado a su correo</h3>
+        <input type="text" id="codeField" readonly>
+        
+        <div id="teclado">
+            <button onclick="addDigit(1)">1</button>
+            <button onclick="addDigit(2)">2</button>
+            <button onclick="addDigit(3)">3</button>
+            <br>
+            <button onclick="addDigit(4)">4</button>
+            <button onclick="addDigit(5)">5</button>
+            <button onclick="addDigit(6)">6</button>
+            <br>
+            <button onclick="addDigit(7)">7</button>
+            <button onclick="addDigit(8)">8</button>
+            <button onclick="addDigit(9)">9</button>
+            <br>
+            <button id="cero" onclick="addDigit(0)">0</button>
+            <button onclick="removeDigit()"><img src="../public/borrar.svg" alt=""></button>
+            
+        </div>
+        <button id="confirmar" onclick="confirmCode()">Verificar</button>
+
+    </article>
+</section>
+<script>
+    import '../features/products/components/ValidarCodigo.js';
+</script>
+
+<style is:global>
+
+    @import url(<link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet">);
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body{
+        font-family: 'Satoshi', sans-serif;
+    }
+
+    #logo{
+        margin: 40px;
+        
+    }
+
+    article#codigo{
+        position: absolute;
+        top: 15%;
+        left:37%;
+        width: 527px;
+        height: 733px;
+        border: 1px solid #1F5C99;
+        border-radius: 20px;
+    }
+
+    #atras{
+        display: flex;
+        justify-content: center;
+    }
+
+    #atras img{
+        width: 36px;
+        height: 36px; 
+        margin: 40px 10px;
+    }
+
+    article h2{
+        text-align: center;
+        padding: 40px 10px;
+        padding-bottom: 15px;
+        font-size: 30px;
+    }
+    
+    #imagen{
+       width: 75px;
+       height: 67px; 
+       position: relative;
+       left: 43%;
+    }
+
+    article h3{
+        text-align: center;
+        font-size: 15px;
+        padding-top: 10px;
+    }
+
+    input{
+        border: none;
+        border-bottom:1px solid black ;
+        margin-top: 30px;
+        margin-left: 33%;
+    }
+
+    #teclado {
+        padding: 6% 26%;
+    }
+
+    #teclado button{
+        width: 60px;
+        height: 60px;
+        font-size: 40px;
+        margin: 10px;
+        background: transparent;
+        border: none;
+    }
+
+    #teclado #cero{
+        width: 60px;
+        height: 60px;
+        font-size: 40px;
+        margin: 10px;
+        background: transparent;
+        border: none;
+        padding-left: 42%;
+        padding-right: 16%;
+    }
+
+    #teclado img{
+      width: 35px;
+      height:35px;
+      padding:0px;
+      margin: 0px;
+      color: red;
+    }
+    
+    #confirmar{
+        background: #1F5C99;
+        border: none;
+        color: #fff;
+        padding: 10px 25px;
+        border-radius: 10px;
+        font-size: 20px;
+        margin: 15px 38%;
+    }
+</style>
+</Layout>
