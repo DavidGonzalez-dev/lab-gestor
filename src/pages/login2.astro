@@ -1,0 +1,98 @@
+---
+// Importacion de Componentes
+import Layout from "../layouts/Layout.astro"
+import CampoFormulario from "../components/CampoFormulario.astro"
+import Decoracion from "../../public/assets/decoracionTitulos.svg"
+
+// Importacion de Imagenes
+import Logo from "../../public/assets/logo/logo-light.svg"
+import Ilustracion from '../../public/assets/ilustraciones/loginIlustracion.svg';
+---
+
+<Layout title="LabGestor-Login">
+    <main class="container-fluid">
+        <div class="row h-100">
+            <!-- Formulario de Inicio de Sesion -->
+            <section id="formulario-login" class="col-lg-6">
+                <div class="titulo">
+                    <h1>Bienvenido</h1>
+                    <span>Ingresa tus credenciales</span>
+                    <img src={Decoracion.src} alt="decoracion" class="w-100">
+                </div>
+                <form action="post" class="container" id="formulario">
+                    <CampoFormulario id="email" nombreCampo="Email" type="text", placeholder="ejemplo@email.com"/>
+                    <CampoFormulario id="contrasena" nombreCampo="Contraseña" type="password", placeholder="Contraseña"/>
+                    <button type="submit" class="boton-primario">Iniciar Sesion</button>
+                </form>
+                <a href="/#">Olvidaste tu Contraseña?</a>
+            </section>
+
+            <!-- Ilustraciones -->
+             <section id="ilustraciones" class="col-lg-6">
+                <img src={Logo.src} alt="Labgestor Logo" id="logo">
+                <img src={Ilustracion.src} alt="Ilustracion Medicina" id="ilustracion">
+             </section>
+
+        </div>
+    </main>
+</Layout>
+
+<style>
+    main{
+        height: 100dvh;
+    }
+
+    #formulario-login{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10rem;
+    }
+    .titulo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 2rem;
+    }
+
+    .boton-primario{
+        margin-top: 1.25rem;
+    }
+
+    .titulo h1{
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .titulo span{
+        font-weight: 500;
+    }
+
+    #formulario{
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+        align-items: center;
+        margin-bottom: 1.25rem;
+    }
+
+    #ilustraciones{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        background: var(--color-primario);
+    }
+
+    #logo{
+        height: 20%;
+    }
+
+    #ilustracion{
+        height: 60%;
+    }
+
+</style>
