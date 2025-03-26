@@ -1,0 +1,49 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@features/recuperacion-contraseña/components/header.astro";
+import Candado from "@iconos/candado.astro";
+import NumberPad from "@features/recuperacion-contraseña/components/number-pad.astro";
+import CodeInput from "@features/recuperacion-contraseña/components/code-input.astro";
+import { InitNumberPad } from "@features/recuperacion-contraseña/utils/initNumberPad";
+---
+
+<Layout>
+    <main>
+        <Header />
+        <section class="container">
+            <h1>Codigo de Verificacion</h1>
+            <Candado size="70" class="icon"/>
+            <p>Ingrese el codigo enviado a su correo</p>
+
+            <CodeInput/>
+
+            <NumberPad/>
+
+        </section>
+    </main>
+</Layout>
+
+<style>
+    main {
+        height: 80dvh;
+    }
+    section {
+        width: 40%;
+        padding: 3rem 2rem;
+        border: 1px solid var(--color-primario);
+        border-radius: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .icon{
+        color: var(--color-primario);
+    }
+
+    
+    
+
+</style>

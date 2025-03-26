@@ -1,0 +1,80 @@
+---
+import Layout from "@layouts/Layout.astro";
+import decoracion from "@assets/ilustraciones/decoracionTitulos.svg";
+import Header from "@features/recuperacion-contraseña/components/header.astro";
+import CampoFormulario from "@sharedComponents/CampoFormulario.astro";
+import Trash from "@iconos/trash.astro";
+import Check from "@iconos/check.astro";
+---
+
+<Layout title="LabGestor - RecuperarContraseña">
+    <main>
+        <!-- Logo -->
+        <Header />
+        <section class="container">
+            <div id="titulos">
+                <h1>Recuperación de Contraseña</h1>
+                <h3>Ingresa tu correo electronico</h3>
+                <img src={decoracion.src} alt="" />
+            </div>
+            <p>
+                Ingresa tu correo electronico y te enviaremos un mail con un
+                codigo para verificar la recuperacion de su contraseña
+            </p>
+            <form action="" class="w-100">
+
+                <CampoFormulario
+                    id="correo"
+                    nombreCampo="Ingrese su Correo"
+                    type="email"
+                    placeholder="ejemplo@email.com"
+                />
+                <div id="acciones" class="w-100">
+                    <a href="/login/" class="boton-cancelar">Cancelar <Trash /></a>
+                    <button type="submit" class="boton-aceptar">Aceptar <Check /></button
+                    >
+                </div>
+            </form>
+        </section>
+    </main>
+    <style>
+
+        main{
+            height: 80dvh;
+        }
+        section {
+            border: 1px solid var(--color-primario);
+            border-radius: 1rem;
+            padding: 0 3rem;
+            width: 35%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #titulos{
+            text-align: center;
+        }
+
+        h1{
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        h3{
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #acciones{
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+
+    </style>
+</Layout>

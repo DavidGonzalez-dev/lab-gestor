@@ -1,12 +1,12 @@
 ---
 // Importacion de Componentes
-import Layout from "../layouts/Layout.astro"
-import CampoFormulario from "../components/CampoFormulario.astro"
-import Decoracion from "../../public/assets/decoracionTitulos.svg"
+import Layout from "@layouts/Layout.astro"
+import CampoFormulario from "@sharedComponents/CampoFormulario.astro"
+import Decoracion from "@assets/ilustraciones/decoracionTitulos.svg"
 
 // Importacion de Imagenes
-import Logo from "../../public/assets/logo/logo-light.svg"
-import Ilustracion from '../../public/assets/ilustraciones/loginIlustracion.svg';
+import Logo from "@assets/logo/logo-light.svg"
+import Ilustracion from '@assets/ilustraciones/loginIlustracion.svg';
 ---
 
 <Layout title="LabGestor-Login">
@@ -19,12 +19,13 @@ import Ilustracion from '../../public/assets/ilustraciones/loginIlustracion.svg'
                     <span>Ingresa tus credenciales</span>
                     <img src={Decoracion.src} alt="decoracion" class="w-100">
                 </div>
+                <!-- Formulario -->
                 <form action="post" class="container" id="formulario">
                     <CampoFormulario id="email" nombreCampo="Email" type="text", placeholder="ejemplo@email.com"/>
                     <CampoFormulario id="contrasena" nombreCampo="Contraseña" type="password", placeholder="Contraseña"/>
                     <button type="submit" class="boton-primario">Iniciar Sesion</button>
                 </form>
-                <a href="/#">Olvidaste tu Contraseña?</a>
+                <a href="/contrasena">Olvidaste tu Contraseña?</a>
             </section>
 
             <!-- Ilustraciones -->
