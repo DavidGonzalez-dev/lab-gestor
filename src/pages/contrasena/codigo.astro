@@ -2,9 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Header from "@features/recuperacion-contraseña/components/header.astro";
 import Candado from "@iconos/candado.astro";
-import NumberPad from "@features/recuperacion-contraseña/components/number-pad.astro";
-import CodeInput from "@features/recuperacion-contraseña/components/code-input.astro";
-import { InitNumberPad } from "@features/recuperacion-contraseña/utils/initNumberPad";
+import NumericPad from "@features/recuperacion-contraseña/components/number-pad";
 ---
 
 <Layout>
@@ -14,11 +12,7 @@ import { InitNumberPad } from "@features/recuperacion-contraseña/utils/initNumb
             <h1>Codigo de Verificacion</h1>
             <Candado size="70" class="icon"/>
             <p>Ingrese el codigo enviado a su correo</p>
-
-            <CodeInput/>
-
-            <NumberPad/>
-
+            <NumericPad client:load/>
         </section>
     </main>
 </Layout>
