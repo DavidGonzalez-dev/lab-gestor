@@ -2,7 +2,7 @@
 const {id, nombreCampo, type, placeholder} = Astro.props
 ---
 
-<div class="w-100">
+<div class="w-100 mb-3">
     <label  class="form-label" for={id}>{nombreCampo}</label>
     <input class="form-control" type={type} placeholder={placeholder} required>
 </div>

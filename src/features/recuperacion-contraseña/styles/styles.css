@@ -12,6 +12,8 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all .25s;
+    text-decoration: none;
+    color: black;
 }
 
 .numeric-pad-button:hover{

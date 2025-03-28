@@ -39,12 +39,13 @@ export default function NumericPad() {
                         {num}
                     </button>
                 ))}
-                <button
+                <a
+                    href="NuevaContrasena"
                     className="numeric-pad-button"
                     id="boton-aceptar"
                 >
                     Aceptar
-                </button>
+                </a>
                 <button
                     onClick={handleClear}
                     className="numeric-pad-button"

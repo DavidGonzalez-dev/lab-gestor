@@ -1,124 +1,78 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Logo from "@assets/logo/logo-nav.svg"
+import Decoracion from "@assets/ilustraciones/decoracionTitulos.svg"
+import Header from "@features/recuperacion-contraseña/components/header.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import CampoFormulario from "@sharedComponents/CampoFormulario.astro";
 ---
 
 <Layout>
-<section id="RecuperarContrasena">
-    <div id="logo"><img src="../public/LabGestorLogo.svg" alt="logo"></div>
-    <article id="principal">
-        <h2>Recuperación de Contraseña</h2>
-        <h3>Ingresa tu correo electronico</h3>
-        <article id="separacion">
-            <div id="linea1"></div>
-            <div id="circulo"></div>
-            <div id="linea2"></div>
+    <Header/>
+    <main>
+        <article class="container">
+            <div id="titulo">
+                <h1>Recuperacion de Contraseña</h1>
+                <p>Ingresa tu nueva contraseña</p>
+                <img src={Decoracion.src} alt="Decoracion">
+            </div>
+
+            <form action="" class="w-100">
+                <CampoFormulario
+                    nombreCampo="Nueva Contraseña"
+                    placeholder="Ingrese su nueva contraseña"
+                    id="nuevaContrasena"
+                    type="password"
+                />
+                <CampoFormulario
+                    nombreCampo="Confirmacion"
+                    placeholder="Ingrese de nuevo su contraseña"
+                    id="confirmacion"
+                    type="password"
+                />
+                <div id="acciones">
+                    <button class="boton-aceptar">Aceptar</button>
+                </div>
+            </form>
         </article>
-        <form action="">
-            <label for=""> Nueva Contraseña</label><br>
-            <input type="password">
-            <label for=""> confirme su Contraseña</label><br>
-            <input type="password">
-        </form>
-        <button id="cancelar">Cancelar</button>
-        <button>Aceptar</button>
-    </article>
-</section>
-<style is:global>
+    </main>
+</Layout>
 
-    @import url(<link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet">);
-
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body{
-        font-family: 'Satoshi', sans-serif;
-    }
-
-    #logo{
-        margin: 40px;
-        
-    }
-    article#principal{
-        position: absolute;
-        top: 25%;
-        left:40%;
-        width: 500px;
-        height: 578px;
-        border: 1px solid #1F5C99;
-        border-radius: 20px;
-        
-    }
-    article h2{
-        text-align: center;
-        padding: 90px 20px;
-        padding-bottom: 15px;
-        font-size: 30px;
-    }
-    article h3{
-        text-align: center;
-        font-size: 15px;
-    }
-
-    article#separacion{
+<style>
+    main{
+        height: 80dvh;
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 30px 0px;
+        align-items: center;
     }
 
-    #linea1{
-        width: 200px;
-        height: 2px;
-        border: 1px solid #1F5C99;
-        
+    article{
+        width: fit-content;
+        height: 90%;
+        padding: 50px 30px;
+        border: 2px solid #d3d0d0;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    #circulo{
-        width: 9px;
-        height: 9px;
-        background: #1F5C99;
-        border-radius: 50px;
-        margin: 12px 12px;
-    }
-
-    #linea2{
-        width: 200px;
-        height: 2px;
-        border: 1px solid #1F5C99;
+    #titulo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 30px;
     }
 
     form{
-        padding: 30px;
-        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    form input{
-        padding: 15px;
-        width: 440px;
-        height: 30px;
-        border: 1px solid #1F5C99;
-        border-radius: 5px ;
-        margin-bottom: 30px;
-        font-size: 20px;
-    }
-
-    button#cancelar{
-        margin-left: 130px;
-    }
-
-    button{
-        background: #1F5C99;
-        color: #fff;
-        padding: 10px 17px;
-        border-radius: 10px;
-        border: none;
-        margin-left: 40px;
-
+    #acciones{
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
     }
 </style>
-</Layout>
