@@ -1,7 +1,6 @@
 ---
 // Importacion de Componentes
 import Layout from "@layouts/Layout.astro";
-import CampoFormulario from "@sharedComponents/CampoFormulario.astro";
 import Decoracion from "@assets/ilustraciones/decoracionTitulos.svg";
 
 // Importacion de Imagenes
@@ -20,25 +19,6 @@ import Ilustracion from "@assets/ilustraciones/loginIlustracion.svg";
                     <img src={Decoracion.src} alt="decoracion" class="w-100" />
                 </div>
                 <!-- Formulario -->
-                <form action="post" class="container" id="formulario">
-                    <CampoFormulario
-                        id="email"
-                        nombreCampo="Email"
-                        type="text"
-                        ,
-                        placeholder="ejemplo@email.com"
-                    />
-                    <CampoFormulario
-                        id="contrasena"
-                        nombreCampo="Contraseña"
-                        type="password"
-                        ,
-                        placeholder="Contraseña"
-                    />
-                    <button type="submit" class="boton-primario"
-                        >Iniciar Sesion</button
-                    >
-                </form>
                 <a href="/contrasena">Olvidaste tu Contraseña?</a>
             </section>
 
@@ -89,7 +69,7 @@ import Ilustracion from "@assets/ilustraciones/loginIlustracion.svg";
         font-weight: 500;
     }
 
-    #formulario {
+    #credenciales {
         display: flex;
         flex-direction: column;
         gap: 17px;
