@@ -265,9 +265,17 @@ Este es un proyecto educativo del SENA en Colombia, por ende este proyecto no ti
 - [David Gonzalez](https://github.com/DavidGonzalez-dev)
 
 # Implementacion Login
-
 # Implementacion Registro Login
 
-# Implementacion logout
 
-# hola
+
+
+
+
+
+
+
+
+
+
+# Implementacion Recuperacion de Contraseña
