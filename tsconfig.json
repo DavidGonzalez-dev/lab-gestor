@@ -12,7 +12,7 @@
     "jsxImportSource": "react",
     "baseUrl": "./src",
     "paths": {
-      "@sharedComponents/*": ["shared/components/*"],
+      "@shared/*": ["shared/*"],
       "@assets/*": ["../public/assets/*"],
       "@routes/*": ["pages/*"],
       "@iconos/*": ["shared/iconos/*"],

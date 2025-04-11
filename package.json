@@ -1,24 +1,23 @@
 {
-  "name": "lab-gestor",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "add": "astro add"
-  },
-  "dependencies": {
-    "@astrojs/react": "^4.2.2",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
-    "axios": "^1.8.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sweetalert2": "^11.6.13"
-  },
-  "devDependencies": {
-    "astro": "^5.5.3"
-  }
+    "name": "lab-gestor",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "add": "astro add"
+    },
+    "dependencies": {
+        "@astrojs/react": "^4.2.3",
+        "astro": "^5.6.1",
+        "axios": "^1.8.4",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19.1.0",
+        "@types/react-dom": "^19.1.2"
+    }
 }
