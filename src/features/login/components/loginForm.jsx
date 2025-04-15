@@ -54,7 +54,7 @@ const LoginForm = () => {
         // Se verifica la respuesta del servidor
         const success = await login(formData)
         if (!success) {
-            setErrors(errors => ({ general: "Tu nombre de usuario o contraseña son incorrectas, cambialas y vuelve a intentarlo" }))
+            setErrors(errors => ({ general: "Tu nombre de usuario o contraseña son incorrectas, cambialas y vuelve a intentarlo"}))
         } else {
             window.location.href = "../dashboard"
         }
