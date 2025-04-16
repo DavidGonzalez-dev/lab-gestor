@@ -6,6 +6,8 @@ import Decoracion from "@assets/ilustraciones/decoracionTitulos.svg";
 // Importacion de Imagenes
 import Logo from "@assets/logo/logo-light.svg";
 import Ilustracion from "@assets/ilustraciones/loginIlustracion.svg";
+import LoginForm from "@features/login/components/loginForm.jsx"
+import "@shared/styles/variables.css"
 ---
 
 <Layout title="LabGestor-Login">
@@ -19,6 +21,7 @@ import Ilustracion from "@assets/ilustraciones/loginIlustracion.svg";
                     <img src={Decoracion.src} alt="decoracion" class="w-100" />
                 </div>
                 <!-- Formulario -->
+                <LoginForm client:only />
                 <a href="/contrasena">Olvidaste tu Contraseña?</a>
             </section>
 
