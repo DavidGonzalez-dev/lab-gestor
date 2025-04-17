@@ -1,9 +1,16 @@
-import "./Button.css"
+import "./Button.css";
 
-const Button = ({ lable, parentMethod, type }) => {
-    return (
-        <button onClick={parentMethod} type={type} className="button">{lable}</button>
-    )
-}
+const Button = ({ lable, parentMethod, type, className, Icon }) => {
+  return (
+    <button
+      onClick={parentMethod}
+      type={type}
+      className={`button ${className}`}
+    >
+      {lable}
+      {Icon && <span>{<Icon />}</span>}
+    </button>
+  );
+};
 
-export default Button
+export default Button;
