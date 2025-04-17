@@ -1,0 +1,17 @@
+.button {
+    padding: 7px 14px;
+    background-color: transparent;
+    color: var(--color-primario);
+    font-weight: 700;
+    width: fit-content;
+    place-self: center;
+    border: 2px solid var(--color-primario);
+    border-radius: 10px;
+    transition: .25s all;
+}
+
+.button:hover{
+    background-color: var(--color-primario);
+    color: white;
+    border: 2px solid transparent;
+}

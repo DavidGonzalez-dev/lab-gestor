@@ -37,26 +37,6 @@ const { title } = Astro.props;
 
 <style is:global>
 	/* --------------------------------- */
-	/* Variables globales de estilos */
-	/* --------------------------------- */
-	:root {
-		/* Colores del proyecto*/
-		--color-secundario: #525c66;
-		--color-primario-oscuro: #003366;
-		--color-primario: #1f5c99;
-		--color-primario-claro: #c2e0ff;
-		--color-terciario: #ebffff;
-
-		/* Colores Botones */
-		--color-rojo: #CF171D;
-		--color-verde: #22861E;
-		
-
-		/* Fuentes del proyecto */
-		--main-font: "Satoshi", sans-serif;
-	}
-
-	/* --------------------------------- */
 	/* Seteo del HTML */
 	/* --------------------------------- */
 	* {
@@ -67,61 +47,4 @@ const { title } = Astro.props;
 		font-size: 15px;
 	}
 
-	/* --------------------------------- */
-	/* Definicion clases reutilizables */
-	/* --------------------------------- */
-
-	.boton-primario {
-		padding: 7px 14px;
-		border-radius: 10px;
-		border: 1px solid var(--color-primario);
-		background: transparent;
-		color: var(--color-primario);
-		font-weight: 700;
-		transition: 0.25s;
-		width: fit-content;
-	}
-
-	.boton-primario:hover {
-		border: 1px solid transparent;
-		background: var(--color-primario);
-		color: white;
-	}
-
-	.boton-cancelar{
-		padding: 7px 14px;
-		border-radius: 10px;
-		border: 1px solid var(--color-rojo);
-		background: transparent;
-		color: var(--color-rojo);
-		font-weight: 700;
-		transition: 0.25s;
-		width: fit-content;
-		text-decoration: none;
-	}
-
-	.boton-cancelar:hover {
-		border: 1px solid transparent;
-		background: var(--color-rojo);
-		color: white;
-	}
-
-	.boton-aceptar{
-		padding: 7px 14px;
-		border-radius: 10px;
-		border: 1px solid var(--color-verde);
-		background: transparent;
-		color: var(--color-verde);
-		font-weight: 700;
-		transition: 0.25s;
-		width: fit-content;
-		text-decoration: none;
-	}
-
-	.boton-aceptar:hover {
-		border: 1px solid transparent;
-		background: var(--color-verde);
-		color: white;
-	}
-	
 </style>
