@@ -1,6 +1,9 @@
-export function requireAuth(context, next) {
+import api from "@shared/services/api.js"
 
-    const {request, cookies, redirect} = context
+export async function requireAuth(context, next) {
+
+    const { request, redirect } = context
+    const authCookie = request.headers.get("cookie")
 
     // Rutas publicas que no requieren autenticacion
     const publicRoutes = ["/", "/login", "/contrasena"]
@@ -8,23 +11,32 @@ export function requireAuth(context, next) {
 
     // Verificamos si la ruta es publica
     const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith("/api/"))
-    // Obtenemos la cookie de autenticacion
-    const authToken = cookies.get("authToken")
 
-    // Se verifica si un usuario autenticado esta 
-    if(authToken && url.pathname === "/login") {
+    let isValid = false
+    // Obtenemos la cookie de autenticacion y verificamos
+    try {
+        const response = await api.get("/validar-token", {
+            headers: {
+                Cookie: authCookie
+            }
+        })
+
+        isValid = response.data.data.valid
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    // ----------------
+    // Validaciones
+    // ----------------
+    if(isValid && url.pathname === "/login") {
         return redirect("/dashboard")
     }
 
-    // Se verifica si la ruta es publica
-    if(isPublic) {
+    if(isPublic || isValid){
         return next()
     }
 
-    // Se verifica si no esta autenticado el usuario
-    if(!authToken) {
-        return redirect("/login")
-    }
-
-    return next()
-}
+    return redirect("login")
+}   
