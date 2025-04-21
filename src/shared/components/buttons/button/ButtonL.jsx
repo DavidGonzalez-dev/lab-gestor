@@ -22,7 +22,7 @@ const SmartButtons = () => {
         Icon={Check}
       />
       <Button
-        lable="Cancelar"
+        lable="Eliminar"
         parentMethod={() => handleButtonClick("Cancelar")}
         type="button"
         className="cancel-button"

@@ -1,4 +1,5 @@
 import "./Button.css";
+import "@shared/styles/variables.css";
 
 const Button = ({ lable, parentMethod, type, className, Icon }) => {
   return (
