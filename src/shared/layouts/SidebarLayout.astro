@@ -27,7 +27,8 @@ import { SideBar } from "@shared/components/";
 		/>
 	</head>
 	<body>
-		<main class="container-fluid">
+		<SideBar client:only/>
+		<main>
 			<slot />
 		</main>
 
@@ -53,6 +54,5 @@ import { SideBar } from "@shared/components/";
 	body{
 		display: flex;
 		height: 100dvh;
-        width: 100dvw;
 	}
 </style>

@@ -1,0 +1,6 @@
+export * from "./barraLateral"
+export * from "./barraDeslizada"
+export * from "./cerrarSesion"
+export * from "./clientes"
+export * from "./estadisticas"
+export * from "./fabricantes"

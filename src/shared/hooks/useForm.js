@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export const useForm = (initialValues) => {
 
@@ -8,7 +8,7 @@ export const useForm = (initialValues) => {
     // Funcion para manejar el input de los usuarios en tiempo real
     const handleChange = (e) => {
         const { id, value } = e.target
-        
+
         setValues((prev) => ({
             ...prev,
             [id]: value
@@ -18,7 +18,7 @@ export const useForm = (initialValues) => {
     // Funcion para validar los campos del formulario y mapear los posibles errores en el estado del componente
     const validate = (validationRules) => {
         // Se crea una nueva variable para guardar los errores que se vayan presentando durante las validaciones
-        const newErrors = {}
+        let newErrors = {}
 
         // Iteramos por las reglas de validacion para validar los campos que aparecen en estas
         for (let field in validationRules) {
@@ -33,24 +33,28 @@ export const useForm = (initialValues) => {
                 newErrors[field] = validationRules[field].errorMessage
             }
         }
+        
         return newErrors
     }
 
 
     // Funcion que maneja la logica para enviar el formulario
-    const handleSubmit = async (callback, values=null, validationRules) => {
+    const handleSubmit = async (callback, validationRules, values = null) => {
 
         // Se obtienen los errores actuales y el numero de errores
         const validationErrors = validate(validationRules)
         const errorNumber = Object.keys(validationErrors).length != 0
 
+        // Se resetean el estado de los errores
+
+        // Caso: Hay errores en el formulario
+        setErrors(validationErrors)
         if (errorNumber != 0) {
-            setErrors(validationErrors)
             return
         }
 
         // Se ejecuta la funcion callback
-        if(!values){
+        if (!values) {
             return callback()
         }
         return callback(values)

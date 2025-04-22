@@ -8,6 +8,7 @@ import "./loginFrom.css"
 const LoginForm = () => {
     // Estado para guardar la informacion del form
     const { values, errors, handleChange, handleSubmit } = useForm({ ID: "", Contrasena: "" })
+    
     const validationRules = {
         ID: { regex: /[0-9]/, errorMessage: "El nombre de usuario solo puede contener numeros*" },
         Contrasena: {}
@@ -15,8 +16,8 @@ const LoginForm = () => {
 
     const loginSuccess = async (e) => {
         e.preventDefault()
-        const success = await handleSubmit(login, values, validationRules)
-        console.log(success)
+        const success = await handleSubmit(login, validationRules, values)
+
         if (success){
             window.location.href = "/dashboard"
         } else {
