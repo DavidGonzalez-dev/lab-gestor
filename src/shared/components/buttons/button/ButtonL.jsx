@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
-import ArrowBack from "@shared/iconos/arrow-back.astro";
-import Check from "@shared/iconos/check";
-import Trash from "@shared/iconos/Trash";
+import { Check } from "@shared/iconos/Icono-check";
+import Trash from "@shared/iconos/Icono-Trash";
 
 const SmartButtons = () => {
   const [clickedButton, setClickedButton] = useState(null);
@@ -18,7 +17,7 @@ const SmartButtons = () => {
         lable="Aceptar"
         parentMethod={() => handleButtonClick("Aceptar")}
         type="button"
-        className="accept-button"
+        className="button"
         Icon={Check}
       />
       <Button

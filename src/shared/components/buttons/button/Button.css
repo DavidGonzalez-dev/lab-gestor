@@ -1,35 +1,51 @@
 .button {
   padding: 7px 14px;
-  background-color: transparent;
+  background-color: white;
   color: var(--color-primario);
+  border: 2px solid var(--color-primario);
   font-weight: 700;
   width: fit-content;
   place-self: center;
-  border: 2px solid var(--color-primario);
   border-radius: 10px;
   transition: 0.25s all;
+  cursor: pointer;
 }
-
+.button-dotted {
+  border: 2px dotted var(--color-primario);
+  color: var(--color-primario);
+}
+.button-segundary {
+  color: var(--color-primario-claro);
+  border: 2px solid var(--color-primario-claro);
+}
+.button-segundary:hover {
+  background-color: var(--color-primario-claro) !important;
+  color: #525c66 !important;
+}
 .button:hover {
   background-color: var(--color-primario);
   color: white;
-  border: 2px solid transparent;
-}
-.accept-button {
-  background-color: var(--color-verde);
-  color: white;
 }
 
-.accept-button:hover {
-  background-color: darkgreen;
+.button-accept {
+  background-color: white;
+  color: var(--color-verde);
+  border: 2px solid var(--color-verde);
+}
+
+.button-accept:hover {
+  background-color: var(--color-verde);
 }
 .cancel-button {
-  background-color: red;
-  color: white;
+  background-color: white;
+  color: var(--color-rojo);
+  border: 2px solid var(--color-rojo);
 }
 
 .cancel-button:hover {
-  background-color: darkred;
+  background-color: var(--color-rojo);
+  color: white;
 }
 svg {
+  place-self: center;
 }
