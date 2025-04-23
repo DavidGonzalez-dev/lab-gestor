@@ -1,15 +1,6 @@
 import { useState } from "react";
-
-import { BarraLateral, BarraDeslizada, Clientes, Fabricantes } from "@shared/iconos";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
-
-import Home from "@iconos/homeIcon"
-import Productos from "@iconos/productos"
-import Reporte from "@iconos/reporte"
-import Estadisticas from "@iconos/estadisticas"
-import Usuarios from "@iconos/usuarios"
-import Perfil from "@iconos/perfil"
-import CerrarSesion from "@iconos/cerrarSesion"
+import { BarraLateral, BarraDeslizada, Clientes, Fabricantes, Home, Productos, Reporte, Estadisticas, Usuarios, Perfil, CerrarSesion } from "@shared/iconos";  
 import "./admin.css"
 import "@shared/styles/variables.css"
 
@@ -99,4 +90,3 @@ export function SideBar() {
         </aside>
     )
 }
-
