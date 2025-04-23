@@ -7,7 +7,7 @@ import "./loginFrom.css"
 
 const LoginForm = () => {
     // Estado para guardar la informacion del form
-    const { values, errors, handleChange, handleSubmit } = useForm({ ID: "", Contrasena: "" })
+    const { values, errors, handleChange, handleSubmit, setErrors } = useForm({ ID: "", Contrasena: "" })
     
     const validationRules = {
         ID: { regex: /[0-9]/, errorMessage: "El nombre de usuario solo puede contener numeros*" },
@@ -21,7 +21,7 @@ const LoginForm = () => {
         if (success){
             window.location.href = "/dashboard"
         } else {
-            errors.general = "Tu nombre de usuario o contraseña son incorrectas, cambialas y vuelve a intentar"
+           setErrors({general: "Tu nombre de usuario o contraseña son incorrectas, cambialas y vuelve a intentar"})
         }
     }
 
@@ -37,7 +37,6 @@ const LoginForm = () => {
             <Button lable={"Ingresar"} type={"submit"} />
             {errors.general && <span id="wrong-credentials">{errors.general}</span>}
         </form>
-
     )
 }
 

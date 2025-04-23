@@ -61,5 +61,5 @@ export const useForm = (initialValues) => {
 
     }
 
-    return { values, errors, handleChange, handleSubmit }
+    return { values, errors, handleChange, handleSubmit, setErrors }
 }
