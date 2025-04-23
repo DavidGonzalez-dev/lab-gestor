@@ -43,12 +43,18 @@ span{
     outline: none;
 }
 
+.toggle-barra svg{
+    width: 40px ;
+    height: 40px;
+    stroke-width: 1;
+}
+
 .upper-sidebar{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
 }
 
 a {
@@ -56,7 +62,7 @@ a {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     font-size: 1.1rem;
     text-decoration: none;
     transition: .25s all;
@@ -64,6 +70,12 @@ a {
 
 a svg path{
     stroke-width: 1.3px;
+}
+
+a svg{
+    width: 32px;
+    height: 32px;
+    stroke-width: 1;
 }
 
 .menu{
@@ -117,6 +129,9 @@ a svg path{
     background: transparent;
     outline: none;
     cursor: pointer;
+}
+.sidebar.colapsada .toggle-barra svg{
+    color: white;
 }
 
 .sidebar.colapsada a {
