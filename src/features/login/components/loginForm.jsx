@@ -17,10 +17,10 @@ const LoginForm = () => {
     const loginSuccess = async (e) => {
         e.preventDefault()
         const success = await handleSubmit(login, validationRules, values)
-
+        
         if (success){
             window.location.href = "/dashboard"
-        } else {
+        } else if(success === false){
            setErrors({general: "Tu nombre de usuario o contraseña son incorrectas, cambialas y vuelve a intentar"})
         }
     }
