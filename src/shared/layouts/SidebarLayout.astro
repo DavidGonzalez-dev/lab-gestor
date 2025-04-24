@@ -3,6 +3,7 @@ import Logo from "@assets/logo/logo-light.svg";
 const { title } = Astro.props;
 
 import { SideBar } from "@shared/components/";
+import { SearchBar } from "@shared/components/";
 ---
 
 <!doctype html>
@@ -28,7 +29,8 @@ import { SideBar } from "@shared/components/";
 	</head>
 	<body>
 		<SideBar client:only/>
-		<main>
+		<main>	
+			<SearchBar client:only/>
 			<slot />
 		</main>
 

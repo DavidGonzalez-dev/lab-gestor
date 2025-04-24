@@ -1,12 +1,28 @@
-// INDEX DE LOS ICONOS
-export { default as BarraDeslizada } from "./BarraDeslizadaIcon";
-export { default as BarraLateral} from "./BarraLateralIcon";
-export { default as Clientes } from "./ClientesIcon";
-export { default as Fabricantes } from "./FabricantesIcon";
-export { default as Home } from "./InicioIcon";
-export { default as Productos } from "./ProductosIcon";
-export { default as Reporte } from "./ReporteIcon";
-export { default as Estadisticas } from "./EstadisticasIcon";
-export { default as Usuarios } from "./UsuariosIcon";
-export { default as Perfil } from "./PerfilIcon";
-export { default as CerrarSesion } from "./CerrarSesionIcon";
+import BarraDeslizadaIcon from './BarraDeslizadaIcon.svg?react';
+import BarraLateralIcon from './BarraLateralIcon.svg?react';
+import CerrarSesionIcon from './CerrarSesionIcon.svg?react';
+import ClientesIcon from './ClientesIcon.svg?react';
+import EstadisticasIcon from './EstadisticasIcon.svg?react';
+import FabricantesIcon from './FabricantesIcon.svg?react';
+import InicioIcon from './InicioIcon.svg?react';
+import NotificacionIcon from './NotificacionIcon.svg?react';
+import PerfilIcon from './PerfilIcon.svg?react';
+import ProductosIcon from './ProductosIcon.svg?react';
+import ReporteIcon from './ReporteIcon.svg?react';
+import UsuariosIcon from './UsuariosIcon.svg?react';
+
+export {
+  BarraDeslizadaIcon,
+  BarraLateralIcon,
+  CerrarSesionIcon,
+  ClientesIcon,
+  EstadisticasIcon,
+  FabricantesIcon,
+  InicioIcon,
+  NotificacionIcon,
+  PerfilIcon,
+  ProductosIcon,
+  ReporteIcon,
+  UsuariosIcon,
+};
+

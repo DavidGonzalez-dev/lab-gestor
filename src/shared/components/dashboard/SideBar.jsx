@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
-import { BarraLateral, BarraDeslizada, Clientes, Fabricantes, Home, Productos, Reporte, Estadisticas, Usuarios, Perfil, CerrarSesion } from "@shared/iconos";  
+import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";  
 import "./admin.css"
 import "@shared/styles/variables.css"
 
@@ -24,50 +24,50 @@ export function SideBar() {
                         {expandida && <img src={Logo.src} alt="logo" />}
                         {/* Botón con evento para colapsar o expandir */}
                         <button onClick={toggleBarra} className="toggle-barra">
-                            {expandida ? <BarraLateral /> : <BarraDeslizada />} {/* Ícono que cambia según el estado */}
+                            {expandida ? <BarraLateralIcon /> : <BarraDeslizadaIcon />} {/* Ícono que cambia según el estado */}
                         </button>
                     </div>
 
                     <article className="menu">
                         {/* HOME */}
                         <a href="/inicio" className="inicio">
-                            <Home/>
+                            <InicioIcon/>
                             {expandida && <span>Inicio</span>}
                         </a>
 
                         {/* PRODUCTOS */}
                         <a href="/productos">
-                            <Productos/>
+                            <ProductosIcon/>
                             {expandida && <span>Productos</span>}
                         </a>
 
                         {/* FABRICANTES */}
                         <a href="/fabricantes">
-                            <Fabricantes />
+                            <FabricantesIcon />
                             {expandida && <span>Fabricantes</span>}
                         </a>
 
                         {/* CLIENTES */}
                         <a href="/clientes">
-                            <Clientes />
+                            <ClientesIcon />
                             {expandida && <span>Clientes</span>}
                         </a>
 
                         {/* REPORTE DE ANALISIS */}
                         <a href="/reporte">
-                            <Reporte />
+                            <ReporteIcon />
                             {expandida && <span>Reporte de Analisis</span>}
                         </a>
 
                         {/* ESTADISTICAS */}
                         <a href="/estadisticas">
-                            <Estadisticas />
+                            <EstadisticasIcon />
                             {expandida && <span>Estadisticas del Area</span>}
                         </a>
 
                         {/* GESTIÓN DE USUARIOS */}
                         <a href="/usuarios">
-                            <Usuarios />
+                            <UsuariosIcon />
                             {expandida && <span>Gestionar Usuarios</span>}
                         </a>
                     </article>
@@ -76,12 +76,12 @@ export function SideBar() {
                 {/* BOTONES INFERIORES */}
                 <article className="botones">
                     <a href="/perfil">
-                        <Perfil />
+                        <PerfilIcon />
                         {expandida && <span>Perfil</span>}
                     </a>
 
                     <a href="/salir">
-                        <CerrarSesion />
+                        <CerrarSesionIcon />
                         {expandida && <span>Cerrar Sesion</span>}
                     </a>
 
