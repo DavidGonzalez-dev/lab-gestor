@@ -1,16 +1,15 @@
 import api from "@shared/services/api";
 
-const VistaUsuarios = async (data) => {
+const VistaUsuarios = async () => {
   try {
-    // Se hace el reuqest al servidor
-    const response = await api.post("/usuarios", data);
+    const response = await api.get("/usuarios");
 
-    // Se verifica el codigo de respuesta
-    if (response.status >= 200 || response.status <= 300) {
-      return true;
+    if (response.status >= 200 && response.status < 300) {
+      console.log("Data de usuarios:", response.data);
+      return Array.isArray(response.data.data) ? response.data.data : [];
     } else {
       console.log("Error en la respuesta", response.data);
-      return false;
+      return [];
     }
   } catch (err) {
     console.error("Error en la peticion", err);
@@ -18,8 +17,7 @@ const VistaUsuarios = async (data) => {
       console.error("Detalles del error", err.response);
       console.error("Estado:", err.response.status);
     }
-    return false;
+    return [];
   }
 };
-
 export default VistaUsuarios;
