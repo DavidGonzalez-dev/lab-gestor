@@ -1,4 +1,5 @@
 ---
+import UserTable from "@features/usuarios/components/vistaU"
 import React, { useState } from 'react';
 import Button from '../shared/components/buttons/button/ButtonL';
 import SmartButtons from '../shared/components/buttons/button/ButtonL';
@@ -8,6 +9,6 @@ import SmartButtons from '../shared/components/buttons/button/ButtonL';
         <SmartButtons/>
         <h1>Homepage</h1>
         <a href="login">Iniciar Sesion</a>
-        
+        <UserTable client:only/>
     </div>
 </main>
