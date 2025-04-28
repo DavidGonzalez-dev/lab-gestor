@@ -1,0 +1,80 @@
+.registro-container {
+    max-width: 400px;
+    margin: 12vh auto;
+    background: white;
+  }
+  
+.titulo-formulario {
+    width: 250px;
+    height: 41px;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    background: #81BFFF;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 3vh 7vh;
+  }
+
+.formulario{
+    border: 2px solid #1F5C99;
+    padding: 20px;
+    border-radius: 10px;
+}
+  
+.formulario label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+.formulario input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  
+.botones-rol {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+.boton-rol {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    border: 1px solid #438efc;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+.boton-rol:hover {
+    background: #cfe2ff;
+  }
+  
+.botones-accion {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+.boton-eliminar {
+    background: #ff4c4c;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+.boton-aceptar {
+    background: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
