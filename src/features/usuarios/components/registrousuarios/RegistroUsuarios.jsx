@@ -16,25 +16,24 @@ export default function RegistroUsuario() {
   };
 
   const handleDelete = () => {
-    reset();
-    Swal.fire({
-      title: "Formulario limpio",
-      text: "Todos los campos han sido borrados.",
-      icon: "info",
-      confirmButtonText: "Ok",
-    });
+    return window.location.href = "./dashboard"
   };
 
   const handleSelectRole = (role) => {
     setValue("rol", role);
   };
 
+  // TODO: Remplazar los inputs por el componente reutilizable
+  // TODO: Emplear la api el momento de enviar el formulario
+  // TODO: Revisar estilos
+  
+
   return (
     <div className="registro-container">
       <h2 className="titulo-formulario">Registro de Usuario</h2>
       <form className="formulario" onSubmit={handleSubmit(onSubmit)}>
         <label># Cédula</label>
-        <input type="text" placeholder="1099543569" {...register("cedula", { required: "La cédula es obligatoria" })} />
+        <input type="text" placeholder="1099543569" {...register("cedula", { required: "La cédula es obligatoria"})} />
         {errors.cedula && <p className="error">{errors.cedula.message}</p>}
 
         <label>Nombres</label>

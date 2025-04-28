@@ -1,11 +1,6 @@
-html, body {
-    width: 100%;
-    margin: 0;
-    padding: 0;  
-}
-  
+
 .ContenedorPrincipal {
-    width: 84vw; 
+    width: 100%;
     height: 65px;
     display: flex;
     justify-content: center; 
