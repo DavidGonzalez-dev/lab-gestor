@@ -1,6 +1,6 @@
 
-#login-form{
-    width: 100%;
+#loginForm{
+    width: 100% !important;
     padding: 0 10%;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,10 @@
     gap: 5px;
 }
 
-#inputs span{
+#wrongCredentialsSpan{
     color: var(--color-rojo);
+    margin: 0 auto;
+    text-align: center;
+    max-width: 50%;
 }
 

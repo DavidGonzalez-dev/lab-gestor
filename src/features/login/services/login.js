@@ -1,25 +1,21 @@
 import api from "@shared/services/api"
+import { HttpStatusCode } from "axios"
 
 const login = async (data) => {
     try {
-        // Se hace el reuqest al servidor
-        const response = await api.post("/login", data)
-
-        // Se verifica el codigo de respuesta
-        if(response.status >= 200 || response.status <= 300) {
-            return true
-        } else {
-            console.log("Error en la respuesta", response.data)
-            return false
-        }
+        // Se hace el request al servidor
+        await api.post("/login", data)
+        return true
 
     } catch (err) {
-        console.error("Error en la peticion", err)
-        if (err.response) {
-            console.error("Detalles del error", err.response)
-            console.error("Estado:" ,err.response.status)
+
+        // Devolvemos un error dependiendo del estado de la respuesta
+        switch (err.response.status) {
+            case HttpStatusCode.Unauthorized:
+                throw new Error("Ups! Tu documento o contraseña son incorrectos vuelve a intentarlo*")
+            default:
+                throw new Error("Lo sentimos, hemos cometido un error vuelve a intentarlo mas tarde")
         }
-        return false
     }
 }
 

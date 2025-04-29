@@ -1,12 +1,12 @@
-import "./Input.css"
+import styles from "./Input.module.css"
 
-export const Input = ({ type, label, id, error, placeHolder, parentMethod, ...rest }) => {
+export const Input = ({ type, label, id, error, placeHolder, hasServerError, ...rest }) => {
     return (
         <>
-            <div className="customInput">
+            <div className={styles.customInput}>
                 <label htmlFor={id}>{label}</label>
-                <input type={type} id={id} placeholder={placeHolder} onChange={parentMethod} autoComplete="off" className={error ? "invalidContent" : ""} {...rest}/>
-                {error && <p className="errorMessage">{error.message}</p>}
+                <input type={type} id={id} placeholder={placeHolder} autoComplete="off" className={(error || hasServerError) ? styles.invalidContent : ""} {...rest} />
+                {error && <p className={styles.errorMessage}>{error.message}</p>}
             </div>
         </>
     )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UserTable from "./vista";
-import VistaUsuarios from "../services/usuarios";
+import VistaUsuarios from "../services/";
 import { ModuleRegistry } from "ag-grid-community";
 import { ClientSideRowModelModule } from "ag-grid-community";
 

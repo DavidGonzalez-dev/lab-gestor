@@ -1,17 +1,8 @@
 import "./Button.css";
-import "@shared/styles/variables.css";
 
-const Button = ({ lable, parentMethod, type, className, Icon }) => {
+export const Button = ({ children, parentMethod, type, className }) => {
   return (
-    <button
-      onClick={parentMethod}
-      type={type}
-      className={`button ${className}`}
-    >
-      {lable}
-      {Icon && <span>{<Icon />}</span>}
-    </button>
+    <button onClick={parentMethod} type={type} className={`button ${className}`}>{children}</button>
   );
 };
 
-export default Button;
