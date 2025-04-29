@@ -22,16 +22,27 @@ const VistaUsuarios = async () => {
   }
 };
 
+// Este servicio nos permite registrar un usaurio haciendo uso de la API
 export const RegistrarUsuario = async (data) => {
 
   try {
+    // Se hace la llamada a la API
     const response = await api.post("/usuarios/registrar", data)
+
+    // Se verifica que el usuario se halla creado
     if (response.status != HttpStatusCode.Created) {
+
+      // En caso de que hubiera un problema se arroja un error
       throw new Error(response)
     }
+
+    // En caso de que se halla creado se devuelve true
     return true
+
   } catch (error) {
+    
     console.log(error)
+    // En caso de haber un error se retorna falso
     return false
   }
 }

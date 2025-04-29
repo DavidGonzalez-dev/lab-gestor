@@ -1,11 +1,14 @@
 import { useForm, Controller } from "react-hook-form";
 import { Input, SelectButton } from "@shared/components";
-import { RegistrarUsuario } from "../../services";
+
 import Swal from "sweetalert2";
 import { AnalistaIcon, AdminIcon } from "@shared/iconos";
+
+import { RegistrarUsuario } from "../../services";
 import "./registroUsuarios.css";
 
 export default function RegistroUsuario() {
+  
   // Se importan las utilidades dsde la libreria de react-hook-form
   const {
     register,
@@ -20,8 +23,8 @@ export default function RegistroUsuario() {
 
   // Funcion para manejar la logica de envio de datos al servidor
   const onSubmit = (data) => {
-    console.log(data);
 
+    // Se dispara una alerta para confrimar el envio del formulario
     Swal.fire({
       title: "¿Estas seguro de crear este usuario?",
       icon: "warning",
@@ -29,13 +32,22 @@ export default function RegistroUsuario() {
       showCancelButton: true,
       cancelButtonText: "Cancelar",
       cancelButtonColor: "red"
+
     }).then(async (result) => {
+
+      // Si se confirma que se quiere enviar el formulario
       if (result.isConfirmed) {
+
         // Se hace llamada a la api
         const success = await RegistrarUsuario(data);
+        
+        // Se verifica que la llama fue exitosa
         if (!success) {
+          // Caso: la respuesta fue exitosa
           Swal.fire("Ups! Algo salio mal", "", "error");
-        } else {
+        } 
+        // Caso: la respuesta tuvo un error
+        else {
           Swal.fire("Se registro el usuario con extio!", "", "success");
         }
       }
