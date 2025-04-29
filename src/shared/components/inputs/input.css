@@ -1,22 +1,35 @@
-.form-input{
+.customInput{
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
 }
 
-.form-input label{
-    font-size: 15px;
+.customInput label{
+    font-size: 16px;
+    margin-bottom: 4px;
     font-weight: 700;
+    color: var(--color-primario);
 }
 
-.form-input input{
+.customInput input{
+    margin: 0 !important;
     padding:7px 14px;
     width: 100%;
     border-radius: 5px;
     border: 1px solid #525C66;
 }
 
-
-.form-input input:focus{
+.customInput input:focus{
     outline: 2px solid var(--color-primario-claro);
+}
+
+.customInput input.invalidContent{
+    outline: 2px solid var(--color-rojo);
+    box-shadow: 0 0 0px 3px rgba(238, 52, 52, 0.288);
+}
+
+.customInput .errorMessage{
+    color: red;
+    margin: 0;
+    font-size: 14px;
 }

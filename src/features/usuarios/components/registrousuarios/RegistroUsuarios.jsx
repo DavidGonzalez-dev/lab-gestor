@@ -1,77 +1,158 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { Input, SelectButton } from "@shared/components";
+import { RegistrarUsuario } from "../../services";
 import Swal from "sweetalert2";
-import "./registroUsuarios.css"
+import { AnalistaIcon, AdminIcon } from "@shared/iconos";
+import "./registroUsuarios.css";
 
 export default function RegistroUsuario() {
-  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
+  // Se importan las utilidades dsde la libreria de react-hook-form
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      rol: 2, // Codigo del rol del analsita en la base de datos
+    },
+  });
 
+  // Funcion para manejar la logica de envio de datos al servidor
   const onSubmit = (data) => {
     console.log(data);
-    ({
-      title: "¡UsSwal.fireuario registrado!",
-      text: "El usuario fue registrado exitosamente.",
-      icon: "success",
+
+    Swal.fire({
+      title: "¿Estas seguro de crear este usuario?",
+      icon: "warning",
       confirmButtonText: "Aceptar",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "red"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // Se hace llamada a la api
+        const success = await RegistrarUsuario(data);
+        if (!success) {
+          Swal.fire("Ups! Algo salio mal", "", "error");
+        } else {
+          Swal.fire("Se registro el usuario con extio!", "", "success");
+        }
+      }
     });
   };
 
-  const handleDelete = () => {
-    return window.location.href = "./dashboard"
-  };
-
-  const handleSelectRole = (role) => {
-    setValue("rol", role);
-  };
-
-  // TODO: Remplazar los inputs por el componente reutilizable
-  // TODO: Emplear la api el momento de enviar el formulario
-  // TODO: Revisar estilos
-  
-
   return (
     <div className="registro-container">
+      {/* Titulo del Formulario */}
       <h2 className="titulo-formulario">Registro de Usuario</h2>
       <form className="formulario" onSubmit={handleSubmit(onSubmit)}>
-        <label># Cédula</label>
-        <input type="text" placeholder="1099543569" {...register("cedula", { required: "La cédula es obligatoria"})} />
-        {errors.cedula && <p className="error">{errors.cedula.message}</p>}
+        {/* Input para el documento */}
+        <Input
+          type={"text"}
+          label={"#Documento"}
+          id={"documento"}
+          placeHolder={"ej: 1234567"}
+          error={errors.documento}
+          {...register("documento", {
+            required: "El documento es obligatorio*",
+            pattern: {
+              value: /^[0-9]+$/,
+              message: "El documento solo puede contener numeros*",
+            },
+          })}
+        />
 
-        <label>Nombres</label>
-        <input type="text" placeholder="Ej: Andrea Paola" {...register("nombres", { required: "El nombre es obligatorio" })} />
-        {errors.nombres && <p className="error">{errors.nombres.message}</p>}
+        {/* Input para los nombres */}
+        <Input
+          type={"text"}
+          label={"Nombres"}
+          id={"nombres"}
+          placeHolder={"ej: Andrea Paola"}
+          error={errors.nombres}
+          {...register("nombres", {
+            required: "El usuario debe tener al menos 1 nombre*",
+            pattern: {
+              value: /^[a-zA-Z\s]+$/,
+              message:
+                "El nombre del usuario solo puede contener espacios y letras*",
+            },
+          })}
+        />
 
-        <label>Apellidos</label>
-        <input type="text" placeholder="Ej: Niño Bedoya" {...register("apellidos", { required: "El apellido es obligatorio" })} />
-        {errors.apellidos && <p className="error">{errors.apellidos.message}</p>}
+        {/* Input para los apellidos */}
+        <Input
+          type={"text"}
+          label={"Apellidos"}
+          id={"apellidos"}
+          placeHolder={"ej: Andrea Paola"}
+          error={errors.apellidos}
+          {...register("apellidos", {
+            required: "El usuario debe tener al menos 1 apellido*",
+            pattern: {
+              value: /^[a-zA-Z\s]+$/,
+              message:
+                "El apellido del usuario solo puede contener espacios y letras*",
+            },
+          })}
+        />
 
-        <label>Correo Electrónico</label>
-        <input type="email" placeholder="andrea@gmail.com" {...register("correo", { required: "El correo es obligatorio" })} />
-        {errors.correo && <p className="error">{errors.correo.message}</p>}
+        {/* Input para el correo */}
+        <Input
+          type={"email"}
+          label={"Correo"}
+          id={"correo"}
+          placeHolder={"ej: andrea@gmail.com"}
+          error={errors.correo}
+          {...register("correo", {
+            required: "El correo del usuario es obligatorio*",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Ingrese una direccion de correo valida*",
+            },
+          })}
+        />
 
         <label>Rol:</label>
-        <div className="botones-rol">
-          <button type="button" className="boton-rol" onClick={() => handleSelectRole("Administrador")}>
-            Administrador
-          </button>
-          <button type="button" className="boton-rol" onClick={() => handleSelectRole("Analista")}>
-            Analista
-          </button>
-        </div>
-        {errors.rol && <p className="error">{errors.rol.message}</p>}
 
-        {/* Campo oculto para el rol */}
-        <input type="hidden" {...register("rol", { required: "Debe seleccionar un rol" })} />
+        {/* Controlador encargado de conectar los botones selectores en el form */}
+        <Controller
+          control={control}
+          name="rol"
+          render={({ field: { value, onChange } }) => (
+            <div className="botonesRol">
+              {/* Boton del administrador */}
+              <SelectButton
+                variant={"darkBlue"}
+                selected={value === 1}
+                parentMethod={() => onChange(1)}
+              >
+                Administrador
+                <AdminIcon />
+              </SelectButton>
+
+              {/* Boton del analista */}
+              <SelectButton
+                variant={"lightBlue"}
+                selected={value === 2}
+                parentMethod={() => onChange(2)}
+              >
+                Analista
+                <AnalistaIcon />
+              </SelectButton>
+            </div>
+          )}
+        />
 
         <div className="botones-accion">
-          <button type="button" className="boton-eliminar" onClick={handleDelete}>
-            Eliminar 
+          <button type="button" className="boton-eliminar">
+            Eliminar
           </button>
           <button type="submit" className="boton-aceptar">
-            Aceptar 
+            Aceptar
           </button>
         </div>
       </form>
     </div>
   );
 }
-

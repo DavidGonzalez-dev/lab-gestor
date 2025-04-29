@@ -10,8 +10,12 @@ import PerfilIcon from './PerfilIcon.svg?react';
 import ProductosIcon from './ProductosIcon.svg?react';
 import ReporteIcon from './ReporteIcon.svg?react';
 import UsuariosIcon from './UsuariosIcon.svg?react';
+import AnalistaIcon from './AnalistaIcon.svg?react';
+import AdminIcon from './AdminIcon.svg?react';
 
 export {
+  AnalistaIcon,
+  AdminIcon,
   BarraDeslizadaIcon,
   BarraLateralIcon,
   CerrarSesionIcon,
@@ -23,6 +27,6 @@ export {
   PerfilIcon,
   ProductosIcon,
   ReporteIcon,
-  UsuariosIcon,
+  UsuariosIcon
 };
 

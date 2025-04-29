@@ -1,14 +1,13 @@
-import "./input.css"
+import "./Input.css"
 
-const Input = ({ type, name, id, parentMethod }) => {
+export const Input = ({ type, label, id, error, placeHolder, parentMethod, ...rest }) => {
     return (
         <>
-            <div className="form-input">
-                <label htmlFor={id}>{name}</label>
-                <input type={type} name={name} id={id} placeholder={name} onChange={parentMethod} autoComplete="off"/>
+            <div className="customInput">
+                <label htmlFor={id}>{label}</label>
+                <input type={type} id={id} placeholder={placeHolder} onChange={parentMethod} autoComplete="off" className={error ? "invalidContent" : ""} {...rest}/>
+                {error && <p className="errorMessage">{error.message}</p>}
             </div>
         </>
     )
 }
-
-export default Input

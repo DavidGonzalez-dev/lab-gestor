@@ -1,0 +1,26 @@
+/* --------------------------------- */
+/* Seteo de las variuables globales de estilos */
+/* --------------------------------- */
+:root {
+  /* Colores del proyecto*/
+  --color-secundario: #525c66;
+  --color-primario-oscuro: #003366;
+  --color-primario: #1f5c99;
+  --color-primario-claro: #c2e0ff;
+  --color-terciario: #ebffff;
+  /* Colores Botones */
+  --color-rojo: #cf171d;
+  --color-verde: #22861e;
+  /* Fuentes del proyecto */
+  --main-font: "Satoshi", sans-serif;
+
+  /* Se setea el css */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+*{
+    font-family: var(--main-font);
+}

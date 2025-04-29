@@ -2,8 +2,6 @@ import { useState } from "react";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
 import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";  
 import styles from "./admin.module.css"
-import "@shared/styles/variables.css"
-
 
 export function SideBar() {
     // Estado para controlar si está expandida o colapsada

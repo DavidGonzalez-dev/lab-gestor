@@ -1,4 +1,5 @@
 import api from "@shared/services/api";
+import { HttpStatusCode } from "axios";
 
 const VistaUsuarios = async () => {
   try {
@@ -20,4 +21,17 @@ const VistaUsuarios = async () => {
     return [];
   }
 };
-export default VistaUsuarios;
+
+export const RegistrarUsuario = async (data) => {
+
+  try {
+    const response = await api.post("/usuarios/registrar", data)
+    if (response.status != HttpStatusCode.Created) {
+      throw new Error(response)
+    }
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
