@@ -1,14 +1,13 @@
-import "./input.css"
+import styles from "./Input.module.css"
 
-const Input = ({ type, name, id, parentMethod }) => {
+export const Input = ({ type, label, id, error, placeHolder, hasServerError, ...rest }) => {
     return (
         <>
-            <div className="form-input">
-                <label htmlFor={id}>{name}</label>
-                <input type={type} name={name} id={id} placeholder={name} onChange={parentMethod} autoComplete="off"/>
+            <div className={styles.customInput}>
+                <label htmlFor={id}>{label}</label>
+                <input type={type} id={id} placeholder={placeHolder} autoComplete="off" className={(error || hasServerError) ? styles.invalidContent : ""} {...rest} />
+                {error && <p className={styles.errorMessage}>{error.message}</p>}
             </div>
         </>
     )
 }
-
-export default Input

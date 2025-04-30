@@ -1,12 +1,17 @@
 ---
 import UserTable from "@features/usuarios/components/vistaU"
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { SmartButtons, RegistrarUsuario } from "@shared/components/buttons/button/ButtonL";
 
+=======
+import Button from '../shared/components/buttons/button/ButtonL';
+import SmartButtons from '../shared/components/buttons/button/ButtonL';
+>>>>>>> d118b631dc01caf4e5cc1462ec2c2f72be64e990
 ---
 <main>
     <div>
-        <SmartButtons/>
+        <SmartButtons client:only/>
         <h1>Homepage</h1>
         <a href="login">Iniciar Sesion</a>
         <UserTable client:only/>

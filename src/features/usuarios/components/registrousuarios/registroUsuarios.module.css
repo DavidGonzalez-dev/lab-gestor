@@ -1,0 +1,36 @@
+.formulario{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.inputContainer {
+  border: 2px solid #1F5C99;
+  padding: 20px;
+  border-radius: 10px;
+  width: 70%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rolSelector{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rolSelector label {
+  font-weight: 700;
+  color: var(--color-primario);
+}
+
+.actionButtons{
+  display: flex;
+  gap: 20px;
+}

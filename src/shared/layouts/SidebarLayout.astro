@@ -3,6 +3,8 @@ import Logo from "@assets/logo/logo-light.svg";
 const { title } = Astro.props;
 
 import { SideBar } from "@shared/components/";
+import { SearchBar } from "@shared/components/";
+import "@shared/styles/index.css"
 ---
 
 <!doctype html>
@@ -28,7 +30,8 @@ import { SideBar } from "@shared/components/";
 	</head>
 	<body>
 		<SideBar client:only/>
-		<main>
+		<main>	
+			<SearchBar client:only/>
 			<slot />
 		</main>
 
@@ -44,15 +47,16 @@ import { SideBar } from "@shared/components/";
 	/* --------------------------------- */
 	/* Seteo del HTML */
 	/* --------------------------------- */
-	* {
-		padding: 0;
-		margin: 0;
-		box-sizing: border-box;
-		font-family: var(--main-font);
-		font-size: 15px;
-	}
 	body{
 		display: flex;
 		height: 100dvh;
+		justify-content: space-between;
+	}
+	main{
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		flex: 1;
 	}
 </style>

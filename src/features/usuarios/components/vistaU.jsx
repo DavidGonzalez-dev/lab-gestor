@@ -1,8 +1,8 @@
 import react, { useState, useEffect, useMemo } from "react";
 import UserTable from "./vista";
 import VistaUsuarios from "../services/usuarios";
-import { ModuleRegistry, ClientSideRowModelModule } from "ag-grid-community";
-import { VerUsuarios } from "@features/usuarios/components/buttonsUsuarios";
+import { ModuleRegistry } from "ag-grid-community";
+import { ClientSideRowModelModule } from "ag-grid-community";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
