@@ -1,5 +1,5 @@
-export * from "./dashboard/SideBar.jsx"
+export * from "./sidebar/SideBar.jsx"
 export * from "./SearchBar/SearchBar.jsx";
 export * from "./inputs/Input.jsx"
 export * from "./buttons/button/Button.jsx"
-export * from "./select-button/SelectButton.jsx"
+export * from "./buttons/select-button/SelectButton.jsx"

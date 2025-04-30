@@ -10,15 +10,14 @@
     justify-content: center;
     gap: 10px;
     transition: .25s all;
+    width: 100%;
 }
 
 .selectButton svg{
-    height: 2em;
+    height: 1.5em;
     width: auto;
     stroke-width: 1.5;
 }
-
-
 
 .selectButton.lightBlue{
     color: #81BFFF;

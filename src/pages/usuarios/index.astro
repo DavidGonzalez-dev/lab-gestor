@@ -1,7 +1,23 @@
 ---
-import SidebarLayout from "@layouts/SidebarLayout.astro"
-import RegistroUsuario from "@features/usuarios/components/registrousuarios/RegistroUsuarios"
+import SidebarLayout from "@layouts/SidebarLayout.astro";
+import RegistroUsuario from "@features/usuarios/components/registrousuarios/RegistroUsuarios";
 ---
+
 <SidebarLayout>
-    <RegistroUsuario client:only/>
+    <div class="container h-100" id="register-user-container">
+        <!-- Titulo -->
+         <h1 class="pill-heading light-blue">Registro de usuarios</h1>
+
+        <!-- Formulario de registro de  -->
+        <RegistroUsuario client:only />
+    </div>
 </SidebarLayout>
+
+<style>
+    #register-user-container{
+        display: flex;
+        flex-direction: column;
+        gap: 10%;
+        padding: 20px;
+    }
+</style>

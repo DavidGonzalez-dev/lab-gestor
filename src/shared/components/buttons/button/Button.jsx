@@ -1,8 +1,8 @@
-import "./Button.css";
+import styles from"./Button.module.css";
 
-export const Button = ({ children, parentMethod, type, className }) => {
+export const Button = ({ children, parentMethod, type, variant }) => {
   return (
-    <button onClick={parentMethod} type={type} className={`button ${className}`}>{children}</button>
+    <button onClick={parentMethod} type={type} className={`${styles.button} ${styles[variant]}`}>{children}</button>
   );
 };
 

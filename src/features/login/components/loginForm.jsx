@@ -3,6 +3,7 @@ import login from "../services/login";
 import styles from "./loginFrom.module.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
     // Estado para manejar cuando el componente esta cargando o no
@@ -20,14 +21,16 @@ const LoginForm = () => {
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
-            console.log(data)
-
             // Se verifica si la respuesta de la api fue positiva
             const success = await login(data);
             // En caso de haber aprobador las credenciales se redirige al dashboard
-            if (success) {  
-                window.location.href = "/dashboard";
-            } 
+            if (success) {
+                Swal.fire({ title: "Bienvenido", confirmButtonText: "Continar", confirmButtonColor: "#22861e", icon:"success"}).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/dashboard";
+                    }
+                })
+            }
 
         } catch (error) {
             setServerError(error.message)

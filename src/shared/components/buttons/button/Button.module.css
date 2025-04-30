@@ -1,3 +1,4 @@
+/* Estilos boton basico */
 .button {
   padding: 7px 14px;
   background-color: white;
@@ -10,42 +11,54 @@
   transition: 0.25s all;
   cursor: pointer;
 }
-.button-dotted {
-  border: 2px dotted var(--color-primario);
-  color: var(--color-primario);
-}
-.button-segundary {
-  color: var(--color-primario-claro);
-  border: 2px solid var(--color-primario-claro);
-}
-.button-segundary:hover {
-  background-color: var(--color-primario-claro) !important;
-  color: #525c66 !important;
-}
 .button:hover {
   background-color: var(--color-primario);
   color: white;
 }
+/* Estilos para iconos dentro del boton */
+.button svg {
+  place-self: center;
+  height: 1.5em;
+  width: auto;
+  stroke-width: 2;
+}
 
-.button-accept {
+/* Estilos boton punteado */
+.button.buttonDotted {
+  border: 2px dotted var(--color-primario);
+  color: var(--color-primario);
+}
+
+/* Estilos boton secundario */
+.button.buttonSegundary {
+  color: var(--color-primario-claro);
+  border: 2px solid var(--color-primario-claro);
+}
+.button.buttonSecundary:hover {
+  background-color: var(--color-primario-claro) !important;
+  color: #525c66 !important;
+}
+
+/* Estilos boton aceptar */
+.button.buttonAccept {
   background-color: white;
   color: var(--color-verde);
   border: 2px solid var(--color-verde);
 }
-
-.button-accept:hover {
+.button.buttonAccept:hover {
+  color: white;
   background-color: var(--color-verde);
 }
-.cancel-button {
+
+/* Estilos boton cancelar */
+.button.buttonCancel {
   background-color: white;
   color: var(--color-rojo);
   border: 2px solid var(--color-rojo);
 }
-
-.cancel-button:hover {
+.button.buttonCancel:hover {
   background-color: var(--color-rojo);
   color: white;
 }
-svg {
-  place-self: center;
-}
+
+
