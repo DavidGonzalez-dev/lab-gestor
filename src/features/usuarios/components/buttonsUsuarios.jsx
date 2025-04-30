@@ -1,37 +1,8 @@
 import { useState } from "react";
-import Button from "./Button";
-import { Check } from "@shared/iconos/Icono-check";
-import Trash from "@shared/iconos/Icono-Trash";
+import Button from "@shared/components/buttons/button/Button";
 import { plus } from "@shared/iconos/Icono-plus";
+import { eye } from "@shared/iconos/Icono-eye";
 
-const SmartButtons = () => {
-  const [clickedButton, setClickedButton] = useState(null);
-
-  const handleButtonClick = (label) => {
-    setClickedButton(label);
-    console.log(`Botón presionado: ${label}`);
-  };
-
-  return (
-    <div>
-      <Button
-        label="Aceptar"
-        parentMethod={() => handleButtonClick("Aceptar")}
-        type="button"
-        className="button"
-        Icon={Check}
-      />
-      <Button
-        label="Eliminar"
-        parentMethod={() => handleButtonClick("Cancelar")}
-        type="button"
-        className="cancel-button"
-        Icon={Trash}
-      />
-      {clickedButton && <p>Botón presionado: {clickedButton}</p>}
-    </div>
-  );
-};
 const RegistrarUsuario = () => {
   const [clickedButton, setClickedButton] = useState(null);
 
@@ -52,5 +23,25 @@ const RegistrarUsuario = () => {
     </div>
   );
 };
+const VerUsuarios = () => {
+  const [clickedButton, setClickedButton] = useState(null);
 
-export { SmartButtons, RegistrarUsuario };
+  const handleButtonClick = (label) => {
+    setClickedButton(label);
+    console.log(`Botón presionado: ${label}`);
+  };
+
+  return (
+    <div>
+      <Button
+        label="Ver"
+        parentMethod={() => handleButtonClick("Aceptar")}
+        type="button"
+        className="button"
+        Icon={eye}
+      />
+    </div>
+  );
+};
+
+export { RegistrarUsuario, VerUsuarios };

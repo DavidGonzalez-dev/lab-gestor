@@ -9,6 +9,9 @@
   border-radius: 10px;
   transition: 0.25s all;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .button-dotted {
   border: 2px dotted var(--color-primario);
@@ -45,7 +48,4 @@
 .cancel-button:hover {
   background-color: var(--color-rojo);
   color: white;
-}
-svg {
-  place-self: center;
 }

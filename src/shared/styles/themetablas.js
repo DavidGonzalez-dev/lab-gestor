@@ -1,0 +1,37 @@
+import { themeQuartz } from "ag-grid-community";
+
+// // to use myTheme in an application, pass it to the theme grid option
+export const myTheme = themeQuartz.withParams({
+  accentColor: "#1F5C99",
+  backgroundColor: "#FFFFFF",
+  borderColor: "#000000",
+  borderRadius: 20,
+  cellHorizontalPaddingScale: 2,
+  columnBorder: false,
+  fontFamily: ["Arial", "sans-serif"],
+  fontSize: 17,
+  foregroundColor: "#000000",
+  headerBackgroundColor: "#82C1FFA6",
+  headerFontFamily: [
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "Oxygen-Sans",
+    "Ubuntu",
+    "Cantarell",
+    "Helvetica Neue",
+    "sans-serif",
+  ],
+  headerFontSize: 14,
+  headerFontWeight: 700,
+  headerRowBorder: true,
+  headerVerticalPaddingScale: 1,
+  iconSize: 20,
+  oddRowBackgroundColor: "#C2E0FF94",
+  rowBorder: false,
+  rowVerticalPaddingScale: 1,
+  spacing: 10,
+  wrapperBorder: false,
+  wrapperBorderRadius: 20,
+});

@@ -1,14 +1,14 @@
 import "./Button.css";
 import "@shared/styles/variables.css";
 
-const Button = ({ lable, parentMethod, type, className, Icon }) => {
+const Button = ({ label, parentMethod, type, className, Icon }) => {
   return (
     <button
       onClick={parentMethod}
       type={type}
       className={`button ${className}`}
     >
-      {lable}
+      {label}
       {Icon && <span>{<Icon />}</span>}
     </button>
   );
