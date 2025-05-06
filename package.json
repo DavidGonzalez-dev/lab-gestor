@@ -1,28 +1,29 @@
 {
-    "name": "lab-gestor",
-    "type": "module",
-    "version": "0.0.1",
-    "scripts": {
-        "dev": "astro dev",
-        "build": "astro build",
-        "preview": "astro preview",
-        "astro": "astro",
-        "add": "astro add"
-    },
-    "dependencies": {
-        "@astrojs/node": "^9.1.3",
-        "@astrojs/react": "^4.2.3",
-        "ag-grid-react": "^33.2.4",
-        "astro": "^5.6.1",
-        "axios": "^1.8.4",
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0",
-        "react-hook-form": "^7.56.1",
-        "sweetalert2": "^11.19.1"
-    },
-    "devDependencies": {
-        "@types/react": "^19.1.0",
-        "@types/react-dom": "^19.1.2",
-        "vite-plugin-svgr": "^4.3.0"
-    }
+  "name": "lab-gestor",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "add": "astro add"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.1.3",
+    "@astrojs/react": "^4.2.3",
+    "ag-grid-community": "^33.2.4",
+    "ag-grid-react": "^33.2.4",
+    "astro": "^5.6.1",
+    "axios": "^1.8.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.1",
+    "sweetalert2": "^11.19.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.2",
+    "vite-plugin-svgr": "^4.3.0"
+  }
 }

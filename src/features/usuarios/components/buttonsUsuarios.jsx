@@ -1,47 +1,48 @@
 import { useState } from "react";
-import Button from "@shared/components/buttons/button/Button";
-import { plus } from "@shared/iconos/Icono-plus";
-import { eye } from "@shared/iconos/Icono-eye";
+import { Button } from "@shared/components/buttons/button/Button";
+import { AnalistaIcon, AdminIcon, TrashIcon, CheckIcon } from "@shared/iconos";
 
-const RegistrarUsuario = () => {
+const VerUsuarios = ({ data }) => {
   const [clickedButton, setClickedButton] = useState(null);
 
   const handleButtonClick = (label) => {
     setClickedButton(label);
-    console.log(`Botón presionado: ${label}`);
+    console.log(`Botón presionado: ${label}`, data);
   };
 
   return (
     <div>
       <Button
-        label="Registrar Usuario"
-        parentMethod={() => handleButtonClick("Aceptar")}
+        parentMethod={() => handleButtonClick("Ver")}
         type="button"
-        className="button-accept"
-        Icon={plus}
-      />
+        variant="default"
+      >
+        Ver
+      </Button>
     </div>
   );
 };
-const VerUsuarios = () => {
+
+const EliminarUsuario = ({ data }) => {
   const [clickedButton, setClickedButton] = useState(null);
 
   const handleButtonClick = (label) => {
     setClickedButton(label);
-    console.log(`Botón presionado: ${label}`);
+    console.log(`Botón presionado: ${label}`, data);
   };
 
   return (
     <div>
       <Button
-        label="Ver"
-        parentMethod={() => handleButtonClick("Aceptar")}
+        parentMethod={() => handleButtonClick("Eliminar")}
         type="button"
-        className="button"
-        Icon={eye}
-      />
+        variant="buttonCancel"
+      >
+        Eliminar
+        <TrashIcon />
+      </Button>
     </div>
   );
 };
 
-export { RegistrarUsuario, VerUsuarios };
+export { VerUsuarios, EliminarUsuario };

@@ -3,19 +3,27 @@ import Layout from "@shared/layouts/Layout.astro";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import { SideBar } from "@shared/components/";
 import UserTable from "@features/usuarios/components/vistaU"
-import { RegistrarUsuario} from "@features/usuarios/components/buttonsUsuarios";
+import styles from "@shared/components/buttons/button/Button.module.css";
+import { Button } from "@shared/components/";
 
 
 ---
 
-
-<main>
-    <h1 class="Gestion">Gestion de usuarios</h1>
-    <RegistrarUsuario/>
-    <p>Hola</p>
-    <SideBar client:only/>
-    <UserTable client:only/>
-</main>
+    <SidebarLayout>
+        <div class="container">
+            <div class="container mt-3 ">
+                <article class="row align-items-center">
+                    <div class="col">
+                        <h1 class="Gestion ">Gestion de usuarios</h1>
+                    </div>
+                    <a href="../usuarios" class="col-auto"><Button type={"submit"} variant={"buttonAccept"} parentMethod={''}>Registrar usuario </Button></a>
+                </article>
+                
+            </div>
+            
+            <UserTable client:only/>
+        </div> 
+    </SidebarLayout>
 
 <style>
     .Gestion {
@@ -26,5 +34,8 @@ import { RegistrarUsuario} from "@features/usuarios/components/buttonsUsuarios";
         background-color: #81BFFF;
         border-radius: 20px;
         padding: 10px;
+    }
+    a{
+        text-decoration: none;
     }
 </style>

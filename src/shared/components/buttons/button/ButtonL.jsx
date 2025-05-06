@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Button from "./Button";
-import { Check } from "@shared/iconos/Icono-check";
-import Trash from "@shared/iconos/Icono-Trash";
 import { plus } from "@shared/iconos/Icono-plus";
 
 const SmartButtons = () => {
