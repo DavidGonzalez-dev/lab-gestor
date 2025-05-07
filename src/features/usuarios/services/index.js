@@ -1,23 +1,29 @@
 import api from "@shared/services/api";
 import { HttpStatusCode } from "axios";
 
-export const VistaUsuarios = async () => {
-  try {
-    const response = await api.get("/usuarios");
+// Este servicio nos trae la informacion de todos los usuarios
+export const getUsuarios = async () => {
 
-    if (response.status >= 200 && response.status < 300) {
-      return Array.isArray(response.data.data) ? response.data.data : [];
-    } else {
-      console.log("Error en la respuesta", response.data);
-      return [];
+  try {
+
+    const response = await api.get("/usuarios");
+    if (response.data.data) {
+      return response.data.data
     }
-  } catch (err) {
-    console.error("Error en la peticion", err);
-    if (err.response) {
-      console.error("Detalles del error", err.response);
-      console.error("Estado:", err.response.status);
+    return []
+
+  }
+  // Manejamos posibles exepciones de axios
+  catch (err) {
+
+    // Arrojamos una excepcion en dependiendo del codigo de respuesta
+    switch (err.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("Ups! Hubo un error en el servidor vuelve a intentar mas tarde")
+      default:
+        throw new Error("No se encontraron usuarios");
+
     }
-    return [];
   }
 };
 
@@ -25,19 +31,34 @@ export const VistaUsuarios = async () => {
 export const RegistrarUsuario = async (data) => {
   try {
     // Se hace la llamada a la API
-    const response = await api.post("/usuarios/registrar", data);
-
-    // Se verifica que el usuario se halla creado
-    if (response.status != HttpStatusCode.Created) {
-      // En caso de que hubiera un problema se arroja un error
-      throw new Error(response);
-    }
-
-    // En caso de que se halla creado se devuelve true
+    await api.post("/usuarios/registrar", data);
     return true;
-  } catch (error) {
-    console.log(error);
-    // En caso de haber un error se retorna falso
-    return false;
+  }
+  catch (err) {
+    // Arrojamos un error dependiendo del status
+    switch (err.response.status) {
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error)
+      default:
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde")
+    }
   }
 };
+
+// Este servicio
+export const DeshabilitarUsuario = async (id) => {
+
+  // Se hace la llamada a la api
+  try {
+    await api.delete(`usuarios/${id}`)
+    return true
+  } 
+  // Si ocurre un error se maneja
+  catch (err) {
+
+    switch (err.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("Hubo un error al eliminar el usuario")
+    }
+  }
+}

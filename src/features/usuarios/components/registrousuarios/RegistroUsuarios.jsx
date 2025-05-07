@@ -40,16 +40,18 @@ export default function RegistroUsuario() {
       if (result.isConfirmed) {
 
         // Se hace llamada a la api
-        const success = await RegistrarUsuario(data);
-
-        // Se verifica que la llama fue exitosa
-        if (!success) {
-          // Caso: la respuesta no fue exitosa
-          Swal.fire("Ups! Algo salio mal", "", "error");
+        try {
+          const success = await RegistrarUsuario(data);
+          if (success) {
+            Swal.fire("Se registro el usuario con extio!", "", "success").then(() => { window.location.href = "/usuarios" });
+          }
         }
-        // Caso: la respuesta fue exitosa
-        else {
-          Swal.fire("Se registro el usuario con extio!", "", "success").then(() => {window.location.href = "/dashboard"});
+        catch (err) {
+          Swal.fire({
+            icon: "error",
+            title: "Ups! algo salio mal",
+            text: err.message
+          })
         }
       }
     });
@@ -57,7 +59,7 @@ export default function RegistroUsuario() {
 
   // Metodo para volver atras
   const redirectPrevious = () => {
-    window.location.href = "/dashboard"
+    window.location.href = "/usuarios"
   }
 
   return (
@@ -149,30 +151,30 @@ export default function RegistroUsuario() {
                   <label>Rol:</label>
 
                   <div className={`row ${styles.botonesRol}`}>
-                  {/* Boton del administrador */}
-                  <div className="col-lg-6  mb-sm-2">
-                    <SelectButton
-                      variant={"darkBlue"}
-                      selected={value === 1}
-                      parentMethod={() => onChange(1)}
-                    >
-                      Administrador
-                      <AdminIcon />
-                    </SelectButton>
-                  </div>
+                    {/* Boton del administrador */}
+                    <div className="col-lg-6  mb-sm-2">
+                      <SelectButton
+                        variant={"darkBlue"}
+                        selected={value === 1}
+                        parentMethod={() => onChange(1)}
+                      >
+                        Administrador
+                        <AdminIcon />
+                      </SelectButton>
+                    </div>
 
-                  <div className="col-lg-6">
-                    {/* Boton del analista */}
-                    <SelectButton
-                      variant={"lightBlue"}
-                      selected={value === 2}
-                      parentMethod={() => onChange(2)}
-                    >
-                      Analista
-                      <AnalistaIcon />
-                    </SelectButton>
+                    <div className="col-lg-6">
+                      {/* Boton del analista */}
+                      <SelectButton
+                        variant={"lightBlue"}
+                        selected={value === 2}
+                        parentMethod={() => onChange(2)}
+                      >
+                        Analista
+                        <AnalistaIcon />
+                      </SelectButton>
 
-                  </div>
+                    </div>
 
 
                   </div>
