@@ -1,0 +1,11 @@
+.buttonCellContainer{
+    height: 100%;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonCellContainer svg{
+    height: 1.2rem;
+}

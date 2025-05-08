@@ -19,6 +19,7 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
+        console.log(data)
         try {
             setIsLoading(true)
             // Se verifica si la respuesta de la api fue positiva
