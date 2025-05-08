@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 
-import { Table, PillType, PillState, Input, Button } from "@shared/components"
+import { Table, PillType, PillState, Input, ButtonCellRenderer } from "@shared/components"
+
 import { getUsuarios, DeshabilitarUsuario } from "../../services/";
 import Swal from "sweetalert2";
 
 import { ToTitleCase } from "@shared/utils";
-import { SearchIcono } from '@shared/iconos'
+import { SearchIcono, TrashIcon } from '@shared/iconos'
 import styles from "./TablaUsuarios.module.css"
 
 
@@ -74,11 +75,12 @@ export const TablaUsuarios = () => {
       headerName: "Eliminar",
       field: "eliminar",
       width: 100,
-      cellRenderer: Button,
+      cellClass: "custom-cell-center",
+      cellRenderer: ButtonCellRenderer,
       cellRendererParams: (p) => ({
-        children: "Eliminar",
-        variant: "buttonDelete",
-        parentMethod: () => eliminarUsuario(p.data.ID),
+        icon: TrashIcon,
+        variant: "buttonCancel",
+        parentMethod: () => eliminarUsuario(p.data),
       })
     },
   ];
@@ -94,11 +96,11 @@ export const TablaUsuarios = () => {
     if (gridRef.current && gridRef.current.api) {
       gridRef.current.api.onFilterChanged()
     }
-  };
+  }
 
   // Capturar la instancia de la API de AG Grid
   const onGridReady = (params) => {
-    gridRef.current = params;
+    gridRef.current = params
   }
 
   // Funcion para verificar si hay algun tipo de filtro activo
@@ -109,7 +111,6 @@ export const TablaUsuarios = () => {
 
   // Funcion para determinar si una nodo(fila) pasa un filtro
   const doesExternalFilterPass = (node) => {
-    console.log(node)
     if (searchText !== "") {
       return node.data.nombres.toLowerCase().includes(searchText.toLowerCase()) || node.data.apellidos.toLowerCase().includes(searchText.toLowerCase())
     }
@@ -118,38 +119,56 @@ export const TablaUsuarios = () => {
   //? ----------------------------------------------
   //? Logica de los botones de accion
   //? ----------------------------------------------
-  const eliminarUsuario = (id) => {
-    console.log(id)
-    Swal.fire({
-      title: "¿Estas seguro de dehabilitar este usuario?",
-      text: "Al deshabilitar este usuario le estaras negando el acceso al sistema, asi como a todas las funcionalidades del mismo",
-      icon: "warning",
-      confirmButtonText: "Aceptar",
-      showCancelButton: true,
-      cancelButtonText: "Cancelar",
-      cancelButtonColor: "red"
+  const eliminarUsuario = (data) => {
+    // Se verifica si el usuario esta desactivado
+    if (!data.estado) {
+      Swal.fire({
+        icon: "error",
+        title: "Este usuario ya esta inhabilitado",
+        text: "Si quieres cambiar el estado de este usuario tienes que modificarlo directamente desde la pagina de perfil del usuario"
+      })
+    }
+    // En caso de no estarlo se sigue con el flujo normal
+    else {
+      Swal.fire({
+        title: "¿Estas seguro de dehabilitar este usuario?",
+        text: "Al deshabilitar este usuario le estaras negando el acceso al sistema, asi como a todas las funcionalidades del mismo",
+        icon: "warning",
+        confirmButtonText: "Aceptar",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "red"
 
-    }).then(async (result) => {
+      }).then(async (result) => {
 
-      // Si se confirma que se quiere enviar el formulario
-      if (result.isConfirmed) {
+        // Si se confirma que se quiere enviar el formulario
+        if (result.isConfirmed) {
 
-        // Se hace llamada a la api
-        try {
-          const success = await DeshabilitarUsuario(id);
-          if (success) {
-            Swal.fire("El usuario se deshabilito con exito!", "", "success");
+          // Se hace llamada a la api
+          try {
+            const success = await DeshabilitarUsuario(data.ID);
+            if (success) {
+              Swal.fire("El usuario se deshabilito con exito!", "", "success");
+
+              // Se actualiza el estado local para reflejar los cambios
+              setRowData(prevData =>
+                prevData.map(usuario =>
+                  usuario.ID === data.ID ? { ...usuario, estado: false } : usuario
+                )
+              )
+            }
+          }
+          catch (err) {
+            Swal.fire({
+              icon: "error",
+              title: "Ups! algo salio mal",
+              text: err.message
+            })
           }
         }
-        catch (err) {
-          Swal.fire({
-            icon: "error",
-            title: "Ups! algo salio mal",
-            text: err.message
-          })
-        }
-      }
-    });
+      });
+    }
+
   }
 
   //? ----------------------------------------------
@@ -169,6 +188,15 @@ export const TablaUsuarios = () => {
   useEffect(() => {
     loadUsers();
   }, []);
+
+  // Prevenir que la informacion se vuelva a ordenar
+  useEffect(() => {
+    if (gridRef.current && gridRef.current.api) {
+      gridRef.current.api.applyColumnState({
+        defaultState: {sort: null},
+      })
+    }
+  }, [rowData]);
 
 
   return (

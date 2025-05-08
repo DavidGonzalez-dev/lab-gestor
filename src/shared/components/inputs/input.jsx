@@ -4,7 +4,7 @@ export const Input = ({ type, label, id, error, placeHolder, hasServerError, var
     return (
         <>
             <div className={`${styles.customInput} ${styles[variant]}`}>
-                { label  !== "" ?? <label htmlFor={id}>{label}</label>}
+                <label htmlFor={id}>{label}</label>
                 <input type={type} id={id} placeholder={placeHolder} autoComplete="off" className={(error || hasServerError) ? styles.invalidContent : ""} {...rest} />
                 {error && <p className={styles.errorMessage}>{error.message}</p>}
             </div>
