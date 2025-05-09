@@ -1,23 +1,44 @@
 ---
-import SidebarLayout from "@layouts/SidebarLayout.astro";
-import RegistroUsuario from "@features/usuarios/components/registrousuarios/RegistroUsuarios";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import { TablaUsuarios } from "@features/usuarios/components/TablaUsuarios/TablaUsuarios";
+import { Button } from "@shared/components/";
+import { Plus } from "@shared/iconos/";
 ---
 
 <SidebarLayout>
-    <div class="container h-100" id="register-user-container">
-        <!-- Titulo -->
-         <h1 class="pill-heading light-blue">Registro de usuarios</h1>
+    <div class="container">
+        <div class="header-container">
+            <h1 class="header">Gestion de usuarios</h1>
+            <Button variant="buttonAccept">
+                <Plus />
+                <a href="usuarios/registrar">Registrar Usuario</a>
+            </Button>
+        </div>
 
-        <!-- Formulario de registro de  -->
-        <RegistroUsuario client:only />
+        <TablaUsuarios client:only />
     </div>
 </SidebarLayout>
 
 <style>
-    #register-user-container{
+    .header-container {
         display: flex;
-        flex-direction: column;
-        gap: 10%;
-        padding: 20px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px;
+    }
+
+    .header {
+        color: white;
+        width: fit-content;
+        height: fit-content;
+        font-size: 25px;
+        background-color: #81bfff;
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 </style>

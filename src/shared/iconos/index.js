@@ -16,6 +16,8 @@ import TrashIcon from './TrashIcon.svg?react';
 import CheckIcon from './CheckIcon.svg?react';
 import BotellaIcon from './BotellaIcon.svg?react';
 import CajaIcon from './CajaIcon.svg?react';
+import SearchIcono from './SearchIcono.svg?react'
+import Plus from './Plus.svg?react'
 
 export {
   AnalistaIcon,
@@ -34,7 +36,7 @@ export {
   UsuariosIcon,
   TrashIcon,
   CheckIcon,
-  BotellaIcon, 
-  CajaIcon
+  SearchIcono,
+  Plus
 };
 

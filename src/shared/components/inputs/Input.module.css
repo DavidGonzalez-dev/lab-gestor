@@ -1,9 +1,12 @@
-
+/* ---------------------------------------- */
+/* Estilos variante por defecto */
+/* ---------------------------------------- */
 /* Estilos del contenedor */
 .customInput{
     display: flex;
     flex-direction: column;
     gap: 4px;
+    width: 100%;
 }
 
 /* Estilos del label */
@@ -16,9 +19,9 @@
 
 /* Estilos del input */
 .customInput input{
-    margin: 0 !important;
     padding:7px 14px;
     width: 100%;
+    font-size: 15px;
     border-radius: 5px;
     border: 1px solid #525C66;
     transition: .25s all;
@@ -38,4 +41,15 @@
     color: red;
     margin: 0;
     font-size: 14px;
+}
+
+/* ----------------------------------------- */
+/* Estilos variante searchbar */
+/* ----------------------------------------- */
+.searchBar input{
+    border-radius: 20px;
+}
+
+.searchBar label{
+    display: none;
 }

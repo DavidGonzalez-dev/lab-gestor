@@ -38,5 +38,5 @@ export async function requireAuth(context, next) {
         return next()
     }
 
-    return redirect("login")
+    return redirect("/login")
 }   
