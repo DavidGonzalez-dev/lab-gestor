@@ -1,0 +1,22 @@
+---
+const {variant} = Astro.props
+---
+<div class={`pillHeading ${variant}`}>
+    <slot />
+</div>
+
+<style>
+    .pillHeading{
+        padding: 10px 20px;
+        font-weight: 700;
+        border-radius: 30px;
+        font-size: 30px;
+        text-align: center;
+        width: fit-content;
+    }
+
+    .pillHeading.primary{
+        background: var(--color-primario);
+        color: white;
+    }
+</style>

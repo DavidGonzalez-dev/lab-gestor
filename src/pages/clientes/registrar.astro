@@ -1,0 +1,35 @@
+---
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+
+import { FormularioRegistroCliente } from "@features/clientes/components/FormularioRegistroCliente/FormularioRegistroCliente.jsx";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+---
+
+<SidebarLayout>
+    <div class="mainContainer">
+        <PillHeading variant="primary" >
+            <h1>Registro Clientes</h1>
+        </PillHeading>
+    
+        <div class="formContainer">
+            <FormularioRegistroCliente client:only />
+        </div>
+    </div>
+</SidebarLayout>
+
+<style>
+    h1 {
+        font-weight: inherit;
+        font-size: inherit;
+        margin: 0;
+    }
+    .mainContainer{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 40px;
+    }
+</style>
