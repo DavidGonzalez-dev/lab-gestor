@@ -103,7 +103,7 @@ span {
     width: 100%;
 }
 
-.botones a {
+.botones a, .botones button {
     background: #1F5C99;
     color: white;
 }

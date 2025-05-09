@@ -2,14 +2,26 @@ import { useState } from "react";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
 import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";  
 import styles from "./SideBar.module.css"
+import api from "@shared/services/api"
 
 export function SideBar() {
     // Estado para controlar si está expandida o colapsada
     const [expandida, setExpandida] = useState(true);
 
+    // Funcion para cambiar el estado de la barra lateral
     const toggleBarra = () => {
         // Cambia el estado al hacer clic
         setExpandida(!expandida)
+    }
+
+    // Funcion para destruir todas las cookies del navegador
+    const logOut = async () => {
+        try{
+            await api.post("/logout")
+            window.location.href = "/login"
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -78,10 +90,10 @@ export function SideBar() {
                         {expandida && <span>Perfil</span>}
                     </a>
 
-                    <a href="/salir" className={styles.sidebarLink}>
+                    <button href="/salir" className={styles.sidebarLink} onClick={logOut}>
                         <CerrarSesionIcon />
                         {expandida && <span>Cerrar Sesion</span>}
-                    </a>
+                    </button>
                 </article>
             </div>
         </aside>
