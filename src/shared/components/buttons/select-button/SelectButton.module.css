@@ -1,3 +1,6 @@
+/* ---------------------------------------- */
+/* Estilos base del boton */
+/* ---------------------------------------- */
 .selectButton{
     padding: 10px;
     border: 3px solid;
@@ -13,12 +16,16 @@
     width: 100%;
 }
 
+/* Estilos para ionos dentro del boton */
 .selectButton svg{
     height: 1.5em;
     width: auto;
     stroke-width: 1.5;
 }
 
+/* ---------------------------------------- */
+/* Estilos variante azul claro */
+/* ---------------------------------------- */
 .selectButton.lightBlue{
     color: #81BFFF;
 }
@@ -29,6 +36,10 @@
     background:  #81BFFF;
 }
 
+
+/* ---------------------------------------- */
+/* Estilos variante azul oscuro */
+/* ---------------------------------------- */
 .selectButton.darkBlue{
     color: var(--color-primario);
 }
