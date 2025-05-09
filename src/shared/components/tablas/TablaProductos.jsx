@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css'; 
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { VerTabla, CategoriaProducto } from './botonesTablas';
 import "./TablaProductos.css"
 
 
@@ -30,8 +31,8 @@ const TablaProductos = () => {
                 <td className="responsable">Nombre</td>
                 <td className="ingreso">dd/mm/yyyy</td>
                 <td className="estado"><button >Ingresado</button></td>
-                <td className="categoria"><button>Materia Prima</button></td>
-                <td className="detallesProductos"><button>Ver</button></td>
+                <td className="categoria"><CategoriaProducto/></td>
+                <td className="detallesProductos"><VerTabla/></td>
               </tr>
             ))}
           </tbody>

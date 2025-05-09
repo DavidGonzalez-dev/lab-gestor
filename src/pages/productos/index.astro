@@ -1,0 +1,11 @@
+---
+import SidebarLayout from "@layouts/SidebarLayout.astro"
+import RegistroProducto from "@features/productos/components/registroProducto/RegistroProductos" 
+---
+
+
+<SidebarLayout>
+    <main>
+        <RegistroProducto client:only/>
+    </main>
+</SidebarLayout>
