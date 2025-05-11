@@ -1,8 +1,31 @@
 ---
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import TablaClientes from "@features/clientes/components/TablaClientes/TablaClientes.jsx";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import { Button } from "@shared/components";
+import { Plus } from "@shared/iconos";
 ---
 
 <SidebarLayout>
-    <h1>Vista de Clientes</h1>
-    <a href="clientes/registrar">Registrar Cliente</a>
+    <div class="container main-content">
+        <div class="header">
+            <PillHeading variant="secondary">
+                <h1>Vista de Clientes</h1>
+            </PillHeading>
+
+            <Button variant="buttonAccept">
+                <Plus />
+                <a href="clientes/registrar">Registrar Cliente</a>
+            </Button>
+        </div>
+        <TablaClientes client:only />
+    </div>
 </SidebarLayout>
+<style>
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px;
+    }
+</style>
