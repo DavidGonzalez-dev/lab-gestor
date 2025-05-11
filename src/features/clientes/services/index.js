@@ -16,3 +16,16 @@ export const registrarCliente = async (data) => {
         return false
     }
 }
+
+export const getClientes = async () => {
+
+    // Se intenta hacer el llamado a la api
+    try{
+        const response = await api.get("/clientes")
+        return response.data.data
+    }
+    // En caso de haber un error se gestiona
+    catch (err) {
+        console.log(err)
+    }
+}
