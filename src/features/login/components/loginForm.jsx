@@ -2,13 +2,14 @@ import { Input, Button } from "@shared/components/";
 import login from "../services/login";
 import styles from "./loginFrom.module.css";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import useAuthStore from "@shared/stores/useAuthStore";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const LoginForm = () => {
     // Estado para manejar cuando el componente esta cargando o no
-    const [isLoading, setIsLoading] = useState(false)
-    const [serverError, setServerError] = useState("")
+    const { login, isLoading } = useAuthStore()
+    const [serverError, setServerError] = useState(null)
     const [hasServerError, setHasServerError] = useState(false)
 
     // Importamos las utilidades de react-hook-form
@@ -19,26 +20,25 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        console.log(data)
+        // Se hace envio de la informacion del usuario
         try {
-            setIsLoading(true)
             // Se verifica si la respuesta de la api fue positiva
             const success = await login(data);
             // En caso de haber aprobador las credenciales se redirige al dashboard
             if (success) {
-                Swal.fire({ title: "Bienvenido", confirmButtonText: "Continar", confirmButtonColor: "#22861e", icon:"success"}).then((result) => {
+                Swal.fire({ title: "Bienvenido", confirmButtonText: "Continar", confirmButtonColor: "#22861e", icon: "success" }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "/dashboard";
                     }
                 })
             }
 
-        } catch (error) {
+        }
+        // En caso de haber un error se muestra por pantalla
+        catch (error) {
             setServerError(error.message)
             setHasServerError(true)
 
-        } finally {
-            setIsLoading(false)
         }
 
     };

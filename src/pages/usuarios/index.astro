@@ -3,12 +3,16 @@ import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import { TablaUsuarios } from "@features/usuarios/components/TablaUsuarios/TablaUsuarios";
 import { Button } from "@shared/components/";
 import { Plus } from "@shared/iconos/";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 ---
 
 <SidebarLayout>
     <div class="container">
-        <div class="header-container">
-            <h1 class="header">Gestion de usuarios</h1>
+        <div class="header">
+            <PillHeading variant="secondary">
+                <h1>Gestion de usuarios</h1>
+            </PillHeading>
+
             <Button variant="buttonAccept">
                 <Plus />
                 <a href="usuarios/registrar">Registrar Usuario</a>
@@ -20,25 +24,10 @@ import { Plus } from "@shared/iconos/";
 </SidebarLayout>
 
 <style>
-    .header-container {
+    .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin: 20px;
-    }
-
-    .header {
-        color: white;
-        width: fit-content;
-        height: fit-content;
-        font-size: 25px;
-        background-color: #81bfff;
-        border-radius: 20px;
-        padding: 10px;
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
     }
 </style>
