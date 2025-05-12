@@ -32,6 +32,15 @@
   stroke-width: 2;
 }
 
+<<<<<<< HEAD
+=======
+/* Estilos para links dentro del boton */
+.button a{
+  color: inherit;
+  text-decoration: none;
+}
+
+>>>>>>> e1cb233a72ff720cd6e8ca544ec3dceb672d87c2
 /* ----------------------------------- */
 /* Estilos boton punteado */
 /* ----------------------------------- */
@@ -77,3 +86,7 @@
   background-color: var(--color-rojo);
   color: white;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e1cb233a72ff720cd6e8ca544ec3dceb672d87c2

@@ -1,73 +1,81 @@
 import { useState } from "react";
+import useAuthStore from "@shared/stores/useAuthStore.js";
+import useSidebarStore from "@shared/stores/useSidebarStore.js";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
-import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";  
+import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";
 import styles from "./SideBar.module.css"
+import api from "@shared/services/api"
 
 export function SideBar() {
     // Estado para controlar si está expandida o colapsada
-    const [expandida, setExpandida] = useState(true);
-
-    const toggleBarra = () => {
-        // Cambia el estado al hacer clic
-        setExpandida(!expandida)
-    }
+    const { isCollapsed, toggleSidebar } = useSidebarStore()
+    const { logout, userRole } = useAuthStore()
 
     return (
-        <aside className={`${styles.sidebar} ${!expandida ? styles.colapsada : ''}`}>
+        <aside className={`${styles.sidebar} ${isCollapsed ? styles.colapsada : ''}`}>
             <div className={styles.sidebarContent}>
                 {/* LOGO Y BOTÓN PARA EXPANDIR Y COLAPSAR */}
                 <div className={styles.upperSidebar}>
                     <div className={styles.logo}>
                         {/* Solo se muestra el logo si la barra está expandida */}
-                        {expandida && <img src={Logo.src} alt="logo" />}
+                        {!isCollapsed && <img src={Logo.src} alt="logo" />}
                         {/* Botón con evento para colapsar o expandir */}
-                        <button onClick={toggleBarra} className={styles.toggleBarra}>
-                            {expandida ? <BarraLateralIcon /> : <BarraDeslizadaIcon />}
+                        <button onClick={toggleSidebar} className={styles.toggleBarra}>
+                            {!isCollapsed ? <BarraLateralIcon /> : <BarraDeslizadaIcon />}
                         </button>
                     </div>
 
                     <article className={styles.menu}>
                         {/* HOME */}
                         <a href="/inicio" className={styles.sidebarLink}>
-                            <InicioIcon/>
-                            {expandida && <span>Inicio</span>}
+                            <InicioIcon />
+                            {!isCollapsed && <span>Inicio</span>}
                         </a>
 
                         {/* PRODUCTOS */}
                         <a href="/productos" className={styles.sidebarLink}>
-                            <ProductosIcon/>
-                            {expandida && <span>Productos</span>}
+                            <ProductosIcon />
+                            {!isCollapsed && <span>Productos</span>}
                         </a>
 
                         {/* FABRICANTES */}
                         <a href="/fabricantes" className={styles.sidebarLink}>
                             <FabricantesIcon />
-                            {expandida && <span>Fabricantes</span>}
+                            {!isCollapsed && <span>Fabricantes</span>}
                         </a>
 
                         {/* CLIENTES */}
                         <a href="/clientes" className={styles.sidebarLink}>
                             <ClientesIcon />
-                            {expandida && <span>Clientes</span>}
+                            {!isCollapsed && <span>Clientes</span>}
                         </a>
 
                         {/* REPORTE DE ANALISIS */}
                         <a href="/reporte" className={styles.sidebarLink}>
                             <ReporteIcon />
-                            {expandida && <span>Reporte de Analisis</span>}
+                            {!isCollapsed && <span>Reporte de Analisis</span>}
                         </a>
 
                         {/* ESTADISTICAS */}
-                        <a href="/estadisticas" className={styles.sidebarLink}>
-                            <EstadisticasIcon />
-                            {expandida && <span>Estadisticas del Area</span>}
-                        </a>
 
-                        {/* GESTIÓN DE USUARIOS */}
-                        <a href="/usuarios" className={styles.sidebarLink}>
-                            <UsuariosIcon />
-                            {expandida && <span>Gestionar Usuarios</span>}
-                        </a>
+
+
+
+
+                        {userRole === "admin" && (
+                            <>
+                                {/* MODULO DE ESTADISTICAS */}
+                                <a href="/estadisticas" className={styles.sidebarLink}>
+                                    <EstadisticasIcon />
+                                    {!isCollapsed && <span>Estadisticas del Area</span>}
+                                </a>
+                                {/* MODULO DE USUARIOS */}
+                                <a href="/usuarios" className={styles.sidebarLink}>
+                                    <UsuariosIcon />
+                                    {!isCollapsed && <span>Gestionar Usuarios</span>}
+                                </a>
+                            </>
+                        )}
                     </article>
                 </div>
 
@@ -75,13 +83,13 @@ export function SideBar() {
                 <article className={styles.botones}>
                     <a href="/perfil" className={styles.sidebarLink}>
                         <PerfilIcon />
-                        {expandida && <span>Perfil</span>}
+                        {!isCollapsed && <span>Perfil</span>}
                     </a>
 
-                    <a href="/salir" className={styles.sidebarLink}>
+                    <button className={styles.sidebarLink} onClick={logout}>
                         <CerrarSesionIcon />
-                        {expandida && <span>Cerrar Sesion</span>}
-                    </a>
+                        {!isCollapsed && <span>Cerrar Sesion</span>}
+                    </button>
                 </article>
             </div>
         </aside>

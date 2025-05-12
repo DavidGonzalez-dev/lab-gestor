@@ -6,7 +6,7 @@ export const getUsuarios = async () => {
   try {
     const response = await api.get("/usuarios");
     if (response.data.data) {
-      return response.data.data;
+      return response.data.data
     }
     return [];
   } catch (err) {
@@ -35,7 +35,7 @@ export const RegistrarUsuario = async (data) => {
       case HttpStatusCode.BadRequest:
         throw new Error(err.response.data.error);
       default:
-        throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde")
     }
   }
 };
@@ -53,4 +53,4 @@ export const DeshabilitarUsuario = async (id) => {
         throw new Error("Hubo un error al eliminar el usuario");
     }
   }
-};
+}
