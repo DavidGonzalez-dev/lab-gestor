@@ -70,3 +70,24 @@ export const getUsuarioID = async (id) => {
     }
   }
 };
+
+//Este servicio sirve para poder actualizar la informacion de un usuario
+export const EditUser = async (data) => {
+  console.log(data);
+  try {
+    await api.put(`usuarios/actualizar`, data);
+    return true;
+  } catch (err) {
+    console.log(err);
+
+    switch (err.response.status) {
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error);
+      default:
+        console.log(data);
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
+    }
+
+    return false;
+  }
+};

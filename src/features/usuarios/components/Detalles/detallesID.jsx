@@ -3,7 +3,7 @@ import { PillType, PillState } from "@shared/components";
 import styles from "./detalles.module.css";
 import { Button } from "@shared/components";
 import { TrashIcon } from "@shared/iconos";
-import { EditUser } from "./editUser";
+import { EditUserModal } from "./editUser";
 
 /// función para volver atrás
 const redirectPrevious = () => {
@@ -43,6 +43,9 @@ export function DetalleUsuario({ usuario }) {
           variant={usuario.estado ? "green" : "red"}
         />
       </p>
+      <p>
+        <strong className={styles.texts}>Firma:</strong> {usuario.firma}
+      </p>
 
       <div className={styles.buttonGroup}>
         <Button variant="buttonCancel" parentMethod={redirectPrevious}>
@@ -54,7 +57,7 @@ export function DetalleUsuario({ usuario }) {
         </Button>
       </div>
 
-      <EditUser
+      <EditUserModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         usuario={usuario}
