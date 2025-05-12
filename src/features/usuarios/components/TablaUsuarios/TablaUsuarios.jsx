@@ -19,11 +19,8 @@ export const TablaUsuarios = () => {
   //? ----------------------------------------------
   //? Definicion de los estados
   //? ----------------------------------------------
-  const gridRef = useRef(null); // Referencia a la API del grid
-
-  const [rowData, setRowData] = useState([]); // Estado para almacenar la informacion de la tabla
-  const [searchText, setSearchText] = useState(""); // Estado para almacenar el texto que se busca
-
+  const [rowData, setRowData] = useState([]) // Estado para almacenar la informacion de la tabla
+  const [searchText, setSearchText] = useState("") // Estado para almacenar el texto que se busca
   // Definición de columnas
   const columnDefs = [
     {
@@ -94,7 +91,7 @@ export const TablaUsuarios = () => {
   ];
 
   //? ----------------------------------------------
-  //? Logica de la tabla
+  //? Logica de los filtros
   //? ----------------------------------------------
 
   // Manejar búsqueda por nombre o apellido
@@ -106,15 +103,10 @@ export const TablaUsuarios = () => {
     }
   };
 
-  // Capturar la instancia de la API de AG Grid
-  const onGridReady = (params) => {
-    gridRef.current = params;
-  };
-
   // Funcion para verificar si hay algun tipo de filtro activo
   const isExternalFilterPresent = () => {
-    return searchText !== "";
-  };
+    return searchText !== ""
+  }
 
   // Funcion para determinar si una nodo(fila) pasa un filtro
   const doesExternalFilterPass = (node) => {
@@ -200,15 +192,6 @@ export const TablaUsuarios = () => {
     loadUsers();
   }, []);
 
-  // Prevenir que la informacion se vuelva a ordenar
-  useEffect(() => {
-    if (gridRef.current && gridRef.current.api) {
-      gridRef.current.api.applyColumnState({
-        defaultState: { sort: null },
-      });
-    }
-  }, [rowData]);
-
   return (
     <div className="container">
       <div className={`${styles.searchBarContainer} mb-2 w-50`}>
@@ -225,7 +208,6 @@ export const TablaUsuarios = () => {
       <Table
         rowData={rowData}
         columnDefs={columnDefs}
-        onGridReady={onGridReady}
         isExternalFilterPresent={isExternalFilterPresent}
         doesExternalFilterPass={doesExternalFilterPass}
       />

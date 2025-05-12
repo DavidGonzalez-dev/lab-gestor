@@ -32,6 +32,12 @@
   stroke-width: 2;
 }
 
+/* Estilos para links dentro del boton */
+.button a{
+  color: inherit;
+  text-decoration: none;
+}
+
 /* ----------------------------------- */
 /* Estilos boton punteado */
 /* ----------------------------------- */

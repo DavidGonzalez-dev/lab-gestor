@@ -1,28 +1,26 @@
 ---
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import { TablaUsuarios } from "@features/usuarios/components/TablaUsuarios/TablaUsuarios";
-import { Button } from "@shared/components/";
-import { Plus } from "@shared/iconos/";
+import TablaClientes from "@features/clientes/components/TablaClientes/TablaClientes.jsx";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import { Button } from "@shared/components";
+import { Plus } from "@shared/iconos";
 ---
 
 <SidebarLayout>
-    <div class="container">
+    <div class="container main-content">
         <div class="header">
             <PillHeading variant="secondary">
-                <h1>Gestion de usuarios</h1>
+                <h1>Vista de Clientes</h1>
             </PillHeading>
 
             <Button variant="buttonAccept">
                 <Plus />
-                <a href="usuarios/registrar">Registrar Usuario</a>
+                <a href="clientes/registrar">Registrar Cliente</a>
             </Button>
         </div>
-
-        <TablaUsuarios client:only />
+        <TablaClientes client:only />
     </div>
 </SidebarLayout>
-
 <style>
     .header {
         display: flex;
