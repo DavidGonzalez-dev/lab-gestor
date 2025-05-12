@@ -1,125 +1,57 @@
-.FormularioRegistroProducto{
-    width: 70dvw;
+.formulario{
     display: flex;
     flex-direction: column;
-    
-}
+    align-items: center;
+    gap: 20px;
+    width: 60dvw;
+  }
 
-.FormularioRegistroProducto h2{
-    justify-content: center;
-    font-size: 1.5rem;
+  .formulario h2{
+    font-size: 2rem;
     color: white;
     background: #81BFFF;
-    text-align: center;
-    border-radius: 20px;
+    border-radius: 30px;
     padding: 10px 20px;
-    width: auto;
-    height: auto;
-    margin: 20px 10px;
-}
+    margin: 20px 0px;
+  }
 
-
-
-/* ESTILOS DE LA INFORMACION GENERAL DEL PRODUCTO */
-.informacionGproductos{
-    font-size: 1rem;
-    border: 1px solid #525C66;
-    border-radius: 20px;
-    padding: 20px 10px;
-    
-}
-.tituloinformacionGproductos{
-    font-size: 1rem;
+  .formulario h3 {
     color: white;
     background: #525C66;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 170px;
-    height: auto;
-}
-input.descripcionProducto{
-    height: 200px;
-}
-
-/* ESTILOS DE LA INFORMACION DE LOS PROVEEDORES DEL PRODUCTO */
-.informacionProovedores{
-    font-size: 1rem;
-    border: 1px solid #525C66;
-    border-radius: 20px;
-    padding: 20px 10px;
-}
-
-.tituloinformacionProovedores{
-    font-size: 1rem;
-    color: white;
-    background: #525C66;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 210px;
-    height: auto;
-}
-/* ESTILOS DE LA INFORMACION DE LAS FECHAS DEL PRODUCTO */
-.fechasProductos{
-    margin-bottom: 40px;
-}
-
-.titulofechasProductos{
-    font-size: 1rem;
-    color: white;
-    background: #525C66;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 80px;
-    height: auto;
-    margin-top: 63px;
-}
-
-/* ESTILOS DE LA INFORMACION ADICIONAL DEL PRODUCTO */
-.informacionAdicionalP{
-    font-size: 1rem;
-    border: 1px solid #525C66;
-    border-radius: 20px;
-    padding: 20px 10px;
-}
-
-.tituloinformacionAdicionalP{
-    font-size: 1rem;
-    color: white;
-    background: #525C66;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 190px;
-    height: auto;
-}
-
-/* ESTILOS DEL TIPO DEL PRODUCTO */
-.tipoProducto{
+    border-radius: 15px;
+    padding: 10px 10px;
+    font-size: 1.5rem;
+    width: fit-content;     
+    margin: 20px 0;          
+  }
+  
+  .inputContainer {
+    border: 2px solid #1F5C99;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+  }
+  
+  .inputs {
     display: flex;
-    justify-content: space-around;
-    border: 1px solid #525C66;
-    padding: 20px 10px;
-    border-radius: 20px;
-}
-
-.titulotipoProducto{
-    font-size: 1rem;
-    color: white;
-    background: #525C66;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 126px;
-    height: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-left: 32dvw;
-}
-
-/* ESTILOS DE LOS BOTONES DEL PRODUCTO */
-.botonesProductos{
-    margin: 20px 10px;
-    margin-left: 28dvw;
-    
-}
-
-
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .rolSelector{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .rolSelector label {
+    font-weight: 700;
+    color: var(--color-primario);
+  }
+  
+  .actionButtons{
+    display: flex;
+    gap: 20px;
+  }
+  
 

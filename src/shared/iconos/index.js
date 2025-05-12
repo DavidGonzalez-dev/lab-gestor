@@ -37,6 +37,8 @@ export {
   TrashIcon,
   CheckIcon,
   SearchIcono,
-  Plus
+  Plus, 
+  CajaIcon,
+  BotellaIcon
 };
 
