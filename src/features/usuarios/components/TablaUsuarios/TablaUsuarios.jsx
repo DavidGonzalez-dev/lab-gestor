@@ -1,26 +1,28 @@
 import { useState, useEffect, useRef } from "react";
 
-import { Table, PillType, PillState, Input, ButtonCellRenderer } from "@shared/components"
+import {
+  Table,
+  PillType,
+  PillState,
+  Input,
+  ButtonCellRenderer,
+} from "@shared/components";
 
 import { getUsuarios, DeshabilitarUsuario } from "../../services/";
 import Swal from "sweetalert2";
 
 import { ToTitleCase } from "@shared/utils";
-import { SearchIcono, TrashIcon } from '@shared/iconos'
-import styles from "./TablaUsuarios.module.css"
-
-
+import { SearchIcono, TrashIcon, EyeIcon } from "@shared/iconos";
+import styles from "./TablaUsuarios.module.css";
 
 export const TablaUsuarios = () => {
-
-
   //? ----------------------------------------------
   //? Definicion de los estados
   //? ----------------------------------------------
   const gridRef = useRef(null); // Referencia a la API del grid
 
-  const [rowData, setRowData] = useState([]) // Estado para almacenar la informacion de la tabla
-  const [searchText, setSearchText] = useState("") // Estado para almacenar el texto que se busca
+  const [rowData, setRowData] = useState([]); // Estado para almacenar la informacion de la tabla
+  const [searchText, setSearchText] = useState(""); // Estado para almacenar el texto que se busca
 
   // Definición de columnas
   const columnDefs = [
@@ -33,13 +35,13 @@ export const TablaUsuarios = () => {
     {
       headerName: "Nombres",
       field: "nombres",
-      valueFormatter: p => ToTitleCase(p.value),
+      valueFormatter: (p) => ToTitleCase(p.value),
       minWidth: 150,
     },
     {
       headerName: "Apellidos",
       field: "apellidos",
-      valueFormatter: p => ToTitleCase(p.value),
+      valueFormatter: (p) => ToTitleCase(p.value),
       minWidth: 150,
     },
     {
@@ -53,7 +55,7 @@ export const TablaUsuarios = () => {
       cellClass: "text-center",
       cellRenderer: PillType,
       cellRendererParams: (p) => ({
-        variant: p.value === "admin" ? "darkBlue" : "lightBlue"
+        variant: p.value === "admin" ? "darkBlue" : "lightBlue",
       }),
       width: 120,
     },
@@ -63,13 +65,19 @@ export const TablaUsuarios = () => {
       cellClass: "text-center",
       cellRenderer: PillState,
       cellRendererParams: (p) => ({
-        variant: p.value === true ? "green" : "red"
-      })
+        variant: p.value === true ? "green" : "red",
+      }),
     },
     {
       headerName: "Detalles",
       field: "detalles",
       width: 100,
+      cellRenderer: ButtonCellRenderer,
+      cellRendererParams: (p) => ({
+        icon: EyeIcon,
+        variant: "default",
+        parentMethod: () => verUsuario(p.data),
+      }),
     },
     {
       headerName: "Eliminar",
@@ -81,7 +89,7 @@ export const TablaUsuarios = () => {
         icon: TrashIcon,
         variant: "buttonCancel",
         parentMethod: () => eliminarUsuario(p.data),
-      })
+      }),
     },
   ];
 
@@ -91,42 +99,48 @@ export const TablaUsuarios = () => {
 
   // Manejar búsqueda por nombre o apellido
   const handleSearch = (event) => {
-    setSearchText(event.target.value)
+    setSearchText(event.target.value);
 
     if (gridRef.current && gridRef.current.api) {
-      gridRef.current.api.onFilterChanged()
+      gridRef.current.api.onFilterChanged();
     }
-  }
+  };
 
   // Capturar la instancia de la API de AG Grid
   const onGridReady = (params) => {
-    gridRef.current = params
-  }
+    gridRef.current = params;
+  };
 
   // Funcion para verificar si hay algun tipo de filtro activo
   const isExternalFilterPresent = () => {
-    return searchText !== ""
-  }
-
+    return searchText !== "";
+  };
 
   // Funcion para determinar si una nodo(fila) pasa un filtro
   const doesExternalFilterPass = (node) => {
     if (searchText !== "") {
-      return node.data.nombres.toLowerCase().includes(searchText.toLowerCase()) || node.data.apellidos.toLowerCase().includes(searchText.toLowerCase())
+      return (
+        node.data.nombres.toLowerCase().includes(searchText.toLowerCase()) ||
+        node.data.apellidos.toLowerCase().includes(searchText.toLowerCase())
+      );
     }
-  }
+  };
 
   //? ----------------------------------------------
   //? Logica de los botones de accion
   //? ----------------------------------------------
+  const verUsuario = (usuario) => {
+    //se redirige a la pagina dependiendo del id
+    window.location.href = `/usuarios/${usuario.ID}`;
+  };
   const eliminarUsuario = (data) => {
     // Se verifica si el usuario esta desactivado
     if (!data.estado) {
       Swal.fire({
         icon: "error",
         title: "Este usuario ya esta inhabilitado",
-        text: "Si quieres cambiar el estado de este usuario tienes que modificarlo directamente desde la pagina de perfil del usuario"
-      })
+        text: "Si quieres cambiar el estado de este usuario tienes que modificarlo directamente desde la pagina de perfil del usuario",
+      });
     }
     // En caso de no estarlo se sigue con el flujo normal
     else {
@@ -137,13 +151,10 @@ export const TablaUsuarios = () => {
         confirmButtonText: "Aceptar",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
-        cancelButtonColor: "red"
-
+        cancelButtonColor: "red",
       }).then(async (result) => {
-
         // Si se confirma que se quiere enviar el formulario
         if (result.isConfirmed) {
-
           // Se hace llamada a la api
           try {
             const success = await DeshabilitarUsuario(data.ID);
@@ -151,25 +162,25 @@ export const TablaUsuarios = () => {
               Swal.fire("El usuario se deshabilito con exito!", "", "success");
 
               // Se actualiza el estado local para reflejar los cambios
-              setRowData(prevData =>
-                prevData.map(usuario =>
-                  usuario.ID === data.ID ? { ...usuario, estado: false } : usuario
+              setRowData((prevData) =>
+                prevData.map((usuario) =>
+                  usuario.ID === data.ID
+                    ? { ...usuario, estado: false }
+                    : usuario
                 )
-              )
+              );
             }
-          }
-          catch (err) {
+          } catch (err) {
             Swal.fire({
               icon: "error",
               title: "Ups! algo salio mal",
-              text: err.message
-            })
+              text: err.message,
+            });
           }
         }
       });
     }
-
-  }
+  };
 
   //? ----------------------------------------------
   //? Carga de datos
@@ -193,11 +204,10 @@ export const TablaUsuarios = () => {
   useEffect(() => {
     if (gridRef.current && gridRef.current.api) {
       gridRef.current.api.applyColumnState({
-        defaultState: {sort: null},
-      })
+        defaultState: { sort: null },
+      });
     }
   }, [rowData]);
-
 
   return (
     <div className="container">
@@ -220,8 +230,5 @@ export const TablaUsuarios = () => {
         doesExternalFilterPass={doesExternalFilterPass}
       />
     </div>
-  )
-
-
+  );
 };
-

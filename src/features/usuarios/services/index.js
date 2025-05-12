@@ -54,3 +54,19 @@ export const DeshabilitarUsuario = async (id) => {
     }
   }
 };
+
+//Este servicio renderiza el usuario individualmente por su id
+export const getUsuarioID = async (id) => {
+  // Se hace la llamada a la api
+  try {
+    const response = await api.get(`usuarios/${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    // Si ocurre un error se maneja
+    switch (error.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("Hubo un error al obtener el usuario");
+    }
+  }
+};
