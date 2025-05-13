@@ -32,7 +32,9 @@ export default function RegistroUsuario() {
       confirmButtonText: "Aceptar",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
-      cancelButtonColor: "red"
+      cancelButtonColor: "red",
+      heightAuto: false,
+      scrollbarPadding: false,
 
     }).then(async (result) => {
 
@@ -43,14 +45,21 @@ export default function RegistroUsuario() {
         try {
           const success = await RegistrarUsuario(data);
           if (success) {
-            Swal.fire("Se registro el usuario con extio!", "", "success").then(() => { window.location.href = "/usuarios" });
+            Swal.fire({
+              title: "Se registró el usuario con exito!",
+              icon: "success",
+              heightAuto: false,
+              scrollbarPadding: false,
+            }).then(() => { window.location.href = "/usuarios" });
           }
         }
         catch (err) {
           Swal.fire({
             icon: "error",
             title: "Ups! algo salio mal",
-            text: err.message
+            text: err.message,
+            heightAuto: false,
+            scrollbarPadding: false,
           })
         }
       }

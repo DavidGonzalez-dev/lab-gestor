@@ -49,3 +49,32 @@
     border-color: transparent;
     background:  var(--color-primario);
 }
+
+/* ---------------------------------------- */
+/* Estilos variante naranja */
+/* ---------------------------------------- */
+
+.selectButton.orange{
+    color: #FFB146 ;
+}
+
+.selectButton.orange:hover, .selectButton.orange.selected{
+    color: white;
+    background: #FFB146;
+    border-color: transparent;
+}
+
+/* ---------------------------------------- */
+/* Estilos variante gris */
+/* ---------------------------------------- */
+
+.selectButton.gray{
+    color: #5B6670 ;
+}
+
+.selectButton.gray:hover, .selectButton.gray.selected{
+    color: white;
+    background: #5B6670;
+    border-color: transparent;
+}
+

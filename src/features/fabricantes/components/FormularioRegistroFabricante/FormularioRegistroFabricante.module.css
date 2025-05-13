@@ -1,0 +1,29 @@
+.customForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 2rem;
+    border: 2px solid var(--color-primario);
+    border-radius: 20px;
+    width: 100%;
+}
+
+.customForm h2{
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-primario);
+}
+
+.inputsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.actionButtons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
