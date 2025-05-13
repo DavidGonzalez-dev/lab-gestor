@@ -23,7 +23,7 @@ export const TablaUsuarios = () => {
   const columnDefs = [
     {
       headerName: "# Cédula",
-      field: "ID",
+      field: "documento",
       width: 120,
       flex: 0,
     },
@@ -137,7 +137,7 @@ export const TablaUsuarios = () => {
 
           // Se hace llamada a la api
           try {
-            const success = await DeshabilitarUsuario(data.ID);
+            const success = await DeshabilitarUsuario(data.documento);
             if (success) {
               Swal.fire({
                 title: "Elusuario se deshabilitó con exito!",
@@ -149,7 +149,7 @@ export const TablaUsuarios = () => {
               // Se actualiza el estado local para reflejar los cambios
               setRowData(prevData =>
                 prevData.map(usuario =>
-                  usuario.ID === data.ID ? { ...usuario, estado: false } : usuario
+                  usuario.documento === data.documento ? { ...usuario, estado: false } : usuario
                 )
               )
             }

@@ -29,3 +29,19 @@ export const getClientes = async () => {
         console.log(err)
     }
 }
+
+// Este servicio nos permite elmiminar un Cliente de la base de datos
+export const eliminarCliente = async (id) => {
+    try{
+        await api.delete(`/clientes/${id}`)
+        return true
+    }
+    catch (err) {
+        switch(err.response.status) {
+            case HttpStatusCode.NotFound:
+                throw new Error("El cliente ya ha sido eliminado de la base de datos del sistema, intenta recargar la pagina para reflejar los cambios!")
+            case HttpStatusCode.Conflict:
+                throw new Error("Este cliente tiene actualmente productos relacionados, por ende no se puede borrar.")
+        }
+    }
+}
