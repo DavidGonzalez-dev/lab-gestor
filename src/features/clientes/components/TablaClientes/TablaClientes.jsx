@@ -1,13 +1,24 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { getClientes } from "../../services";
 import { Table, Input } from "@shared/components";
 import { SearchIcono } from "@shared/iconos";
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer";
 import { PerfilIcon, TrashIcon } from "@shared/iconos";
+=======
+import { useEffect, useState } from "react"
+import { getClientes, eliminarCliente } from "../../services"
+import { Table, Input } from "@shared/components"
+import { SearchIcono } from "@shared/iconos"
+import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
+import { PerfilIcon, TrashIcon } from "@shared/iconos"
+import Swal from "sweetalert2"
+>>>>>>> b0fa768395129d9a73217f57cb7952f33c5f51a4
 
 import styles from "./TablaClientes.module.css";
 
 const TablaClientes = () => {
+<<<<<<< HEAD
   const [rowData, setRowData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const colDefs = [
@@ -47,6 +58,89 @@ const TablaClientes = () => {
     setSearchText(event.target.value);
     if (gridRef.current && gridRef.current.api) {
       gridRef.current.api.onFilterChange();
+=======
+    const [rowData, setRowData] = useState([])
+    const [searchText, setSearchText] = useState("")
+    const colDefs = [
+        {
+            headerName: "Nombre Cliente",
+            field: "nombre",
+            sortable: true,
+            unSortIcon: true
+        },
+        {
+            headerName: "Direccion Cliente",
+            field: "direccion",
+        },
+        {
+            headerName: "Ver",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (p) => ({
+                icon: PerfilIcon,
+            })
+        },
+        {
+            headerName: "Eliminar",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (p) => ({
+                icon: TrashIcon,
+                variant: "buttonCancel",
+                parentMethod: () => handleEliminarCliente(p.data.id)
+            })
+        }
+    ]
+
+    //? ----------------------------------------------
+    //? Funcionalidades de los Botones
+    //? ----------------------------------------------
+    const handleEliminarCliente = async (id) => {
+        console.log(id)
+        Swal.fire({
+            icon: "warning",
+            title: "¿Estas seguro d elminar el cliente?",
+            text: "Al eliminar este cliente es posible que los productos relacionados se actualicen, por ende, se recomienda solo eliminar clientes que aun no esten relacionados con algun producto.",
+            cancelButtonText: "Cancelar",
+            cancelButtonColor: "red",
+            confirmButtonText: "Aceptar",
+            showCancelButton: true,
+            heightAuto: false,
+            scrollbarPadding: false,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                try {
+                    await eliminarCliente(id)
+                    Swal.fire({
+                        icon: "success",
+                        title: "El cliente ha sido eliminado con exito",
+                        heightAuto: false,
+                        scrollbarPadding: false,
+                    })
+                    setRowData(prevData =>
+                        prevData.filter(cliente => cliente.id !== id)
+                    )
+                }
+                catch (err) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Hubo un error",
+                        text: err.message
+                    })
+                }
+            }
+        })
+    }
+
+    //? ----------------------------------------------
+    //? Logica de Filtrado
+    //? ----------------------------------------------
+    // Actualiza el estado del texto de busqueda por nombre del cliente
+    const handleSearch = (event) => {
+        setSearchText(event.target.value)
+        if (gridRef.current && gridRef.current.api) {
+            gridRef.current.api.onFilterChange()
+        }
+>>>>>>> b0fa768395129d9a73217f57cb7952f33c5f51a4
     }
   };
 
