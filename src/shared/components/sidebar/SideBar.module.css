@@ -127,6 +127,11 @@ span {
     color: white;
 }
 
+svg {
+    height: 1.2rem;
+    width: auto;
+}
+
 /* Media Queries
 @media screen and (min-width: 750px) and (max-width: 1366px) {
     .sidebar {

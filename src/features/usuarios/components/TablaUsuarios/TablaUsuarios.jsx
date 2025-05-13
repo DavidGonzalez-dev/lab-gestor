@@ -139,7 +139,12 @@ export const TablaUsuarios = () => {
           try {
             const success = await DeshabilitarUsuario(data.ID);
             if (success) {
-              Swal.fire("El usuario se deshabilito con exito!", "", "success");
+              Swal.fire({
+                title: "Elusuario se deshabilitó con exito!",
+                icon: "success",
+                heightAuto: false,
+                scrollbarPadding: false,
+              });
 
               // Se actualiza el estado local para reflejar los cambios
               setRowData(prevData =>
@@ -153,7 +158,9 @@ export const TablaUsuarios = () => {
             Swal.fire({
               icon: "error",
               title: "Ups! algo salio mal",
-              text: err.message
+              text: err.message,
+              heightAuto: false,
+              scrollbarPadding: false,
             })
           }
         }

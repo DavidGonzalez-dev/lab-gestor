@@ -55,7 +55,6 @@ export const Table = ({ rowData, columnDefs, isExternalFilterPresent, doesExtern
         doesExternalFilterPass={doesExternalFilterPass}
         pagination={true}
         paginationAutoPageSize={true}
-      
       />
     </div>
   );

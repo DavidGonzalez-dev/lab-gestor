@@ -22,7 +22,9 @@ export const FormularioRegistroCliente = () => {
             confirmButtonText: "Aceptar",
             showCancelButton: true,
             cancelButtonText: "Cancelar",
-            cancelButtonColor: "red"
+            cancelButtonColor: "red",
+            heightAuto: false,
+            scrollbarPadding: false,
         }).then(async (result) => {
 
             // Si el usuario ahce click en aceptar se crea el cliente
@@ -34,7 +36,9 @@ export const FormularioRegistroCliente = () => {
                     if (success) {
                         Swal.fire({
                             icon: "success",
-                            title: "Se creo el cliente con exito"
+                            title: "Se creo el cliente con exito",
+                            heightAuto: false,
+                            scrollbarPadding: false,
                         }).then(() => { window.location.href = "/clientes" })
                     }
                 }

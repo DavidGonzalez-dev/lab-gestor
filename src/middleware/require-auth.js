@@ -17,10 +17,7 @@ export async function requireAuth(context, next) {
 
     // Verificamos si la ruta es publica
     const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith("/api/"))
-    // Si la ruta es publica se salta las validaciones
-    if (isPublic) {
-        return next()
-    }
+
 
     let isValid = false // Variable para verificar si el token es valido
     let userRole = null // Variable para guardar el rol del usuario
@@ -35,8 +32,8 @@ export async function requireAuth(context, next) {
 
         isValid = response.data.data.valid
         userRole = response.data.data.rol
-    
-    } 
+
+    }
     // En caso de haber un error se hace un log en la consola del servidor
     catch (error) {
         console.log(error)
@@ -49,6 +46,11 @@ export async function requireAuth(context, next) {
     // Si ya se autentico e intenta ir a lofin, redirige a su dashboard
     if (isValid && url.pathname === "/login") {
         return redirect("/dashboard")
+    }
+
+    // Si la ruta es publica se salta las validaciones
+    if (isPublic) {
+        return next()
     }
 
     // Verificamos que el usuario autenticado tenga acceso a la ruta

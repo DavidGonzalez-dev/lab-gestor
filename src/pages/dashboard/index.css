@@ -1,0 +1,66 @@
+.peticionesYbarraproductosAnalisados{
+    width: 78dvw;
+    display: flex;
+    justify-content: start;
+}
+
+/* ESTILOS DE LAS PETICIONES  */
+
+.peticionesPendientes{
+    width: 90%;
+    height: auto;
+    background: #df474c44 ;
+    text-align: center;
+    border-radius: 10px;
+    margin: 20px 0px;
+    border: 1px solid #525C66;
+}
+
+.peticionesPendientes h3{
+    font-size: 1.5rem;
+    padding: 10px 20px;
+}
+
+.peticionesPendientes p{
+    font-size: 3rem;
+}
+
+.peticionesListas{
+    width: 90%;
+    height: auto;
+    background: #21861e48 ;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #525C66;
+}
+
+.peticionesListas h3{
+    font-size: 1.5rem;
+    padding: 10px 20px;
+}
+
+.peticionesListas p{
+    font-size: 3rem;
+}
+
+/* ESTILOS DE LA GRAFICA DE BARRAS */
+.barrraProductosAnalisados{
+    margin: 20px 0;
+    width: 90%;
+    height: auto;
+}
+
+/* ESTILOS TABLA CLIENTES Y GRAFICA CIRCULAR */
+.tablaClientesyCerificados{
+    width: 78dvw;
+    display: flex;
+}
+
+.tblClientes{
+    width: 80%;
+}
+
+.graficaCircular{
+    width: 40%;
+    margin: 20px 0;
+}

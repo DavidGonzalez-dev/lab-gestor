@@ -31,9 +31,10 @@ export const getUsuarios = async () => {
 export const RegistrarUsuario = async (data) => {
   try {
     // Se hace la llamada a la API
-    await api.post("/usuarios/registrar", data);
+    await api.post("/usuarios/registrar", data)
     return true;
   }
+  
   catch (err) {
     // Arrojamos un error dependiendo del status
     switch (err.response.status) {
