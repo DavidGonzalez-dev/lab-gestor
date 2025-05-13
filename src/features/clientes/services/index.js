@@ -1,31 +1,63 @@
-import api from "@shared/services/api.js"
-import { HttpStatusCode } from "axios"
+import api from "@shared/services/api.js";
+import { HttpStatusCode } from "axios";
 
 export const registrarCliente = async (data) => {
-    // Se hace la llamada a la api
-    try{
-        await api.post("/clientes/registrar", data)
-        return true
-    }
+  // Se hace la llamada a la api
+  try {
+    await api.post("/clientes/registrar", data);
+    return true;
+  } catch (err) {
     // En caso de haber un error se gestiona y se envia un mensaje de error
-    catch (err){
-        switch(err.response.status){
-            case HttpStatusCode.BadRequest:
-                throw new Error(err.response.data.error)
-        }
-        return false
+    switch (err.response.status) {
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error);
     }
-}
+    return false;
+  }
+};
 
 export const getClientes = async () => {
-
-    // Se intenta hacer el llamado a la api
-    try{
-        const response = await api.get("/clientes")
-        return response.data.data
-    }
+  // Se intenta hacer el llamado a la api
+  try {
+    const response = await api.get("/clientes");
+    return response.data.data;
+  } catch (err) {
     // En caso de haber un error se gestiona
-    catch (err) {
-        console.log(err)
+    console.log(err);
+  }
+};
+
+export const getIdclient = async (id) => {
+  try {
+    const response = await api.get(`clientes/${id}`);
+    console.log(response.data);
+    return response.data.data;
+  } catch (error) {
+    // Si ocurre un error se maneja
+    switch (error.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("Hubo un error al obtener el cliente");
     }
-}
+  }
+};
+
+//Este servicio sirve para poder actualizar la informacion de un cliente
+export const EditClient = async (data) => {
+  console.log(data);
+  try {
+    await api.put(`clientes/actualizar`, data);
+    return true;
+  } catch (err) {
+    console.log(err);
+
+    switch (err.response.status) {
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error);
+      default:
+        console.log(data);
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
+    }
+
+    return false;
+  }
+};

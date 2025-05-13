@@ -1,0 +1,27 @@
+---
+import {DetalleClient} from "@features/clientes/components/Detalles/detalles";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import { getIdclient } from "@features/clientes/services";
+
+const { id } = Astro.params;
+let client = null;
+
+try {
+  client = await getIdclient(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <h1 class="pill-heading light-blue m-5">Detalle Cliente</h1>
+    <div class="container d-flex justify-content-center">
+        
+        {client ? (
+            <DetalleClient client:load cliente={client} />
+          ) : (
+            <p>No se encontró información del cliente</p>
+          )}
+    </div>
+  
+</SidebarLayout>

@@ -6,7 +6,7 @@ export const getUsuarios = async () => {
   try {
     const response = await api.get("/usuarios");
     if (response.data.data) {
-      return response.data.data
+      return response.data.data;
     }
     return [];
   } catch (err) {
@@ -35,7 +35,7 @@ export const RegistrarUsuario = async (data) => {
       case HttpStatusCode.BadRequest:
         throw new Error(err.response.data.error);
       default:
-        throw new Error("Error en el servidor vuelve a intentarlo mas tarde")
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
     }
   }
 };
@@ -53,4 +53,40 @@ export const DeshabilitarUsuario = async (id) => {
         throw new Error("Hubo un error al eliminar el usuario");
     }
   }
-}
+};
+//Este servicio renderiza el usuario individualmente por su id
+export const getUsuarioID = async (id) => {
+  // Se hace la llamada a la api
+  try {
+    const response = await api.get(`usuarios/${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    // Si ocurre un error se maneja
+    switch (error.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("Hubo un error al obtener el usuario");
+    }
+  }
+};
+
+//Este servicio sirve para poder actualizar la informacion de un usuario
+export const EditUser = async (data) => {
+  console.log(data);
+  try {
+    await api.put(`usuarios/actualizar`, data);
+    return true;
+  } catch (err) {
+    console.log(err);
+
+    switch (err.response.status) {
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error);
+      default:
+        console.log(data);
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
+    }
+
+    return false;
+  }
+};

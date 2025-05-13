@@ -6,7 +6,7 @@ import { AdminIcon, AnalistaIcon, CheckIcon, TrashIcon } from "@shared/iconos";
 
 import styles from "./editUser.module.css";
 
-export function EditUserModal({ isOpen, onClose, usuario, onSave }) {
+export function EditUserModal({ isOpen, onClose, usuario }) {
   if (!isOpen) return null;
   console.log(usuario);
   const {
@@ -32,6 +32,8 @@ export function EditUserModal({ isOpen, onClose, usuario, onSave }) {
       showCancelButton: true,
       cancelButtonText: "Cancelar",
       cancelButtonColor: "red",
+      heightAuto: false,
+      scrollbarPadding: false,
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -48,6 +50,8 @@ export function EditUserModal({ isOpen, onClose, usuario, onSave }) {
             icon: "error",
             title: "Ups! algo salió mal",
             text: err.message,
+            heightAuto: false,
+            scrollbarPadding: false,
           });
         }
       }
@@ -64,7 +68,7 @@ export function EditUserModal({ isOpen, onClose, usuario, onSave }) {
             type="text"
             label="#Documento"
             id="documento"
-            disbaled={true}
+            disabled={true}
             placeHolder="ej: 1234567"
             error={errors.documento}
             {...register("id", {
@@ -156,10 +160,7 @@ export function EditUserModal({ isOpen, onClose, usuario, onSave }) {
               </div>
             )}
           />
-          <Controller
-            control={control}
-            name=""
-          />
+          {/* <Controller control={control} name="" /> */}
 
           {/* Botones */}
           <div className={styles.buttons}>

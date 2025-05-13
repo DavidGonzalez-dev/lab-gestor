@@ -53,7 +53,7 @@ export function DetalleUsuario({ usuario }) {
         </Button>
 
         <Button variant="buttonEdit" parentMethod={() => setIsModalOpen(true)}>
-          Editar Usuario
+          Editar
         </Button>
       </div>
 
