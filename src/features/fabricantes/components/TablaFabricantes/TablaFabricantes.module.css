@@ -1,0 +1,18 @@
+.searchBarContainer{
+    display: flex;
+    align-items: center;    
+}
+
+.searchBarContainer svg{
+    height: 1.3rem;
+    width: auto;
+    color: #838383;
+    transform: translateX(-35px);
+}
+
+.ag-cell .custom-cell-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
