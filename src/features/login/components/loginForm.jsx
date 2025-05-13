@@ -1,5 +1,4 @@
 import { Input, Button } from "@shared/components/";
-import login from "../services/login";
 import styles from "./loginFrom.module.css";
 import { useForm } from "react-hook-form";
 import useAuthStore from "@shared/stores/useAuthStore";
@@ -26,7 +25,15 @@ const LoginForm = () => {
             const success = await login(data);
             // En caso de haber aprobador las credenciales se redirige al dashboard
             if (success) {
-                Swal.fire({ title: "Bienvenido", confirmButtonText: "Continar", confirmButtonColor: "#22861e", icon: "success" }).then((result) => {
+                Swal.fire({
+                    title: "Bienvenido",
+                    confirmButtonText: "Continar",
+                    confirmButtonColor: "#22861e",
+                    icon: "success",
+                    heightAuto: false,
+                    scrollbarPadding: false,
+
+                }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = "/dashboard";
                     }
