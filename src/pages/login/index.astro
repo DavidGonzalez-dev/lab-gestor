@@ -11,21 +11,21 @@ import "@shared/styles/index.css"
 ---
 
 <Layout title="LabGestor-Login">
-        <div class="row h-100">
+        <div class="main-container">
             <!-- Formulario de Inicio de Sesion -->
-            <section id="formulario-login" class="col-lg-6">
+            <section id="formulario-login">
                 <div class="titulo">
                     <h1>Bienvenido</h1>
                     <span>Ingresa tus credenciales</span>
                     <img src={Decoracion.src} alt="decoracion" class="w-100" />
                 </div>
                 <!-- Formulario -->
-                <LoginForm client:load />
+                <LoginForm client:only />
                 <a href="/contrasena">Olvidaste tu Contraseña?</a>
             </section>
 
             <!-- Ilustraciones -->
-            <section id="ilustraciones" class="col-lg-6">
+            <section id="ilustraciones">
                 <img src={Logo.src} alt="Labgestor Logo" id="logo" />
                 <img
                     src={Ilustracion.src}
@@ -37,17 +37,23 @@ import "@shared/styles/index.css"
 </Layout>
 
 <style>
-    main {
-        height: 100dvh;
+
+    .main-container{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 0;
     }
 
     #formulario-login {
         display: flex;
+        width: 50%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 0 10rem;
     }
+
     .titulo {
         display: flex;
         flex-direction: column;
@@ -84,6 +90,7 @@ import "@shared/styles/index.css"
         align-items: center;
         justify-content: space-evenly;
         background: var(--color-primario);
+        width: 50%;
     }
 
     #logo {
