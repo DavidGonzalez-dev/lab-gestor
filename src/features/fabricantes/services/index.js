@@ -14,6 +14,7 @@ export const registrarFabricante = async (data) => {
         switch (err.response.status) {
             case HttpStatusCode.BadRequest:
                 throw new Error(err.response.data.error)
+
             default:
                 throw new Error("No es culpa tuya es culpa nuestra, en este momento el sistema esta en mantenimiento!")
         }
