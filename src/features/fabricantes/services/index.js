@@ -10,9 +10,10 @@ export const registrarFabricante = async (data) => {
     }
     // En caso de haber un error retornamos un mensaje de errr teniendo en cuenta el codigo de estado de la respuesta
     catch (err) {
+        console.log(err)
         switch (err.response.status) {
             case HttpStatusCode.BadRequest:
-                throw new Error("Hubo un error al crear el usuario")
+                throw new Error(err.response.data.error)
             default:
                 throw new Error("No es culpa tuya es culpa nuestra, en este momento el sistema esta en mantenimiento!")
         }
@@ -24,7 +25,7 @@ export const getFabicantes = async (data) => {
 
     // Se intenta hacer el envio de la informacion
     try {
-        const fabricantes = await api.get("/fabricantes/", data)
+        const fabricantes = await api.get("/fabricantes", data)
         return fabricantes.data.data
     }
     // En caso de haber un error retornamos un mensaje de errr teniendo en cuenta el codigo de estado de la respuesta
