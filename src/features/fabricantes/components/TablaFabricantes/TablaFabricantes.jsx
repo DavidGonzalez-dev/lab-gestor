@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react"
-import { getClientes, eliminarCliente } from "../../services"
+import { getFabicantes, eliminarFabricante } from "../../services"
 import { Table, Input } from "@shared/components"
 import { SearchIcono } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
 import { PerfilIcon, TrashIcon } from "@shared/iconos"
+
+import styles from "./TablaFabricantes.module.css"
 import Swal from "sweetalert2"
 
-import styles from "./TablaClientes.module.css"
-
-const TablaClientes = () => {
+const TablaFabricantes = () => {
     const [rowData, setRowData] = useState([])
     const [searchText, setSearchText] = useState("")
     const colDefs = [
         {
-            headerName: "Nombre Cliente",
+            headerName: "Nombre Fabricante",
             field: "nombre",
             sortable: true,
             unSortIcon: true
         },
         {
-            headerName: "Direccion Cliente",
+            headerName: "Direccion Fabricante",
             field: "direccion",
         },
         {
@@ -35,20 +35,21 @@ const TablaClientes = () => {
             cellRendererParams: (p) => ({
                 icon: TrashIcon,
                 variant: "buttonCancel",
-                parentMethod: () => handleEliminarCliente(p.data.id)
+                parentMethod: () => handleEliminarFabricante(p.data.id)
             })
         }
     ]
 
+
     //? ----------------------------------------------
     //? Funcionalidades de los Botones
     //? ----------------------------------------------
-    const handleEliminarCliente = async (id) => {
+    const handleEliminarFabricante = async (id) => {
         console.log(id)
         Swal.fire({
             icon: "warning",
-            title: "¿Estas seguro d elminar el cliente?",
-            text: "Al eliminar este cliente es posible que los productos relacionados se actualicen, por ende, se recomienda solo eliminar clientes que aun no esten relacionados con algun producto.",
+            title: "¿Estas seguro d elminar el fabricante?",
+            text: "Al eliminar este fabricante es posible que los productos relacionados se actualicen, por ende, se recomienda solo eliminar fabricantes que aun no esten relacionados con algun producto.",
             cancelButtonText: "Cancelar",
             cancelButtonColor: "red",
             confirmButtonText: "Aceptar",
@@ -59,15 +60,15 @@ const TablaClientes = () => {
             if (result.isConfirmed) {
 
                 try {
-                    await eliminarCliente(id)
+                    await eliminarFabricante(id)
                     Swal.fire({
                         icon: "success",
-                        title: "El cliente ha sido eliminado con exito",
+                        title: "El fabricante ha sido eliminado con exito",
                         heightAuto: false,
                         scrollbarPadding: false,
                     })
                     setRowData(prevData =>
-                        prevData.filter(cliente => cliente.id !== id)
+                        prevData.filter(fabricante => fabricante.id !== id)
                     )
                 }
                 catch (err) {
@@ -84,7 +85,7 @@ const TablaClientes = () => {
     //? ----------------------------------------------
     //? Logica de Filtrado
     //? ----------------------------------------------
-    // Actualiza el estado del texto de busqueda por nombre del cliente
+    // Actualiza el estado del texto de busqueda por nombre del Fabricante
     const handleSearch = (event) => {
         setSearchText(event.target.value)
         if (gridRef.current && gridRef.current.api) {
@@ -106,11 +107,11 @@ const TablaClientes = () => {
     //? Carga de datos
     //? ----------------------------------------------
 
-    // Funcion para cargar los clientes
-    const loadClientes = async () => {
+    // Funcion para cargar los Fabricantes
+    const loadFabricantes = async () => {
         try {
-            const clientes = await getClientes()
-            setRowData(clientes)
+            const fabricantes = await getFabicantes()
+            setRowData(fabricantes)
         }
         catch (err) {
             console.log(err)
@@ -119,8 +120,9 @@ const TablaClientes = () => {
 
     // Efectua la carga de usuario al momento de renderizar el componte
     useEffect(() => {
-        loadClientes()
+        loadFabricantes()
     }, [])
+
     return (
         <div className="container">
             <div className={`${styles.searchBarContainer} mb-2 w-50`}>
@@ -144,4 +146,4 @@ const TablaClientes = () => {
     )
 }
 
-export default TablaClientes
+export default TablaFabricantes
