@@ -1,0 +1,27 @@
+---
+import {Vistamarket} from '@features/fabricantes/components/vistaMarketId/vistaId'
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import { getIdmarker } from "@features/fabricantes/services";
+
+const { id } = Astro.params;
+let market = null;
+
+try {
+  market = await getIdmarker(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <h1 class="pill-heading light-blue m-5">Detalle Fabricante</h1>
+    <div class="container d-flex justify-content-center">
+        
+        {market ? (
+            <Vistamarket client:only fabricante={market} />
+          ) : (
+            <p>No se encontró información del fabricante</p>
+          )}
+    </div>
+  
+</SidebarLayout>

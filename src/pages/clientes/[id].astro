@@ -18,7 +18,7 @@ try {
     <div class="container d-flex justify-content-center">
         
         {client ? (
-            <DetalleClient client:load cliente={client} />
+            <DetalleClient client:only cliente={client} />
           ) : (
             <p>No se encontró información del cliente</p>
           )}

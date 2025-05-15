@@ -1,0 +1,31 @@
+---
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import TablaFabricantes from "@features/fabricantes/components/TablaFabricantes/TablaFabricantes"
+import { Button } from "@shared/components";
+import { Plus } from "@shared/iconos";
+---
+
+<SidebarLayout>
+    <div class="container main-content">
+        <div class="header">
+            <PillHeading variant="secondary">
+                <h1>Vista de Fabricantes</h1>
+            </PillHeading>
+
+            <Button variant="buttonAccept">
+                <Plus />
+                <a href="fabricantes/registrar">Registrar Fabricante</a>
+            </Button>
+        </div>
+        <TablaFabricantes client:only />
+    </div>
+</SidebarLayout>
+<style>
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px;
+    }
+</style>

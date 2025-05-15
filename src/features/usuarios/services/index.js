@@ -27,9 +27,15 @@ export const getUsuarios = async () => {
 export const RegistrarUsuario = async (data) => {
   try {
     // Se hace la llamada a la API
-    await api.post("/usuarios/registrar", data);
+    await api.post("/usuarios/registrar", data)
     return true;
+<<<<<<< HEAD
   } catch (err) {
+=======
+  }
+  
+  catch (err) {
+>>>>>>> feature
     // Arrojamos un error dependiendo del status
     switch (err.response.status) {
       case HttpStatusCode.BadRequest:
