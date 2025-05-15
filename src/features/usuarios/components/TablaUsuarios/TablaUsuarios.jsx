@@ -159,17 +159,9 @@ export const TablaUsuarios = () => {
               });
 
               // Se actualiza el estado local para reflejar los cambios
-<<<<<<< HEAD
               setRowData(prevData =>
                 prevData.map(usuario =>
                   usuario.documento === data.documento ? { ...usuario, estado: false } : usuario
-=======
-              setRowData((prevData) =>
-                prevData.map((usuario) =>
-                  usuario.ID === data.ID
-                    ? { ...usuario, estado: false }
-                    : usuario
->>>>>>> a03370f6b96a3ae326959de5142f8446f02f78e5
                 )
               );
             }
@@ -178,13 +170,10 @@ export const TablaUsuarios = () => {
               icon: "error",
               title: "Ups! algo salio mal",
               text: err.message,
-<<<<<<< HEAD
               heightAuto: false,
               scrollbarPadding: false,
             })
-=======
-            });
->>>>>>> a03370f6b96a3ae326959de5142f8446f02f78e5
+
           }
         }
       });
