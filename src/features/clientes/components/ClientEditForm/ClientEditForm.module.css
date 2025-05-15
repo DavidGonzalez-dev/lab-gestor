@@ -1,0 +1,47 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.modal h2{
+  text-align: center;
+  margin-bottom: .5lh;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--color-primario);
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.inputsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

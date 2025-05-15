@@ -1,9 +1,8 @@
-import api from "@shared/services/api";
-import { HttpStatusCode } from "axios";
+import api from "@shared/services/api"
+import { HttpStatusCode } from "axios"
 
 // Este servicio nos trae la informacion de todos los usuarios
 export const getUsuarios = async () => {
-
   try {
 
     const response = await api.get("/usuarios");
@@ -25,7 +24,7 @@ export const getUsuarios = async () => {
 
     }
   }
-};
+}
 
 // Este servicio nos permite registrar un usaurio haciendo uso de la API
 export const RegistrarUsuario = async (data) => {
@@ -44,11 +43,10 @@ export const RegistrarUsuario = async (data) => {
         throw new Error("Error en el servidor vuelve a intentarlo mas tarde")
     }
   }
-};
+}
 
 // Este servicio
 export const DeshabilitarUsuario = async (id) => {
-
   // Se hace la llamada a la api
   try {
     await api.delete(`usuarios/${id}`)

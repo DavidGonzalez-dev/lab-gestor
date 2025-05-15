@@ -1,8 +1,8 @@
 import styles from "./Input.module.css";
 
-export const Input = ({ type, label, id, error, placeHolder, options = [], hasServerError, ...rest }) => {
+export const Input = ({ type, label, id, error, placeHolder, options = [], hasServerError, variant="", ...rest }) => {
   return (
-    <div className={styles.customInput}>
+    <div className={`${styles.customInput} ${styles[variant]}`}>
       <label htmlFor={id}>{label}</label>
 
       {type === "select" ? (
