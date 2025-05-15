@@ -1,0 +1,47 @@
+---
+import { ClientCard } from "@features/clientes/components/ClientCard/ClientCard";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import { getIdclient } from "@features/clientes/services";
+import {ArrowBackIcon} from "@shared/iconos"
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+
+const { id } = Astro.params;
+
+// Traemos la informacion del cliente
+let client = null;
+try {
+  client = await getIdclient(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">
+      
+      <PillHeading variant="primary">
+        <h1>Detalle Cliente</h1>
+      </PillHeading>
+
+    <!-- Informacion del cliente -->
+    <div>
+      {
+        client ? (
+          <ClientCard client:only cliente={client} />
+        ) : (
+          <p>No se encontró información del cliente</p>
+        )
+      }
+    </div>
+  </div>
+</SidebarLayout>
+
+<style>
+  .mainContainer{
+    margin-top: 5dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+</style>

@@ -1,23 +1,26 @@
-import BarraDeslizadaIcon from './BarraDeslizadaIcon.svg?react';
-import BarraLateralIcon from './BarraLateralIcon.svg?react';
-import CerrarSesionIcon from './CerrarSesionIcon.svg?react';
-import ClientesIcon from './ClientesIcon.svg?react';
-import EstadisticasIcon from './EstadisticasIcon.svg?react';
-import FabricantesIcon from './FabricantesIcon.svg?react';
-import InicioIcon from './InicioIcon.svg?react';
-import NotificacionIcon from './NotificacionIcon.svg?react';
-import PerfilIcon from './PerfilIcon.svg?react';
-import ProductosIcon from './ProductosIcon.svg?react';
-import ReporteIcon from './ReporteIcon.svg?react';
-import UsuariosIcon from './UsuariosIcon.svg?react';
-import AnalistaIcon from './AnalistaIcon.svg?react';
-import AdminIcon from './AdminIcon.svg?react';
-import TrashIcon from './TrashIcon.svg?react';
-import CheckIcon from './CheckIcon.svg?react';
-import BotellaIcon from './BotellaIcon.svg?react';
-import CajaIcon from './CajaIcon.svg?react';
-import SearchIcono from './SearchIcono.svg?react'
-import Plus from './Plus.svg?react'
+import BarraDeslizadaIcon from "./BarraDeslizadaIcon.svg?react";
+import BarraLateralIcon from "./BarraLateralIcon.svg?react";
+import CerrarSesionIcon from "./CerrarSesionIcon.svg?react";
+import ClientesIcon from "./ClientesIcon.svg?react";
+import EstadisticasIcon from "./EstadisticasIcon.svg?react";
+import FabricantesIcon from "./FabricantesIcon.svg?react";
+import InicioIcon from "./InicioIcon.svg?react";
+import NotificacionIcon from "./NotificacionIcon.svg?react";
+import PerfilIcon from "./PerfilIcon.svg?react";
+import ProductosIcon from "./ProductosIcon.svg?react";
+import ReporteIcon from "./ReporteIcon.svg?react";
+import UsuariosIcon from "./UsuariosIcon.svg?react";
+import AnalistaIcon from "./AnalistaIcon.svg?react";
+import AdminIcon from "./AdminIcon.svg?react";
+import TrashIcon from "./TrashIcon.svg?react";
+import CheckIcon from "./CheckIcon.svg?react";
+import SearchIcono from "./SearchIcono.svg?react";
+import Plus from "./Plus.svg?react";
+import EyeIcon from "./EyeIcon.svg?react";
+import BotellaIcon from "./BotellaIcon.svg?react"
+import CajaIcon from "./CajaIcon.svg?react"
+import ArrowBackIcon from "./ArrowBackIcon.svg?react"
+import EditIcon from "./EditIcon.svg?react"
 
 export {
   AnalistaIcon,
@@ -39,6 +42,8 @@ export {
   SearchIcono,
   Plus, 
   CajaIcon,
-  BotellaIcon
+  BotellaIcon,
+  EyeIcon,
+  ArrowBackIcon,
+  EditIcon
 };
-
