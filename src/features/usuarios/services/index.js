@@ -57,11 +57,13 @@ export const DeshabilitarUsuario = async (id) => {
 
 // Este servicio nos permite obtener ver la formacion de un usuario en especifico
 export const getUsuarioID = async (id) => {
+  
   try {
     const response = await api.get(`usuarios/${id}`)
-    console.log(response.data)
     return response.data
-  } catch (error) {
+  } 
+  
+  catch (error) {
     // Si ocurre un error se maneja
     switch (error.response.status) {
       case HttpStatusCode.InternalServerError:
@@ -71,13 +73,13 @@ export const getUsuarioID = async (id) => {
 }
 //sirve para editar el usuario
 export const EditUser = async (data) => {
-  console.log(data)
+  
   try {
     await api.put(`usuarios/actualizar`, data)
     return true
-  } catch (err) {
-    console.log(err)
-
+  } 
+  
+  catch (err) {
     switch (err.response.status) {
       case HttpStatusCode.BadRequest:
         throw new Error(err.response.data.error)

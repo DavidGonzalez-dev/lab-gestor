@@ -1,28 +1,44 @@
 ---
-import {DetalleUsuario} from "@features/usuarios/components/Detalles/detallesID"
-import SidebarLayout from "@shared/layouts/SidebarLayout.astro"
-import { getUsuarioID } from "@features/usuarios/services"
+import { DetalleUsuario } from "@features/usuarios/components/UserCard/UserCard";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
-const { id } = Astro.params
-console.log("ID desde URL:", id)
-let usuario = null
+import { getUsuarioID } from "@features/usuarios/services";
+
+const { id } = Astro.params;
+let usuario = null;
 
 try {
-  usuario = await getUsuarioID(id)
+  usuario = await getUsuarioID(id);
 } catch (error) {
-  console.error(error)
+  console.error(error);
 }
 ---
 
 <SidebarLayout>
-  <h1 class="pill-heading light-blue m-5">Detalle de Usuario</h1>
-    <div class="container d-flex justify-content-center">
-        
-        {usuario ? (
-            <DetalleUsuario client:only usuario={usuario} />
-          ) : (
-            <p>No se encontró información del usuario.</p>
-          )}
+  <div class="container mainContainer">
+    <PillHeading variant="primary">
+      <h1>Detalle de Usuario</h1>
+    </PillHeading>
+    <div class="cardContainer">
+      {
+        usuario ? (
+          <DetalleUsuario client:only usuario={usuario} />
+        ) : (
+          <p>No se encontró información del usuario.</p>
+        )
+      }
     </div>
-  
+  </div>
 </SidebarLayout>
+
+<style>
+  .mainContainer{
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+  }
+</style>

@@ -73,7 +73,7 @@ export const TablaUsuarios = () => {
       cellRendererParams: (p) => ({
         icon: EyeIcon,
         variant: "default",
-        parentMethod: () => verUsuario(p.data),
+        parentMethod: () => window.location.href = `/usuarios/${p.data.documento}`,
       }),
     },
     {
@@ -97,12 +97,8 @@ export const TablaUsuarios = () => {
   // Manejar búsqueda por nombre o apellido
   const handleSearch = (event) => {
     setSearchText(event.target.value)
-
-    if (gridRef.current && gridRef.current.api) {
-      gridRef.current.api.onFilterChanged()
-    }
   }
-  const gridRef = useRef(null)
+
   // Funcion para verificar si hay algun tipo de filtro activo
   const isExternalFilterPresent = () => {
     return searchText !== ""
@@ -121,10 +117,6 @@ export const TablaUsuarios = () => {
   //? ----------------------------------------------
   //? Logica de los botones de accion
   //? ----------------------------------------------
-  const verUsuario = (usuario) => {
-    //se redirige a la pagina dependiendo del id
-    window.location.href = `/usuarios/${usuario.documento}`
-  }
   const eliminarUsuario = (data) => {
     // Se verifica si el usuario esta desactivado
     if (!data.estado) {
