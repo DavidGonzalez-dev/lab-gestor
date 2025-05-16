@@ -16,7 +16,7 @@
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .form label {
@@ -56,4 +56,16 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+/* ---------------------------------------- */
+/* Estilos para el selector de rol y estado */
+/* ---------------------------------------- */
+.rolSelector {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.botonesRol {
+  display: flex;
+  gap: 0.5rem;
 }

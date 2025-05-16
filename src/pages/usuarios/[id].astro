@@ -1,15 +1,16 @@
 ---
-import {DetalleUsuario} from "@features/usuarios/components/Detalles/detallesID";
-import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import { getUsuarioID } from "@features/usuarios/services";
+import {DetalleUsuario} from "@features/usuarios/components/Detalles/detallesID"
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro"
+import { getUsuarioID } from "@features/usuarios/services"
 
-const { id } = Astro.params;
-let usuario = null;
+const { id } = Astro.params
+console.log("ID desde URL:", id)
+let usuario = null
 
 try {
-  usuario = await getUsuarioID(id);
+  usuario = await getUsuarioID(id)
 } catch (error) {
-  console.error(error);
+  console.error(error)
 }
 ---
 
@@ -18,7 +19,7 @@ try {
     <div class="container d-flex justify-content-center">
         
         {usuario ? (
-            <DetalleUsuario client:load usuario={usuario} />
+            <DetalleUsuario client:only usuario={usuario} />
           ) : (
             <p>No se encontró información del usuario.</p>
           )}
