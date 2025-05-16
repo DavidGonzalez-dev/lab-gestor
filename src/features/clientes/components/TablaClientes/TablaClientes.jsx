@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-
 import { Table, Input } from "@shared/components"
 import { SearchIcono } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
