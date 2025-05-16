@@ -54,7 +54,7 @@ export function DetalleUsuario({ usuario }) {
             <p>
               <strong className={styles.texts}>Estado:</strong>{" "}
               <PillState
-                estado={usuario.estado}
+                value={usuario.estado}
                 variant={usuario.estado ? "green" : "red"}
               />
             </p>
