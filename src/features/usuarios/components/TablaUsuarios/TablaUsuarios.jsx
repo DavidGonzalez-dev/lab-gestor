@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react"
 
 import {
   Table,
@@ -6,14 +6,14 @@ import {
   PillState,
   Input,
   ButtonCellRenderer,
-} from "@shared/components";
+} from "@shared/components"
 
-import { getUsuarios, DeshabilitarUsuario } from "../../services/";
-import Swal from "sweetalert2";
+import { getUsuarios, DeshabilitarUsuario } from "../../services/"
+import Swal from "sweetalert2"
 
-import { ToTitleCase } from "@shared/utils";
-import { SearchIcono, TrashIcon, EyeIcon } from "@shared/iconos";
-import styles from "./TablaUsuarios.module.css";
+import { ToTitleCase } from "@shared/utils"
+import { SearchIcono, TrashIcon, EyeIcon } from "@shared/iconos"
+import styles from "./TablaUsuarios.module.css"
 
 export const TablaUsuarios = () => {
   //? ----------------------------------------------
@@ -48,7 +48,7 @@ export const TablaUsuarios = () => {
     },
     {
       headerName: "Rol",
-      field: "rol.NombreRol",
+      field: "rol.nombreRol",
       cellClass: "text-center",
       cellRenderer: PillType,
       cellRendererParams: (p) => ({
@@ -88,7 +88,7 @@ export const TablaUsuarios = () => {
         parentMethod: () => eliminarUsuario(p.data),
       }),
     },
-  ];
+  ]
 
   //? ----------------------------------------------
   //? Logica de los filtros
@@ -96,13 +96,13 @@ export const TablaUsuarios = () => {
 
   // Manejar búsqueda por nombre o apellido
   const handleSearch = (event) => {
-    setSearchText(event.target.value);
+    setSearchText(event.target.value)
 
     if (gridRef.current && gridRef.current.api) {
-      gridRef.current.api.onFilterChanged();
+      gridRef.current.api.onFilterChanged()
     }
-  };
-
+  }
+  const gridRef = useRef(null)
   // Funcion para verificar si hay algun tipo de filtro activo
   const isExternalFilterPresent = () => {
     return searchText !== ""
@@ -114,17 +114,17 @@ export const TablaUsuarios = () => {
       return (
         node.data.nombres.toLowerCase().includes(searchText.toLowerCase()) ||
         node.data.apellidos.toLowerCase().includes(searchText.toLowerCase())
-      );
+      )
     }
-  };
+  }
 
   //? ----------------------------------------------
   //? Logica de los botones de accion
   //? ----------------------------------------------
   const verUsuario = (usuario) => {
     //se redirige a la pagina dependiendo del id
-    window.location.href = `/usuarios/${usuario.ID}`;
-  };
+    window.location.href = `/usuarios/${usuario.documento}`
+  }
   const eliminarUsuario = (data) => {
     // Se verifica si el usuario esta desactivado
     if (!data.estado) {
@@ -132,7 +132,7 @@ export const TablaUsuarios = () => {
         icon: "error",
         title: "Este usuario ya esta inhabilitado",
         text: "Si quieres cambiar el estado de este usuario tienes que modificarlo directamente desde la pagina de perfil del usuario",
-      });
+      })
     }
     // En caso de no estarlo se sigue con el flujo normal
     else {
@@ -149,21 +149,23 @@ export const TablaUsuarios = () => {
         if (result.isConfirmed) {
           // Se hace llamada a la api
           try {
-            const success = await DeshabilitarUsuario(data.documento);
+            const success = await DeshabilitarUsuario(data.documento)
             if (success) {
               Swal.fire({
                 title: "Elusuario se deshabilitó con exito!",
                 icon: "success",
                 heightAuto: false,
                 scrollbarPadding: false,
-              });
+              })
 
               // Se actualiza el estado local para reflejar los cambios
-              setRowData(prevData =>
-                prevData.map(usuario =>
-                  usuario.documento === data.documento ? { ...usuario, estado: false } : usuario
+              setRowData((prevData) =>
+                prevData.map((usuario) =>
+                  usuario.documento === data.documento
+                    ? { ...usuario, estado: false }
+                    : usuario
                 )
-              );
+              )
             }
           } catch (err) {
             Swal.fire({
@@ -173,12 +175,11 @@ export const TablaUsuarios = () => {
               heightAuto: false,
               scrollbarPadding: false,
             })
-
           }
         }
-      });
+      })
     }
-  };
+  }
 
   //? ----------------------------------------------
   //? Carga de datos
@@ -186,17 +187,17 @@ export const TablaUsuarios = () => {
   // Funcion para cargar los usuarios desde el servidor
   const loadUsers = async () => {
     try {
-      const users = await getUsuarios();
-      setRowData(users);
+      const users = await getUsuarios()
+      setRowData(users)
     } catch (error) {
-      console.error("Error cargando los usuarios:", error);
+      console.error("Error cargando los usuarios:", error)
     }
-  };
+  }
 
   // Cargar usuarios al montar el componente
   useEffect(() => {
-    loadUsers();
-  }, []);
+    loadUsers()
+  }, [])
 
   return (
     <div className="container">
@@ -218,5 +219,5 @@ export const TablaUsuarios = () => {
         doesExternalFilterPass={doesExternalFilterPass}
       />
     </div>
-  );
-};
+  )
+}

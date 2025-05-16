@@ -1,29 +1,35 @@
-import { useForm, Controller } from "react-hook-form";
-import Swal from "sweetalert2";
-import { EditUser } from "../../services";
-import { Input, SelectButton, Button } from "@shared/components";
-import { AdminIcon, AnalistaIcon, CheckIcon, TrashIcon } from "@shared/iconos";
+import { useForm, Controller } from "react-hook-form"
+import Swal from "sweetalert2"
+import { EditUser } from "../../services"
+import { Input, SelectButton, Button } from "@shared/components"
+import { AdminIcon, AnalistaIcon, CheckIcon, TrashIcon } from "@shared/iconos"
+import styles from "./editUser.module.css"
 
-import styles from "./editUser.module.css";
-
+// Modal de edición de usuario
 export function EditUserModal({ isOpen, onClose, usuario }) {
-  if (!isOpen) return null;
-  console.log(usuario);
+  if (!isOpen) return null
+
+  console.log(usuario)
+  console.log(usuario.rol.codigorol)
+
+  // Configuración del formulario con react-hook-form
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      id: usuario.ID,
+      id: usuario.documento,
       nombres: usuario.nombres,
       apellidos: usuario.apellidos,
       correo: usuario.correo,
-      rolId: usuario.rol.CodigoRol,
+      rolId: usuario.rol.id,
+      estado: usuario.estado,
     },
-  });
-
+  })
+  // Función para manejar el envío del formulario
   const onSubmit = (data) => {
     Swal.fire({
       title: "¿Estas seguro de actualizar este usuario?",
@@ -37,13 +43,13 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await EditUser(data);
+          const response = await EditUser(data)
           if (response) {
             Swal.fire("Se actualizó el usuario con éxito!", "", "success").then(
               () => {
-                window.location.href = "/usuarios";
+                window.location.href = "/usuarios"
               }
-            );
+            )
           }
         } catch (err) {
           Swal.fire({
@@ -52,18 +58,20 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
             text: err.message,
             heightAuto: false,
             scrollbarPadding: false,
-          });
+          })
         }
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <h2>Editar Usuario</h2>
+
+        {/* Formulario de edición */}
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          {/* Documento */}
+          {/* Campo Documento */}
           <Input
             type="text"
             label="#Documento"
@@ -80,7 +88,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
             })}
           />
 
-          {/* Nombres */}
+          {/* Campo Nombres */}
           <Input
             type="text"
             label="Nombres"
@@ -96,7 +104,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
             })}
           />
 
-          {/* Apellidos */}
+          {/* Campo Apellidos */}
           <Input
             type="text"
             label="Apellidos"
@@ -112,7 +120,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
             })}
           />
 
-          {/* Correo */}
+          {/* Campo Correo */}
           <Input
             type="email"
             label="Correo"
@@ -136,7 +144,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
               <div className={styles.rolSelector}>
                 <label>Rol:</label>
                 <div className={`row ${styles.botonesRol}`}>
-                  <div className="col-6">
+                  <div className="col-5">
                     <SelectButton
                       variant="darkBlue"
                       selected={value === 1}
@@ -146,7 +154,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
                       <AdminIcon />
                     </SelectButton>
                   </div>
-                  <div className="col-6">
+                  <div className="col-5">
                     <SelectButton
                       variant="lightBlue"
                       selected={value === 2}
@@ -160,9 +168,39 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
               </div>
             )}
           />
-          {/* <Controller control={control} name="" /> */}
 
-          {/* Botones */}
+          {/* Selector de Estado (Activo / Inactivo) */}
+          <Controller
+            control={control}
+            name="estado"
+            render={({ field: { value, onChange } }) => (
+              <div className={styles.rolSelector}>
+                <label>Estado:</label>
+                <div className={`row ${styles.botonesRol}`}>
+                  <div className="col-4">
+                    <SelectButton
+                      variant="green"
+                      selected={value === true}
+                      parentMethod={() => onChange(true)}
+                    >
+                      Activo
+                    </SelectButton>
+                  </div>
+                  <div className="col-4">
+                    <SelectButton
+                      variant="red"
+                      selected={value === false}
+                      parentMethod={() => onChange(false)}
+                    >
+                      Inactivo
+                    </SelectButton>
+                  </div>
+                </div>
+              </div>
+            )}
+          />
+
+          {/* Botones de acción */}
           <div className={styles.buttons}>
             <Button variant="buttonCancel" parentMethod={onClose}>
               Cancelar <TrashIcon />
@@ -174,5 +212,5 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
         </form>
       </div>
     </div>
-  );
+  )
 }

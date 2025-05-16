@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { PillType, PillState } from "@shared/components";
-import styles from "./detalles.module.css";
-import { Button } from "@shared/components";
-import { TrashIcon } from "@shared/iconos";
-import { EditUserModal } from "./editUser";
+import React, { useState } from "react"
+import { PillType, PillState } from "@shared/components"
+import styles from "./detalles.module.css"
+import { Button } from "@shared/components"
+import { TrashIcon } from "@shared/iconos"
+import { EditUserModal } from "./editUser"
 
 /// función para volver atrás
 const redirectPrevious = () => {
-  window.location.href = "/usuarios";
+  window.location.href = "/usuarios"
 };
 
 export function DetalleUsuario({ usuario }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleSave = () => {
-    console.log("Guardado");
-    setIsModalOpen(false);
+    console.log("Guardado")
+    setIsModalOpen(false)
   };
 
   return (
@@ -32,8 +32,8 @@ export function DetalleUsuario({ usuario }) {
       <p>
         <strong className={styles.texts}>Rol:</strong>{" "}
         <PillType
-          value={usuario.rol.NombreRol}
-          variant={usuario.rol.NombreRol !== "admin" ? "lightBlue" : "darkBlue"}
+          value={usuario.rol.nombreRol}
+          variant={usuario.rol.nombreRol !== "admin" ? "lightBlue" : "darkBlue"}
         />
       </p>
       <p>
