@@ -1,0 +1,47 @@
+---
+import { FabricanteCard } from "@features/fabricantes/components/FabricanteCard/FabricanteCard";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+
+import { getFabricanteId } from "@features/fabricantes/services";
+
+const { id } = Astro.params;
+
+// Traemos la informacion del cliente
+let fabricante = null;
+try {
+  fabricante = await getFabricanteId(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">
+      
+      <PillHeading variant="primary">
+        <h1>Detalle Cliente</h1>
+      </PillHeading>
+
+    <!-- Informacion del cliente -->
+    <div>
+      {
+        fabricante ? (
+          <FabricanteCard client:only fabricante={fabricante} />
+        ) : (
+          <p>No se encontró información del cliente</p>
+        )
+      }
+    </div>
+  </div>
+</SidebarLayout>
+
+<style>
+  .mainContainer{
+    margin-top: 5dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+</style>

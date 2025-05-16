@@ -55,3 +55,40 @@ export const eliminarFabricante = async (id) => {
         }
     }
 }
+
+// Es te servicio nos permite obtener la informacion de un solo fabricante desde la base de datos
+export const getFabricanteId = async (id) => {
+  
+    try {
+    const response = await api.get(`fabricantes/${id}`);
+    return response.data.data;
+
+  } 
+  
+  catch (error) {
+    // Si ocurre un error se maneja
+    switch (error.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("Hubo un error al obtener el Fabricante");
+    }
+  }
+};
+
+//Este servicio sirve para poder actualizar la informacion de un Fabricante
+export const EditFabricante = async (data) => {
+  
+  try {
+    await api.put(`fabricantes/actualizar`, data);
+    return true;
+  } 
+  
+  catch (err) {
+    switch (err.response.status) {
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error);
+      default:
+        console.log(data);
+        throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
+    }
+  }
+};
