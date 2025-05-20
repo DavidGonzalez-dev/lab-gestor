@@ -21,7 +21,7 @@ export const registrarFabricante = async (data) => {
 }
 
 // Este servicio nos permite traer a todos los Fabricantes
-export const getFabicantes = async (data) => {
+export const getFabricantes = async (data) => {
 
     // Se intenta hacer el envio de la informacion
     try {
