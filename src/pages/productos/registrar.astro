@@ -1,7 +1,22 @@
 ---
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import RegistroProducto from "@features/productos/components/registroProducto/RegistroProductos"
+import RegistroProducto from "@features/productos/components/registroProducto/RegistroProductos";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 ---
+
 <SidebarLayout>
-    <RegistroProducto client:only/>
+    <div class="headerContainer">
+        <PillHeading variant="primary">
+            <h1>Formulario de Registro</h1>
+        </PillHeading>
+    </div>
+
+    <RegistroProducto client:only />
 </SidebarLayout>
+
+<style>
+    .headerContainer{
+        width: fit-content;
+        margin: 0 auto;
+    }
+</style>
