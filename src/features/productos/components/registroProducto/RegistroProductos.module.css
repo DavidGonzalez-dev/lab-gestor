@@ -1,3 +1,53 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 3rem;
+    width: 70%;
+    margin: 0 auto;
+}
 
-  
+.formContainer h2{
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-secundario);
+    margin: 10px 0;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.twoColumnContainer{
+    display: flex;
+    gap: 20px;
+}
+
+.typeSelector{
+    display: flex;
+    flex-direction: column;
+}
+
+.typeSelector label{
+    font-size: 16px;
+    margin-bottom: 4px;
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+.typeSelector .selectButtonContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 3rem;
+}
+
+.formControllers{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+}
 

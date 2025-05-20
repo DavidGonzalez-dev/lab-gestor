@@ -19,6 +19,8 @@ export const RegistrarProducto = async (data) => {
     switch(err.response.status) {
       case HttpStatusCode.UnprocessableEntity:
         throw new Error(err.response.data.error);
+      case HttpStatusCode.Conflict:
+        throw new Error(err.response.data.error)
       default:
         throw new Error("Error en el servidor, vuelve a intentarlo más tarde");
     }

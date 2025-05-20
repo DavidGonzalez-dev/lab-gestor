@@ -4,7 +4,7 @@ import useAuthStore from "../../../../shared/stores/useAuthStore";
 import { RegistrarProducto } from "../../services";
 
 import { Input, Button, CustomTextArea, SelectButton, CustomSelect } from "@shared/components"
-import { CajaIcon, ProductosIcon, BotellaIcon, TrashIcon, ArrowBackIcon, CheckIcon } from "@shared/iconos"
+import { CajaIcon, ProductosIcon, BotellaIcon, TrashIcon, ArrowBackIcon, CheckIcon, ArrowForwardIcon } from "@shared/iconos"
 
 import { getClientes } from "@features/clientes/services";
 import { getFabricantes } from "@features/fabricantes/services"
@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 export default function RegistroProducto() {
 
   // Instanciamos la utilidades que vamos a usar
-  const { register, handleSubmit, formState: { errors }, watch, control, trigger } = useForm({ defaultValues: { idTipo: 1 } })
+  const { register, handleSubmit, formState: { errors }, watch, control, trigger } = useForm({ defaultValues: { idTipo: 1 }, mode: "onChange" })
   const fechaFabricacion = watch("fechaFabricacion") // Observamos la fecha de fabricacion con el fin de poder hacer verificaciones
   const fechaRecepcion = watch("fechaRecepcion") // Observamos la fecha de recepcion con el fin de poder hacer verificaciones
 
@@ -158,140 +158,143 @@ export default function RegistroProducto() {
 
   return (
     // Maquetar los distintos pasos del formulario
-    <form onSubmit={handleSubmit(onSubmit)}>
-
+    <form className={styles.formContainer}>
+      <hr />
       {step === 1 && (
-        <div className={styles.inputContainer} id={styles.firstStep}>
-          {/* Input Numero de registro de producto */}
-          <Input
-            id="numeroRegistro"
-            type="text"
-            label="Numero de Registro"
-            placeholder="Ej: AAAA-0000-0000"
-            error={errors.numeroRegistro}
-            {...register("numeroRegistro", {
-              required: "El numero de registro es obligatorio*",
-              pattern: {
-                value: /^[A-Z]{4}-\d{4}-\d{4}$/,
-                message: "El numero de registro tiene un formato incorrecto. Ej: AAAA-0000-0000*"
-              }
-            })}
-          />
-
-          {/* Input para el nombre del producto */}
-          <Input
-            id="nombre"
-            type="text"
-            label="Nombre del Producto"
-            placeholder="Ej: Acetaminofem"
-            error={errors.nombre}
-            {...register("nombre", {
-              required: "El nombre del producto es obligatorio*",
-              pattern: {
-                value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
-                message: "El nombre del producto solo puede contener letras y espacios*"
-              }
-            })}
-          />
-
-          {/* Contenedor para las fechas */}
-          <div className={styles.datesContainer}>
-
-            {/* Input para la fecha de fabricacion */}
+        <>
+          <h2>Infomacion General del Producto</h2>
+          <div className={styles.inputContainer} id={styles.firstStep}>
+            {/* Input Numero de registro de producto */}
             <Input
-              id="fechaFabricacion"
-              type="date"
-              label="Fecha de Fabricacion"
-              placeholder="YYYY-MM-DD"
-              error={errors.fechaFabricacion}
-              {...register("fechaFabricacion", {
-                required: "La fecha de fabricacion es obligatoria*",
-              })}
-            />
-
-            {/* Inputa para la fecha de Vencimiento */}
-            <Input
-              id="fechaVencimiento"
-              type="date"
-              label="Fecha de Vencimiento"
-              placeholder="YYYY-MM-DD"
-              error={errors.fechaVencimiento}
-              {...register("fechaVencimiento", {
-                required: "La fecha de vecimiento es obligatoria*",
-                validate: (value) => !fechaFabricacion || new Date(value) >= new Date(fechaFabricacion) || "La fecha de vencimiento debe ser mayor a lafecha de fabricacion*"
-              })}
-            />
-
-          </div>
-
-          {/* TextArea para descripcion del producto */}
-          <CustomTextArea
-            id="descripcion"
-            label="Descripcion"
-            placeholder="Descripcion..."
-            error={errors.descripcion}
-            {...register("descripcion", {
-              required: "La descripcion es obligatoria*"
-            })}
-          />
-
-          {/* Input para la presentacion */}
-          <Input
-            id="presentacion"
-            label="Presentacion"
-            type="text"
-            placeholder="Ej: Blister"
-            error={errors.presentacion}
-            {...register("presentacion", {
-              required: "La presentacion es obligatoria*",
-            })}
-          />
-
-          {/* Contenedor para la cantidad y el principio Activo*/}
-          <div className={styles.quantityContainer}>
-
-            {/* Input para el principio activo del producto */}
-            <Input
-              id="compuestoActivo"
-              label="Compuesto Activo"
+              id="numeroRegistro"
               type="text"
-              placeholder="Ej: Paracetamol"
-              error={errors.compuestoActivo}
-              {...register("compuestoActivo", {
-                required: "El compuesto activo es obligatorio*",
+              label="Numero de Registro"
+              placeholder="Ej: AAAA-0000-0000"
+              error={errors.numeroRegistro}
+              {...register("numeroRegistro", {
+                required: "El numero de registro es obligatorio*",
+                pattern: {
+                  value: /^[A-Z]{4}-\d{4}-\d{4}$/,
+                  message: "El numero de registro tiene un formato incorrecto. Ej: AAAA-0000-0000*"
+                }
+              })}
+            />
+
+            {/* Input para el nombre del producto */}
+            <Input
+              id="nombre"
+              type="text"
+              label="Nombre del Producto"
+              placeholder="Ej: Acetaminofem"
+              error={errors.nombre}
+              {...register("nombre", {
+                required: "El nombre del producto es obligatorio*",
                 pattern: {
                   value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
-                  message: "La presentacion no puede contener numeros*"
+                  message: "El nombre del producto solo puede contener letras y espacios*"
                 }
               })}
             />
 
-            {/* Input para la cantidad de producto */}
+
+
+            {/* TextArea para descripcion del producto */}
+            <CustomTextArea
+              id="descripcion"
+              label="Descripcion"
+              placeholder="Descripcion..."
+              error={errors.descripcion}
+              {...register("descripcion", {
+                required: "La descripcion es obligatoria*"
+              })}
+            />
+
+            {/* Input para la presentacion */}
             <Input
-              id="cantidad"
-              label="cantidad"
+              id="presentacion"
+              label="Presentacion"
               type="text"
-              placeholder="Ej: 10mg"
-              error={errors.cantidad}
-              {...register("cantidad", {
-                required: "La cantidad es obligatoria*",
-                pattern: {
-                  value: /^[a-zA-Z0-9]+$/,
-                  message: "La cantidad no puede contener parametros especiales"
-                }
+              placeholder="Ej: Blister"
+              error={errors.presentacion}
+              {...register("presentacion", {
+                required: "La presentacion es obligatoria*",
               })}
             />
-          </div>
+            <h2>Informacion de la Muestra</h2>
+            {/* Contenedor para la cantidad y el principio Activo*/}
+            <div className={styles.twoColumnContainer}>
 
-          {/* Selector de tipo de producto */}
-          <Controller
-            name="idTipo"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <div className={styles.rolSelector}>
-                <label>Rol:</label>
+              {/* Input para el principio activo del producto */}
+              <Input
+                id="compuestoActivo"
+                label="Compuesto Activo"
+                type="text"
+                placeholder="Ej: Paracetamol"
+                error={errors.compuestoActivo}
+                {...register("compuestoActivo", {
+                  required: "El compuesto activo es obligatorio*",
+                  pattern: {
+                    value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                    message: "La presentacion no puede contener numeros*"
+                  }
+                })}
+              />
 
-                <div className={styles.botonesRol}>
+              {/* Input para la cantidad de producto */}
+              <Input
+                id="cantidad"
+                label="Cantidad de la Muestra"
+                type="text"
+                placeholder="Ej: 10mg"
+                error={errors.cantidad}
+                {...register("cantidad", {
+                  required: "La cantidad es obligatoria*",
+                  pattern: {
+                    value: /^[a-zA-Z0-9]+$/,
+                    message: "La cantidad no puede contener parametros especiales"
+                  }
+                })}
+              />
+            </div>
+
+            {/* Contenedor para las fechas */}
+            <div className={styles.twoColumnContainer}>
+
+              {/* Input para la fecha de fabricacion */}
+              <Input
+                id="fechaFabricacion"
+                type="date"
+                label="Fecha de Fabricacion"
+                placeholder="YYYY-MM-DD"
+                error={errors.fechaFabricacion}
+                {...register("fechaFabricacion", {
+                  required: "La fecha de fabricacion es obligatoria*",
+                })}
+              />
+
+              {/* Inputa para la fecha de Vencimiento */}
+              <Input
+                id="fechaVencimiento"
+                type="date"
+                label="Fecha de Vencimiento"
+                placeholder="YYYY-MM-DD"
+                error={errors.fechaVencimiento}
+                {...register("fechaVencimiento", {
+                  required: "La fecha de vecimiento es obligatoria*",
+                  validate: (value) => !fechaFabricacion || new Date(value) >= new Date(fechaFabricacion) || "La fecha de vencimiento debe ser mayor a lafecha de fabricacion*"
+                })}
+              />
+
+            </div>
+
+            {/* Selector de tipo de producto */}
+            <Controller
+              name="idTipo"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <div className={styles.typeSelector}>
+                  <label>Tipo de la Muestra:</label>
+
                   <div className={styles.selectButtonContainer}>
                     {/* Boton de material empaque */}
                     <SelectButton
@@ -302,9 +305,7 @@ export default function RegistroProducto() {
                       Material Empaque
                       <CajaIcon />
                     </SelectButton>
-                  </div>
 
-                  <div className={styles.selectButtonContainer}>
                     {/* Boton de materia prima */}
                     <SelectButton
                       variant="orange"
@@ -314,9 +315,7 @@ export default function RegistroProducto() {
                       Materia Prima
                       <ProductosIcon />
                     </SelectButton>
-                  </div>
 
-                  <div className={styles.selectButtonContainer}>
                     {/* Boton de producto terminado */}
                     <SelectButton
                       variant="darkBlue"
@@ -328,139 +327,144 @@ export default function RegistroProducto() {
                     </SelectButton>
                   </div>
                 </div>
-              </div>
-            )}
-          />
-        </div>
+              )}
+            />
+          </div>
+        </>
       )}
 
 
       {step === 2 && (
-        <div className={styles.inputContainer} id={styles.secondStep}>
+        <>
+          <h2>Informacion del Lote</h2>
+          <div className={styles.inputContainer} id={styles.secondStep}>
 
-          {/* Inputs acerca de los lotes */}
-          <div className={styles.leftColumn}>
-            {/* Input para el numero de lote */}
-            <Input
-              id="numeroLote"
-              label="Numero de Lote"
-              placeholder="Ej: LOTE001"
-              error={errors.numeroLote}
-              {...register("numeroLote", {
-                required: "El numero de lote es obligatorio*",
-                pattern: {
-                  value: /^[a-zA-Z0-9]+$/,
-                  message: "El numero de lote no puede contener caracteres especiales*"
-                }
-              })}
-            />
+            {/* Inputs acerca de los lotes */}
+            <div className={styles.twoColumnContainer}>
+              {/* Input para el numero de lote */}
+              <Input
+                id="numeroLote"
+                label="Numero de Lote"
+                placeholder="Ej: LOTE001"
+                error={errors.numeroLote}
+                {...register("numeroLote", {
+                  required: "El numero de lote es obligatorio*",
+                  pattern: {
+                    value: /^[a-zA-Z0-9]+$/,
+                    message: "El numero de lote no puede contener caracteres especiales*"
+                  }
+                })}
+              />
 
-            {/* Input para el tamaño del lote */}
-            <Input
-              id="tamanoLote"
-              label="Tamaño de Lote"
-              placeholder="Ej: 100 unidades"
-              error={errors.tamanoLote}
-              {...register("tamanoLote", {
-                required: "El tamaño del lote es obligatorio*",
-                pattern: {
-                  value: /^[a-zA-Z0-9]+$/,
-                  message: "El tamaño del lote no puede contener caracteres especiales*"
-                }
-              })}
-            />
+              {/* Input para el tamaño del lote */}
+              <Input
+                id="tamanoLote"
+                label="Tamaño de Lote"
+                placeholder="Ej: 100 unidades"
+                error={errors.tamanoLote}
+                {...register("tamanoLote", {
+                  required: "El tamaño del lote es obligatorio*",
+                  pattern: {
+                    value: /^[a-zA-Z0-9]+$/,
+                    message: "El tamaño del lote no puede contener caracteres especiales*"
+                  }
+                })}
+              />
+            </div>
+
+            <h2>Informacion de Proveedores</h2>
+            {/* Inputs para informacion de proveedores y clientes */}
+            <div className={styles.twoColumnContainer}>
+
+              {/* Inputs con la informacion de los clientes */}
+              <CustomSelect
+                id="idCliente"
+                label="Cliente"
+                error={errors.idCliente}
+                options={clientes.map(cliente => ({ value: cliente.id, label: cliente.nombre }))}
+                {...register("idCliente", {
+                  required: "Tiene que escoger un cliente*"
+                })}
+              />
+
+              {/* Inputs con la informacion de los clientes */}
+              <CustomSelect
+                id="idFabricante"
+                label="Fabricante"
+                error={errors.idFabricante}
+                options={fabricantes.map(fabricante => ({ value: fabricante.id, label: fabricante.nombre }))}
+                {...register("idFabricante", {
+                  required: "Tiene que escoger un fabricante*"
+                })}
+              />
+            </div>
+
           </div>
-
-
-          {/* Inputs para informacion de proveedores y clientes */}
-          <div className={styles.rightColumn}>
-
-            {/* Inputs con la informacion de los clientes */}
-            <CustomSelect
-              id="idCliente"
-              label="Cliente"
-              error={errors.idCliente}
-              options={clientes.map(cliente => ({ value: cliente.id, label: cliente.nombre }))}
-              {...register("idCliente", {
-                required: "Tiene que escoger un cliente*"
-              })}
-            />
-
-            {/* Inputs con la informacion de los clientes */}
-            <CustomSelect
-              id="idFabricante"
-              label="Fabricante"
-              error={errors.idFabricante}
-              options={fabricantes.map(fabricante => ({ value: fabricante.id, label: fabricante.nombre }))}
-              {...register("idFabricante", {
-                required: "Tiene que escoger un fabricante*"
-              })}
-            />
-          </div>
-
-        </div>
+        </>
       )}
 
 
       {step === 3 && (
-        <div className={styles.inputContainer} id={styles.thirdStep}>
-          {/* TextArea para descripcion del producto */}
-          <CustomTextArea
-            id="propositoAnalisis"
-            label="Proposito del Analisis"
-            placeholder="Proposito del Analisis..."
-            error={errors.propositoAnalisis}
-            {...register("propositoAnalisis", {
-              required: "El proposito del analisis es obligatorio*"
-            })}
-          />
-
-          <Input
-            id="condicionesAmbientales"
-            label="Condiciones Ambientales"
-            placeholder="Ej: Ambiente"
-            type="text"
-            error={errors.condicionesAmbientales}
-            {...register("condicionesAmbientales", {
-              required: "Las condiciones ambientales son obligatorias*"
-            })}
-          />
-
-          <div className={styles.datesContainer}>
-
-            {/* Input para la fecha de recepcion */}
-            <Input
-              id="fechaRecepcion"
-              type="date"
-              label="Fecha de Recepcion"
-              placeholder="YYYY-MM-DD"
-              error={errors.fechaRecepcion}
-              {...register("fechaRecepcion", {
-                required: "La fecha de Recepcion es obligatoria*",
+        <>
+          <h2>Informacion Adicional de la Entrada al Area</h2>
+          <div className={styles.inputContainer} id={styles.thirdStep}>
+            {/* TextArea para descripcion del producto */}
+            <CustomTextArea
+              id="propositoAnalisis"
+              label="Proposito del Analisis"
+              placeholder="Proposito del Analisis..."
+              error={errors.propositoAnalisis}
+              {...register("propositoAnalisis", {
+                required: "El proposito del analisis es obligatorio*"
               })}
             />
 
-            {/* Inputa para la fecha de Inicio de Analisis */}
             <Input
-              id="fechaInicioAnalisis"
-              type="date"
-              label="Fecha de Inicio de Analisis"
-              placeholder="YYYY-MM-DD"
-              error={errors.fechaInicioAnalisis}
-              {...register("fechaInicioAnalisis", {
-                required: "La fecha de inicio de analisis es obligatoria*",
-                validate: (value) => !fechaRecepcion || new Date(value) >= new Date(fechaRecepcion) || "La fecha de inicio de analisis no puede ser menor a la fecha de recepcion*"
+              id="condicionesAmbientales"
+              label="Condiciones Ambientales"
+              placeholder="Ej: Ambiente"
+              type="text"
+              error={errors.condicionesAmbientales}
+              {...register("condicionesAmbientales", {
+                required: "Las condiciones ambientales son obligatorias*"
               })}
             />
+
+            <div className={styles.twoColumnContainer}>
+
+              {/* Input para la fecha de recepcion */}
+              <Input
+                id="fechaRecepcion"
+                type="date"
+                label="Fecha de Recepcion"
+                placeholder="YYYY-MM-DD"
+                error={errors.fechaRecepcion}
+                {...register("fechaRecepcion", {
+                  required: "La fecha de Recepcion es obligatoria*",
+                })}
+              />
+
+              {/* Inputa para la fecha de Inicio de Analisis */}
+              <Input
+                id="fechaInicioAnalisis"
+                type="date"
+                label="Fecha de Inicio de Analisis"
+                placeholder="YYYY-MM-DD"
+                error={errors.fechaInicioAnalisis}
+                {...register("fechaInicioAnalisis", {
+                  required: "La fecha de inicio de analisis es obligatoria*",
+                  validate: (value) => !fechaRecepcion || new Date(value) >= new Date(fechaRecepcion) || "La fecha de inicio de analisis no puede ser menor a la fecha de recepcion*"
+                })}
+              />
+            </div>
           </div>
-
-
-
-        </div>
+        </>
       )}
 
+      <hr />
+
       {/* Controladores del formulario */}
-      <div className={styles.fromControllers}>
+      <div className={styles.formControllers}>
 
         <Button variant="buttonCancel" parentMethod={step === 1 ? () => window.location.href = "/productos" : prevStep}>
           {step === 1
@@ -469,12 +473,11 @@ export default function RegistroProducto() {
           }
         </Button>
 
-        <Button variant="buttonAccept" parentMethod={step === 3 ? null : nextStep} type={step === 3 ? "submit" : "button"}>
+        <Button variant="buttonAccept" parentMethod={step === 3 ? handleSubmit(onSubmit) : nextStep}>
           {step === 3
             ? <>Registrar <CheckIcon /></>
-            : <>Siguiente</>
+            : <>Siguiente <ArrowForwardIcon/></>
           }
-
         </Button>
 
       </div>
