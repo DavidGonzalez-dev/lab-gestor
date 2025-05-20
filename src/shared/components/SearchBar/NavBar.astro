@@ -1,0 +1,91 @@
+---
+import { NotificacionIcon, PerfilIcon } from "@shared/iconos";
+import Logo from "../../../../public/assets/logo/logo-nav.svg";
+---
+
+<nav class="ContenedorPrincipal">
+    <div class="BarraBusqueda">
+        <div class="iconos">
+            <a href="notoficacion" class="notificacion">
+                <NotificacionIcon />
+            </a>
+            <a href="perfil" class="perfil">
+                <PerfilIcon />
+            </a>
+        </div>
+        <div class="logoBarraNavegacion">
+            <img src={Logo.src} alt="logo" />
+        </div>
+    </div>
+</nav>
+<style>
+    
+.ContenedorPrincipal {
+    width: 80%;
+    height: 65px;
+    display: flex;
+    justify-content: center; 
+    margin: 10px 0px;
+    background-color: white;
+    position: fixed;
+}
+
+  .BarraBusqueda {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 2px solid var(--color-primario);
+    border-radius: 15px;
+}
+
+.iconos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 2rem;
+    overflow: hidden;
+}
+
+.iconos  a{
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconos svg {
+    height: 1.5rem;
+}
+
+
+.notificacion{
+    border-radius: 50px;
+    border: 1px solid #525C66;
+    color: black;
+    padding: 8px;
+}
+
+.perfil{
+    border-radius: 50px;
+    border: 1px solid #525C66;
+    color: white;
+    background: #1F5C99 ;
+    padding: 8px;
+}
+
+.logoBarraNavegacion{
+    width: 84px;
+    height: 40px;
+    padding: 0px;
+}
+.logoBarraNavegacion img {
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+</style>

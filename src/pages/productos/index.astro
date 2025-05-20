@@ -1,12 +1,11 @@
 ---
-import SidebarLayout from "@layouts/SidebarLayout.astro"
-import RegistroProductos from "@features/productos/components/registroProducto/RegistroProductos" 
+import SidebarLayout from "@layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 ---
 
-
 <SidebarLayout>
-    <main>
-        <RegistroProductos client:only/>
-    </main>
+    <PillHeading variant="secondary">
+        <h1>Gestion de Productos</h1>
+    </PillHeading>
+    <a href="/productos/registrar">Registrar</a>
 </SidebarLayout>
-

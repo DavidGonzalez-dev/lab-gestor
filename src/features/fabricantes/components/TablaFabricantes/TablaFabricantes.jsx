@@ -3,7 +3,7 @@ import { getFabicantes, eliminarFabricante } from "../../services"
 import { Table, Input } from "@shared/components"
 import { SearchIcono } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
-import { PerfilIcon, TrashIcon } from "@shared/iconos"
+import { EyeIcon, TrashIcon } from "@shared/iconos"
 
 import styles from "./TablaFabricantes.module.css"
 import Swal from "sweetalert2"
@@ -24,13 +24,18 @@ const TablaFabricantes = () => {
         },
         {
             headerName: "Ver",
+            flex: 0,
+            width: 10,
             cellRenderer: ButtonCellRenderer,
             cellRendererParams: (p) => ({
-                icon: PerfilIcon,
+                icon: EyeIcon,
+                parentMethod: () => window.location.href = `fabricantes/${p.data.id}`
             })
         },
         {
             headerName: "Eliminar",
+            flex: 0,
+            width: 10,
             cellRenderer: ButtonCellRenderer,
             cellRendererParams: (p) => ({
                 icon: TrashIcon,

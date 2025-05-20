@@ -1,0 +1,44 @@
+---
+import { DetalleUsuario } from "@features/usuarios/components/UserCard/UserCard";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+
+import { getUsuarioID } from "@features/usuarios/services";
+
+const { id } = Astro.params;
+let usuario = null;
+
+try {
+  usuario = await getUsuarioID(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">
+    <PillHeading variant="primary">
+      <h1>Detalle de Usuario</h1>
+    </PillHeading>
+    <div class="cardContainer">
+      {
+        usuario ? (
+          <DetalleUsuario client:only usuario={usuario} />
+        ) : (
+          <p>No se encontró información del usuario.</p>
+        )
+      }
+    </div>
+  </div>
+</SidebarLayout>
+
+<style>
+  .mainContainer{
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+  }
+</style>

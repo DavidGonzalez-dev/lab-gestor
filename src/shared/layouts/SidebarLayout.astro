@@ -3,7 +3,7 @@ import Logo from "@assets/logo/logo-light.svg";
 const { title } = Astro.props;
 
 import { SideBar } from "@shared/components/";
-import { SearchBar } from "@shared/components/";
+import NavBar from "@shared/components/SearchBar/NavBar.astro";
 import "@shared/styles/index.css"
 ---
 
@@ -29,10 +29,12 @@ import "@shared/styles/index.css"
 		/>
 	</head>
 	<body>
-		<SideBar client:load/>
+		<SideBar client:only />
 		<main>	
-			<SearchBar client:load/>
-			<slot />
+			<NavBar/>
+			<div class="mainContent">
+				<slot />
+			</div>
 		</main>
 
 		<!-- Importacion de la libreria de bootstrap -->
@@ -58,5 +60,10 @@ import "@shared/styles/index.css"
 		justify-content: start;
 		align-items: center;
 		flex: 1;
+		height: 100%;
+		overflow-y: scroll;
+	}
+	.mainContent{
+		margin-top: 100px;
 	}
 </style>

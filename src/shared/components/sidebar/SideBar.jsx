@@ -1,10 +1,8 @@
-import { useState } from "react";
 import useAuthStore from "@shared/stores/useAuthStore.js";
 import useSidebarStore from "@shared/stores/useSidebarStore.js";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
 import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";
 import styles from "./SideBar.module.css"
-import api from "@shared/services/api"
 
 export function SideBar() {
     // Estado para controlar si está expandida o colapsada

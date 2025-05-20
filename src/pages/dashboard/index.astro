@@ -1,47 +1,9 @@
 ---
 import SidebarLayout from "@layouts/SidebarLayout.astro"
-import TablaProductos from "@shared/components/tablas/TablaProductos"
-import TablaClientes from "@shared/components/tablas/TablaClientes"
-import GraficaBarras from "@features/graficas/components/GraficaBarras"
-import GraficaCircular from "@features/graficas/components/GraficaCircular"
 import "./index.css"
 ---
 <SidebarLayout>
     <h1>Hola mundo</h1>
-
-    <a href="../usuarios/usuariosVista">
-        <p>hola</p>
-</main>
-
-
-    <main>
-        <div class="contenedorTablaProductos">
-            <TablaProductos/>
-        </div>
-        <div class="peticionesYbarraproductosAnalisados">
-            <div class="peticiones">
-                <article class="peticionesPendientes">
-                    <h3>Peticiones de cambio pendientes</h3>
-                    <p>18</p>
-                </article>
-                <article class="peticionesListas">
-                    <h3>Peticiones de cambio listas</h3>
-                    <p>35</p>
-                </article>
-            </div>
-            <div class="barrraProductosAnalisados">
-                <GraficaBarras/>
-            </div>
-        </div>
-        <div class="tablaClientesyCerificados">
-            <div class="tblClientes">
-                <TablaClientes/>
-            </div>
-            <div class="graficaCircular">
-                <GraficaCircular/>
-            </div>
-            
-        </div>
-    </main>
+</SidebarLayout>
 </SidebarLayout>
 
