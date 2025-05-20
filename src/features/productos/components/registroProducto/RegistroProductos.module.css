@@ -1,58 +1,53 @@
-.formulario{
+.formContainer{
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
-    width: 60dvw;
-  }
-
-  .formulario h2{
-    font-size: 2rem;
-    color: white;
-    background: #81BFFF;
-    border-radius: 30px;
-    padding: 10px 20px;
-    margin: 20px 0px;
-  }
-
-  .formulario h3 {
-    color: white;
-    background: #525C66;
-    border-radius: 15px;
-    padding: 10px 10px;
-    font-size: 1.5rem;
-    width: fit-content;     
-    margin: 20px 0;          
-  }
-  
-  .inputContainer {
-    border: 2px solid #1F5C99;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 3rem;
     width: 70%;
-    height: 200dvh;
-  }
-  
-  .inputs {
+    margin: 0 auto;
+}
+
+.formContainer h2{
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-secundario);
+    margin: 10px 0;
+}
+
+.inputContainer{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
-  
-  .rolSelector{
+    gap: 1rem;
+}
+
+.twoColumnContainer{
+    display: flex;
+    gap: 20px;
+}
+
+.typeSelector{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
-  
-  .rolSelector label {
+}
+
+.typeSelector label{
+    font-size: 16px;
+    margin-bottom: 4px;
     font-weight: 700;
     color: var(--color-primario);
-  }
-  
-  .actionButtons{
+}
+
+.typeSelector .selectButtonContainer{
     display: flex;
-    gap: 20px;
-  }
-  
+    justify-content: center;
+    width: 100%;
+    gap: 3rem;
+}
+
+.formControllers{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 2rem;
+}
 

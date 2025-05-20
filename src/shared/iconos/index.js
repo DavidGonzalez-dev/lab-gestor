@@ -20,6 +20,7 @@ import EyeIcon from "./EyeIcon.svg?react";
 import BotellaIcon from "./BotellaIcon.svg?react"
 import CajaIcon from "./CajaIcon.svg?react"
 import ArrowBackIcon from "./ArrowBackIcon.svg?react"
+import ArrowForwardIcon from "./ArrowForwardIcon.svg?react"
 import EditIcon from "./EditIcon.svg?react"
 
 
@@ -41,11 +42,12 @@ export {
   TrashIcon,
   CheckIcon,
   SearchIcono,
-  Plus, 
+  Plus,
   CajaIcon,
   BotellaIcon,
   EyeIcon,
   ArrowBackIcon,
-  EditIcon
+  EditIcon,
+  ArrowForwardIcon
 
 };
