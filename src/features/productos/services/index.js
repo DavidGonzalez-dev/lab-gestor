@@ -26,3 +26,27 @@ export const RegistrarProducto = async (data) => {
     }
   }
 }
+
+// Este servicio nos permite obtener la informacion de las entradas de productos
+export const GetRegistrosEntradaProducto = async () => {
+
+  // Se hace el llamado a la api
+  try{
+    const response = await api.get("/registroEntradaProductos")
+    console.log(response.data.data)
+    if(response.data.data) {
+      return response.data.data
+    }
+    return []
+  }
+
+  // En caso de errores se manejan los errores
+  catch(err){
+    // Devolvemos un mensaje de error dependiendo del estado de la peticion
+    switch(err.response.status){
+      case HttpStatusCode.InternalServerError:
+        throw new Error("No eres tu somo nosotros, tenemos problemas de conexion vuelve a intentarlo mas tarde!")
+    }
+  }
+
+}

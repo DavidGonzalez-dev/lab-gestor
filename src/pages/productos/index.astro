@@ -1,11 +1,20 @@
 ---
 import SidebarLayout from "@layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import { TablaProductos } from "@features/productos/components/TablaProductos/TablaProductos";
 ---
 
 <SidebarLayout>
-    <PillHeading variant="secondary">
-        <h1>Gestion de Productos</h1>
-    </PillHeading>
-    <a href="/productos/registrar">Registrar</a>
+    <div class="container">
+        <div class="header">
+            
+            <PillHeading variant="secondary">
+                <h1>Gestion de Productos</h1>
+            </PillHeading>
+
+            <a href="/productos/registrar">Registrar</a>
+        </div>
+
+        <TablaProductos client:only/>
+    </div>
 </SidebarLayout>
