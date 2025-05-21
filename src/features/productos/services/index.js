@@ -48,6 +48,27 @@ export const GetRegistrosEntradaProducto = async () => {
 
 }
 
+// Este servicio nos permite obtener la informacion de las entradas de productos de un usuario en especifico
+export const GetRegsitrosEntradaProductoPorUsuario = async (idUsuario) => {
+  // Se hace el llamado a la api
+  try {
+    const response = await api.get(`/registroEntradaProductos/user/${idUsuario}`)
+    if (response.data.data) {
+      return response.data.data
+    }
+    return []
+  }
+
+  // En caso de errores se manejan los errores
+  catch (err) {
+    // Devolvemos un mensaje de error dependiendo del estado de la peticion
+    switch (err.response.status) {
+      case HttpStatusCode.InternalServerError:
+        throw new Error("No eres tu somo nosotros, tenemos problemas de conexion vuelve a intentarlo mas tarde!")
+    }
+  }
+}
+
 // Este servicio nos permite obtener eliminar un producto en la base de datos
 export const deleteProducto = async (numeroRegistroProducto) => {
 

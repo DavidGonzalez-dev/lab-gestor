@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { GetRegistrosEntradaProducto, deleteProducto } from "../../services"
+import { GetRegistrosEntradaProducto, deleteProducto, GetRegsitrosEntradaProductoPorUsuario } from "../../services"
+import useAuthStore from "@shared/stores/useAuthStore.js"
 import { getDateComparatorFunction, dateFormatter } from "@shared/utils"
 
 import { Table, PillType, ButtonCellRenderer, Input, SelectButton } from "@shared/components"
@@ -13,6 +14,8 @@ export const TablaProductos = () => {
     const [rowData, setRowData] = useState([]) // Estado para guardar la informacion de la tabla
     const [searchText, setSearchText] = useState("") // Estado para guardar el valor de busqueda de la barra de busqueda
     const [type, setType] = useState("all") // Estado para guardar el filtro del tipo de producto
+
+    const { userId, userRole } = useAuthStore()
 
 
     //Funcion para definir la variante del componente pill
@@ -29,7 +32,8 @@ export const TablaProductos = () => {
     }
 
     // Defincion de las columnas
-    const colDefs = [
+    const colDefs = userRole === "admin" 
+    ? [
         {
             headerName: "Numero Registro",
             field: "numeroRegistroProducto",
@@ -122,6 +126,93 @@ export const TablaProductos = () => {
                 parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
             })
         }
+    ] 
+    : [
+        {
+            headerName: "Numero Registro",
+            field: "numeroRegistroProducto",
+            width: 180,
+            flex: 0
+        },
+        {
+            headerName: "Categoria",
+            field: "producto.tipo.nombreTipo",
+            width: 170,
+            flex: 0,
+            cellRenderer: PillType,
+            cellRendererParams: (p) => ({
+                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
+            })
+        },
+        {
+            headerName: "Proposito Analisis",
+            width: 180,
+            flex: 0,
+            field: "propositoAnalisis"
+        },
+        {
+            headerName: "Condiciones Ambientales",
+            width: 180,
+            flex: 0,
+            field: "condicionesAmbientales",
+        },
+        {
+            headerName: "Recepcion",
+            field: "fechaRecepcion",
+            width: 150,
+            flex: 0,
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
+            }
+        },
+        {
+            headerName: "Inicio Analisis",
+            field: "fechaInicioAnalisis",
+            width: 180,
+            flex: 0,
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
+            }
+        },
+        {
+            headerName: "Final Analisis",
+            field: "fechaFinalAnalisis",
+            width: 180,
+            flex: 0,
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
+            }
+        },
+        {
+            headerName: "Detalles",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (p) => ({
+                icon: EyeIcon,
+                variant: "default",
+                parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
+            })
+        },
+        {
+            headerName: "Eliminar",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (p) => ({
+                icon: TrashIcon,
+                variant: "buttonCancel",
+                parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
+            })
+        }
     ]
 
     //? ----------------------------------------------
@@ -145,7 +236,7 @@ export const TablaProductos = () => {
 
     // Funcion para determinar si un nodo(fila) pasa un filtro
     const doesExternalFilterPass = (node) => {
-        
+
         // Logica de filtrado por numero de registro
         let passesSearchFilter = true
         if (searchText != "") {
@@ -154,7 +245,7 @@ export const TablaProductos = () => {
 
         // Logica de filtrado por tipo de producto
         let passesTypeFilter = true
-        if(type != "all"){
+        if (type != "all") {
             passesTypeFilter = node.data.producto.tipo.nombreTipo === type
         }
         return passesSearchFilter && passesTypeFilter
@@ -219,10 +310,17 @@ export const TablaProductos = () => {
     const loadProducts = async () => {
         // Se hace la peticion al servicio
         try {
-            const data = await GetRegistrosEntradaProducto()
-            if (data) {
-                setRowData(data)
+            // Hacemos el fetch de datos dependiendo del rol del usuario
+            let data = []
+            if (userRole === "admin") {
+                data = await GetRegistrosEntradaProducto()
             }
+            else {
+                data = await GetRegsitrosEntradaProductoPorUsuario(userId)
+                console.log(data)
+            }
+
+            setRowData(data)
         }
         // Se maneja las exepciones
         catch (err) {
@@ -250,7 +348,7 @@ export const TablaProductos = () => {
                     <SearchIcono />
                 </div>
 
-                <div className={styles.selectTypeContainer}>  
+                <div className={styles.selectTypeContainer}>
                     <SelectButton parentMethod={() => handleTypeChange("all")} selected={type === "all"} variant="neutral">
                         Todos
                     </SelectButton>
