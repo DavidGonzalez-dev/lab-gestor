@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getFabicantes, eliminarFabricante } from "../../services"
+import { getFabricantes, eliminarFabricante } from "../../services"
 import { Table, Input } from "@shared/components"
 import { SearchIcono } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
@@ -80,7 +80,9 @@ const TablaFabricantes = () => {
                     Swal.fire({
                         icon: "error",
                         title: "Hubo un error",
-                        text: err.message
+                        text: err.message,
+                        heightAuto: false,
+                        scrollbarPadding: false,
                     })
                 }
             }
@@ -115,7 +117,7 @@ const TablaFabricantes = () => {
     // Funcion para cargar los Fabricantes
     const loadFabricantes = async () => {
         try {
-            const fabricantes = await getFabicantes()
+            const fabricantes = await getFabricantes()
             setRowData(fabricantes)
         }
         catch (err) {
