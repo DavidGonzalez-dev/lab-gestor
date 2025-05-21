@@ -18,26 +18,36 @@
 
 /* Estilos del input */
 .customInput input{
-    padding:7px 14px;
-    width: 100%;
-    font-size: 15px;
-    border-radius: 5px;
-    border: 1px solid #525C66;
+    padding: 10px 14px;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #101828;
     transition: .25s all;
 }
 
 .customInput input:focus{
     outline: 2px solid var(--color-primario-claro);
+    box-shadow: 0 0 0 2px rgba(17, 69, 112, 0.1);
 }
 
-.customInput input.invalidContent{
-    outline: 2px solid var(--color-rojo);
-    box-shadow: 0 0 0px 3px rgba(238, 52, 52, 0.288);
+.customTextArea input::placeholder {
+    color: #667085;
+}
+
+.invalidContent {
+    border-color: var(--color-rojo) !important;
+    background: white;
+}
+
+.invalidContent:focus {
+    outline: 2px solid var(--color-rojo) !important;
+    box-shadow: 0 0 0 2px rgba(245, 71, 59, 0.61) !important;
 }
 
 /* Estilos del mensaje de error */
 .customInput .errorMessage{
-    color: red;
+    color: var(--color-rojo);
     margin: 0;
     font-size: 14px;
 }
@@ -47,6 +57,7 @@
 /* ----------------------------------------- */
 .searchBar input{
     border-radius: 20px;
+    font-size: .9rem;
 }
 
 .searchBar label{

@@ -1,6 +1,6 @@
 import styles from './progressBar.module.css';
 
-export default function ProgressBar({ pasoActual, totalPasos }) {
+export const ProgressBar = ({ pasoActual, totalPasos }) => {
   const pasos = Array.from({ length: totalPasos }, (_, i) => i + 1);
 
   return (
