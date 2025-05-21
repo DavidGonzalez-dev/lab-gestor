@@ -1,0 +1,37 @@
+.filtersContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.selectTypeContainer {
+    display: flex;
+    background: #d3d3d330;
+    border: 1px solid #a3a3a340;
+    padding: 4px;
+    align-items: flex-end;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10px;
+}
+
+.selectTypeContainer>* {
+    font-size: .9rem;
+    width: fit-content;
+    padding: 7px 14px;
+}
+
+.searchBarContainer {
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+
+.searchBarContainer svg {
+    height: 1.3rem;
+    width: auto;
+    color: #838383;
+    transform: translateX(-35px);
+}

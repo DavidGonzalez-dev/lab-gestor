@@ -124,6 +124,8 @@ export const TablaUsuarios = () => {
         icon: "error",
         title: "Este usuario ya esta inhabilitado",
         text: "Si quieres cambiar el estado de este usuario tienes que modificarlo directamente desde la pagina de perfil del usuario",
+        heightAuto: false,
+        scrollbarPadding: false,
       })
     }
     // En caso de no estarlo se sigue con el flujo normal

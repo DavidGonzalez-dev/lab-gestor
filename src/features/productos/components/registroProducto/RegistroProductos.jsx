@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useAuthStore from "../../../../shared/stores/useAuthStore";
 import { RegistrarProducto } from "../../services";
 
-import { Input, Button, CustomTextArea, SelectButton, CustomSelect } from "@shared/components"
+import { Input, Button, CustomTextArea, SelectButton, CustomSelect, ProgressBar } from "@shared/components"
 import { CajaIcon, ProductosIcon, BotellaIcon, TrashIcon, ArrowBackIcon, CheckIcon, ArrowForwardIcon } from "@shared/iconos"
 
 import { getClientes } from "@features/clientes/services";
@@ -40,7 +40,6 @@ export default function RegistroProducto() {
       setStep((prev) => prev + 1);
     }
   };
-
 
   const prevStep = () => {
     setStep((step) => step - 1)
@@ -150,15 +149,19 @@ export default function RegistroProducto() {
     }
   }
 
-
   useEffect(() => {
     loadClientes()
     loadFabricantes()
   }, [])
 
+
   return (
     // Maquetar los distintos pasos del formulario
     <form className={styles.formContainer}>
+      
+      <ProgressBar pasoActual={step} totalPasos={3}/>
+
+
       <hr />
       {step === 1 && (
         <>
