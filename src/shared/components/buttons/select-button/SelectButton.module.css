@@ -6,7 +6,7 @@
   border: 3px solid;
   border-radius: 10px;
   background: none;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -80,6 +80,7 @@
   background: #5b6670;
   border-color: transparent;
 }
+
 /* ---------------------------------------- */
 /* Estilos variante verde (Activo) */
 /* ---------------------------------------- */
@@ -106,4 +107,22 @@
   color: white;
   background: var(--color-rojo);
   border-color: transparent;
+}
+
+/* ---------------------------------------- */
+/* Estilos variante neutral 
+/* ---------------------------------------- */
+.selectButton.neutral {
+  border: 1px solid transparent;
+  color: var(--color-secundario);
+}
+
+.selectButton.neutral:hover {
+  background: #a3a3a330;
+}
+
+.selectButton.neutral.selected{
+  background-color: white;
+  border: 1px solid #a3a3a330;
+  box-shadow: 0 1px 1px 0px #00000020;
 }

@@ -2,19 +2,32 @@
 import SidebarLayout from "@layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 import { TablaProductos } from "@features/productos/components/TablaProductos/TablaProductos";
+import { Button } from "@shared/components";
+import { Plus } from "@shared/iconos";
 ---
 
 <SidebarLayout>
     <div class="container">
+        
         <div class="header">
-            
             <PillHeading variant="secondary">
                 <h1>Gestion de Productos</h1>
             </PillHeading>
 
-            <a href="/productos/registrar">Registrar</a>
+            <Button variant="buttonAccept">
+                <Plus />
+                <a href="usuarios/registrar">Registrar Usuario</a>
+            </Button>
         </div>
 
         <TablaProductos client:only/>
     </div>
 </SidebarLayout>
+<style>
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px;
+    }
+</style>

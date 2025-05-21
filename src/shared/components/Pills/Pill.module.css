@@ -2,7 +2,7 @@
   display: inline-block;
   line-height: 20px;
   font-size: 12px;
-  padding: 4px;
+  padding: 4px 8px;
   border: 2px solid #000000;
   font-weight: 700;
   border-radius: 30px;
@@ -12,8 +12,8 @@
 
 .lightBlue {
   color: #4fa7ff;
-  border-color: #4fa7ff;
-  background: #d1e7fd48;
+  border-color: #6FB3F950;
+  background: #EBF5FF;
 }
 
 .darkBlue {
@@ -32,4 +32,16 @@
   color: var(--color-verde);
   border-color: var(--color-verde);
   background: rgba(204, 248, 204, 0.452);
+}
+
+.gray {
+  color: #011627;
+  border-color: #CFCFCF;
+  background: #00000020;
+}
+
+.orange{
+  color: #FF9F1C;
+  border-color: #FF9F1C20;
+  background: #FFE6C3;
 }
