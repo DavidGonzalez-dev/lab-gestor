@@ -236,7 +236,6 @@ export const TablaProductos = () => {
 
     // Funcion para determinar si un nodo(fila) pasa un filtro
     const doesExternalFilterPass = (node) => {
-
         // Logica de filtrado por numero de registro
         let passesSearchFilter = true
         if (searchText != "") {
