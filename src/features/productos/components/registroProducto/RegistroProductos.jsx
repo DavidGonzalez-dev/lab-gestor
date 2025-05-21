@@ -45,6 +45,7 @@ export default function RegistroProducto() {
     setStep((step) => step - 1)
   }
 
+
   //? --------------------------------------------------
   //? Logica de envio de datos al servidor
   //? --------------------------------------------------
@@ -123,6 +124,7 @@ export default function RegistroProducto() {
       })
   }
 
+
   //? --------------------------------------------------
   //? Carga de datos
   //? --------------------------------------------------
@@ -158,6 +160,7 @@ export default function RegistroProducto() {
     <form className={styles.formContainer}>
       
       <ProgressBar pasoActual={step} totalPasos={3}/>
+
 
       <hr />
       {step === 1 && (

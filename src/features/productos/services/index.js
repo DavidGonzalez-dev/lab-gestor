@@ -2,8 +2,6 @@ import api from "@shared/services/api.js"
 import { HttpStatusCode } from "axios"
 
 
-
-
 // ESTE SERVCIO PERMITE REGISTRAR UN PRODUCTO HACIENDO USO DE LA API
 export const RegistrarProducto = async (data) => {
   // SE HACE EL LLAMADO A LA API
@@ -66,6 +64,7 @@ export const deleteProducto = async (numeroRegistroProducto) => {
         throw new Error("Este producto ya ha sido eliminado, intenta recargar la pagina si lo sigues viendo")
       case HttpStatusCode.InternalServerError:
         throw new Error("No eres tu comos nosotros, hubo en error de nuestra parte vuelve a intentarlo!")
+
     }
   }
 }
