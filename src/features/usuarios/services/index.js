@@ -27,7 +27,7 @@ export const getUsuarios = async () => {
 export const RegistrarUsuario = async (data) => {
   try {
     // Se hace la llamada a la API
-    await api.post("/usuarios/registrar", data)
+    await api.post("/usuarios", data)
     return true
   } catch (err) {
     // Arrojamos un error dependiendo del status
@@ -71,6 +71,7 @@ export const getUsuarioID = async (id) => {
     }
   }
 }
+
 //sirve para editar el usuario
 export const EditUser = async (id, payload) => {
   

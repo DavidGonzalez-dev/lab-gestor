@@ -6,7 +6,7 @@ import { HttpStatusCode } from "axios"
 export const registrarCliente = async (data) => {
   // Se hace la llamada a la api
   try {
-    await api.post("/clientes/registrar", data)
+    await api.post("/clientes", data)
     return true
   } catch (err) {
     // En caso de haber un error se gestiona y se envia un mensaje de error

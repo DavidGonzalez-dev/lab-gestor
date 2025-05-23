@@ -5,7 +5,7 @@ import { HttpStatusCode } from "axios"
 export const registrarFabricante = async (data) => {
     // Se intenta hacer el envio de la informacion
     try {
-        await api.post("/fabricantes/registrar", data)
+        await api.post("/fabricantes", data)
         return true
     }
     // En caso de haber un error retornamos un mensaje de errr teniendo en cuenta el codigo de estado de la respuesta

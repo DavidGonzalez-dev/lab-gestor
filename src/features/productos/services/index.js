@@ -6,7 +6,7 @@ import { HttpStatusCode } from "axios"
 export const RegistrarProducto = async (data) => {
   // SE HACE EL LLAMADO A LA API
   try {
-    await api.post("/productos/crear", data)
+    await api.post("/productos", data)
     return true
   }
 
