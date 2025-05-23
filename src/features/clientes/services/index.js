@@ -65,10 +65,9 @@ export const eliminarCliente = async (id) => {
 }
 
 //Este servicio sirve para poder actualizar la informacion de un cliente
-export const EditClient = async (data) => {
-  console.log(data)
+export const EditClient = async (id, payload) => {
   try {
-    await api.put(`clientes/actualizar`, data)
+    await api.put(`clientes/${id}`, payload)
     return true
   } catch (err) {
     console.log(err)
@@ -77,7 +76,6 @@ export const EditClient = async (data) => {
       case HttpStatusCode.BadRequest:
         throw new Error(err.response.data.error)
       default:
-        console.log(data)
         throw new Error("Error en el servidor vuelve a intentarlo mas tarde")
     }
   }

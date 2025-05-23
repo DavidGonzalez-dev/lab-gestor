@@ -30,6 +30,15 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
   })
   // Función para manejar el envío del formulario
   const onSubmit = (data) => {
+
+    const payload = {
+      nombres: data.nombres,
+      apellidos: data.apellidos,
+      correo: data.correo,
+      estado: data.estado,
+      rolId: data.rolId,
+    }
+
     Swal.fire({
       title: "¿Estas seguro de actualizar este usuario?",
       icon: "warning",
@@ -42,7 +51,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await EditUser(data)
+          const response = await EditUser(data.id, payload)
           if (response) {
             Swal.fire({
               title: "Se actualizó el usuario con exito!",

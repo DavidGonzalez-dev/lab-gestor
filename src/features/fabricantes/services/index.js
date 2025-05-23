@@ -75,10 +75,10 @@ export const getFabricanteId = async (id) => {
 };
 
 //Este servicio sirve para poder actualizar la informacion de un Fabricante
-export const EditFabricante = async (data) => {
+export const EditFabricante = async (id, payload) => {
   
   try {
-    await api.put(`fabricantes/actualizar`, data);
+    await api.put(`fabricantes/${id}`, payload);
     return true;
   } 
   
@@ -87,7 +87,7 @@ export const EditFabricante = async (data) => {
       case HttpStatusCode.BadRequest:
         throw new Error(err.response.data.error);
       default:
-        console.log(data);
+        console.log(payload);
         throw new Error("Error en el servidor vuelve a intentarlo mas tarde");
     }
   }

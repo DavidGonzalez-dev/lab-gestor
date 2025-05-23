@@ -72,10 +72,10 @@ export const getUsuarioID = async (id) => {
   }
 }
 //sirve para editar el usuario
-export const EditUser = async (data) => {
+export const EditUser = async (id, payload) => {
   
   try {
-    await api.put(`usuarios/actualizar`, data)
+    await api.put(`usuarios/${id}`, payload)
     return true
   } 
   
@@ -84,7 +84,7 @@ export const EditUser = async (data) => {
       case HttpStatusCode.BadRequest:
         throw new Error(err.response.data.error)
       default:
-        console.log(data)
+        console.log(payload)
         throw new Error("Error en el servidor vuelve a intentarlo mas tarde")
     }
   }

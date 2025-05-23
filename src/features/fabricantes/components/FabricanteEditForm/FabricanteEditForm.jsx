@@ -32,6 +32,11 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
 
   // Funcion para manejar la logica de envio de datos del formulario
   const onSubmit = (data) => {
+    const payload = {
+      nombre: data.nombre,
+      direccion: data.direccion,
+    };
+
     Swal.fire({
       title: "¿Estas seguro de actualizar este fabricante?",
       icon: "warning",
@@ -44,7 +49,7 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await EditFabricante(data);
+          const response = await EditFabricante(fabricante.id, payload);
           if (response) {
             Swal.fire({
               title: "Se actualizo el fabricante con exito!",

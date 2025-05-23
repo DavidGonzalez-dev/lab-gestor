@@ -29,6 +29,12 @@ export function EditClientModal({ isOpen, onClose, cliente }) {
 
   // Funcion para manejar la logica de envio de datos del formulario
   const onSubmit = (data) => {
+
+    const payload = {
+      nombre: data.nombre,
+      direccion: data.direccion,
+    }
+
     Swal.fire({
       title: "¿Estas seguro de actualizar este cliente?",
       icon: "warning",
@@ -41,7 +47,7 @@ export function EditClientModal({ isOpen, onClose, cliente }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await EditClient(data);
+          const response = await EditClient(cliente.id, payload);
           if (response) {
             Swal.fire({
               title: "Se actualizo el cliente con exito!",
