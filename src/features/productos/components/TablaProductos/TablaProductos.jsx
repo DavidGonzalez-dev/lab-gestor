@@ -51,12 +51,6 @@ export const TablaProductos = () => {
             })
         },
         {
-            headerName: "Proposito Analisis",
-            width: 180,
-            flex: 0,
-            field: "propositoAnalisis"
-        },
-        {
             headerName: "Condiciones Ambientales",
             width: 180,
             flex: 0,
@@ -89,24 +83,13 @@ export const TablaProductos = () => {
             }
         },
         {
-            headerName: "Final Analisis",
-            field: "fechaFinalAnalisis",
-            width: 180,
-            flex: 0,
-            sortable: true,
-            unSortIcon: true,
-            filter: "agDateColumnFilter",
-            valueFormatter: (p) => dateFormatter(p.value),
-            filterParams: {
-                comparator: getDateComparatorFunction()
-            }
-        },
-        {
             headerName: "Responsable",
-            field: "usuario.nombres",
-            width: 200,
-            flex: 0,
-            valueFormatter: (p) => `${p.value} ${p.data.usuario.apellidos}`
+            field: "usuario.firma",
+            cellRenderer: (p) => {
+                return(
+                 <b>{p.data.usuario.firma}</b>
+                ) 
+            },
         },
         {
             headerName: "Detalles",
@@ -131,36 +114,22 @@ export const TablaProductos = () => {
         {
             headerName: "Numero Registro",
             field: "numeroRegistroProducto",
-            width: 180,
-            flex: 0
         },
         {
             headerName: "Categoria",
             field: "producto.tipo.nombreTipo",
-            width: 170,
-            flex: 0,
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
                 variant: getPillVariant(p.data.producto.tipo.nombreTipo)
             })
         },
         {
-            headerName: "Proposito Analisis",
-            width: 180,
-            flex: 0,
-            field: "propositoAnalisis"
-        },
-        {
             headerName: "Condiciones Ambientales",
-            width: 180,
-            flex: 0,
             field: "condicionesAmbientales",
         },
         {
             headerName: "Recepcion",
             field: "fechaRecepcion",
-            width: 150,
-            flex: 0,
             sortable: true,
             unSortIcon: true,
             filter: "agDateColumnFilter",
@@ -172,21 +141,6 @@ export const TablaProductos = () => {
         {
             headerName: "Inicio Analisis",
             field: "fechaInicioAnalisis",
-            width: 180,
-            flex: 0,
-            sortable: true,
-            unSortIcon: true,
-            filter: "agDateColumnFilter",
-            valueFormatter: (p) => dateFormatter(p.value),
-            filterParams: {
-                comparator: getDateComparatorFunction()
-            }
-        },
-        {
-            headerName: "Final Analisis",
-            field: "fechaFinalAnalisis",
-            width: 180,
-            flex: 0,
             sortable: true,
             unSortIcon: true,
             filter: "agDateColumnFilter",
@@ -198,6 +152,8 @@ export const TablaProductos = () => {
         {
             headerName: "Detalles",
             cellRenderer: ButtonCellRenderer,
+            withth: 100,
+            flex: 0,
             cellRendererParams: (p) => ({
                 icon: EyeIcon,
                 variant: "default",
@@ -207,13 +163,15 @@ export const TablaProductos = () => {
         {
             headerName: "Eliminar",
             cellRenderer: ButtonCellRenderer,
+            width: 100,
+            flex: 0,
             cellRendererParams: (p) => ({
                 icon: TrashIcon,
                 variant: "buttonCancel",
                 parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
             })
         }
-    ]
+    ] 
 
     //? ----------------------------------------------
     //? Logica de los filtros
