@@ -7,9 +7,10 @@ const {variant} = Astro.props
 
 <style is:global>
     .pillHeading{
-        padding: 10px 20px;
+        padding: .4em 1em;
         font-weight: 700;
         border-radius: 30px;
+        border: 3px solid;
         font-size: 2rem;
         text-align: center;
         width: fit-content;
@@ -30,4 +31,8 @@ const {variant} = Astro.props
         background: #81bfff;
         color: white;
     }
+
+.pillHeading.grey{
+    color: #6e6e6e
+}
 </style>

@@ -89,3 +89,26 @@ export const deleteProducto = async (numeroRegistroProducto) => {
     }
   }
 }
+
+export const GetProductId = async (numeroRegistro) => {
+  // Se hace el llamado a la api
+  try {
+    const response = await api.get(`/productos/${numeroRegistro}`)
+    if (response.data.data) {
+      return response.data.data
+    }
+    return []
+  }
+
+  // En caso de errores se manejan los errores
+  catch (err) {
+    console.log(err)
+    // Devolvemos un mensaje de error dependiendo del estado de la peticion
+    switch (err.response.status) {
+      case HttpStatusCode.NotFound:
+        throw new Error("No se encontro el producto, intenta recargar la pagina")
+      default:
+        throw new Error("No eres tu somo nosotros, tenemos problemas de conexion vuelve a intentarlo mas tarde!")
+    }
+  }
+}

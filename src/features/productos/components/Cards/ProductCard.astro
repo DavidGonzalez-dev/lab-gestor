@@ -1,0 +1,101 @@
+---
+import { PillType } from "@shared/components";
+import {
+    getPillVariantProductType,
+    getPillVariantProductState,
+} from "@shared/utils";
+
+const { producto } = Astro.props;
+---
+
+<article class="p-5 product-card">
+    <div class="header">
+        <div class="title">
+            <h2>{producto.nombre}</h2>
+            <PillType
+                variant={getPillVariantProductState(
+                    producto.estado.nombreEstado,
+                )}
+                value={producto.estado.nombreEstado}
+            />
+        </div>
+        <h3>{producto.numeroRegistro}</h3>
+        <div class="typeContainer">
+            <PillType
+                variant={getPillVariantProductType(producto.tipo.nombreTipo)}
+                value={producto.tipo.nombreTipo}
+            />
+        </div>
+    </div>
+
+    <div class="infoContainer">
+        <div class="row">
+            <div class="col-lg-6">
+                <p>
+                    <b>Fecha Fabricacion: </b>
+                    {
+                        new Date(producto.fechaFabricacion).toLocaleDateString(
+                            "es-ES",
+                        )
+                    }
+                </p>
+                <p>
+                    <b>Fecha Vencimiento: </b>
+                    {
+                        new Date(producto.fechaVencimiento).toLocaleDateString(
+                            "es-ES",
+                        )
+                    }
+                </p>
+                <p><b>Compuesto Activo: </b> {producto.compuestoActivo}</p>
+                <p><b>Presentacion: </b> {producto.presentacion}</p>
+                <p><b>Cliente: </b> {producto.cliente.nombre}</p>
+            </div>
+            <div class="col-lg-6">
+                <p><b>Cantidad: </b> {producto.cantidad}</p>
+                <p><b>Numero de Lote: </b> {producto.numeroLote}</p>
+                <p><b>Tamaño de Lote: </b> {producto.tamanoLote}</p>
+                <p><b>Fabricante: </b> {producto.fabricante.nombre}</p>
+            </div>
+        </div>
+    </div>
+</article>
+<style>
+    .product-card {
+        background-color: var(--color-white);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        gap: 40px;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .title h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-primario);
+    }
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-primario-oscuro);
+    }
+
+    .typeContainer {
+        margin-top: 10px;
+    }
+</style>

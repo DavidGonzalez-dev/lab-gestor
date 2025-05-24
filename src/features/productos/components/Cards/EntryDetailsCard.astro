@@ -1,0 +1,66 @@
+---
+import { PillType } from "@shared/components";
+
+const { details } = Astro.props;
+---
+
+<article class="p-5 details-card">
+    <h2>Detalles de Entrada</h2>
+    <div class="infoContainer">
+        <p>
+            <b>Condiciones Ambienta les: </b>
+            {details.condicionesAmbientales}
+        </p>
+        <p>
+            <b>Fecha Recepcion: </b>
+            {new Date(details.fechaRecepcion).toLocaleDateString()}
+        </p>
+        <p>
+            <b>Fecha Incio Analisis: </b>
+            {new Date(details.fechaInicioAnalisis).toLocaleDateString()}
+        </p>
+        <p>
+            <b>Fecha Fin Analisis: </b>
+            {
+                details.fechaFinAnalisis
+                    ? new Date(details.fechaFinAnalisis).toLocaleDateString()
+                    : "N/A"
+            }
+        </p>
+        <p><b>Descripcion: </b>{details.producto.descripcion}</p>
+        <p><b>Proposito Analisis: </b>{details.propositoAnalisis}</p>
+
+    </div>
+</article>
+<style>
+    .details-card {
+        background-color: var(--color-white);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        gap: 40px;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-primario);
+    }
+
+    .typeContainer {
+        margin-top: 10px;
+    }
+</style>
