@@ -1,9 +1,11 @@
 ---
 import SidebarLayout from "@layouts/SidebarLayout.astro"
+import { RecuentosPage } from "@features/pRecuentos/components/recuentos"
 import "./index.css"
 ---
 <SidebarLayout>
     <h1>Hola mundo</h1>
+    <RecuentosPage client:only />
 </SidebarLayout>
 </SidebarLayout>
 
