@@ -27,8 +27,17 @@
   .closeButton {
     background: none;
     border: none;
-    font-size: 1.4rem;
     cursor: pointer;
+  }
+
+  .closeButton svg{
+    height: 1.5rem;
+    color: #9c9b9b;
+    transition: .25s all;
+  }
+
+  .closeButton:hover svg {
+    color: var(--color-rojo);
   }
   
   .content {
