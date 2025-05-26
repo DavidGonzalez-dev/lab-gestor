@@ -22,6 +22,7 @@ import CajaIcon from "./CajaIcon.svg?react"
 import ArrowBackIcon from "./ArrowBackIcon.svg?react"
 import ArrowForwardIcon from "./ArrowForwardIcon.svg?react"
 import EditIcon from "./EditIcon.svg?react"
+import CloseIcon from "./CloseIcon.svg?react";
 
 
 export {
@@ -48,6 +49,6 @@ export {
   EyeIcon,
   ArrowBackIcon,
   EditIcon,
-  ArrowForwardIcon
-
+  ArrowForwardIcon,
+  CloseIcon
 };
