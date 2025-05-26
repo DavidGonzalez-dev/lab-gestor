@@ -24,6 +24,8 @@ export const TablaProductos = () => {
         ? [
             {
                 headerName: "Numero Registro",
+                width: 170,
+                flex: 0,
                 field: "numeroRegistroProducto",
             },
             {
@@ -33,7 +35,7 @@ export const TablaProductos = () => {
             {
                 headerName: "Categoria",
                 field: "producto.tipo.nombreTipo",
-                width: 170,
+                width: 180,
                 flex: 0,
                 cellRenderer: PillType,
                 cellRendererParams: (p) => ({
