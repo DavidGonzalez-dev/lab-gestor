@@ -1,71 +1,60 @@
-import { Input, Button, CustomTextArea } from "@shared/components"
-import { useForm } from "react-hook-form"
-import { RegistrarPrecuento } from "../../services"
+import { Input, Button, CustomTextArea } from "@shared/components";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { CheckIcon, TrashIcon } from "@shared/iconos";
+import { EditarPrecuento } from "../../services";
 
-import { TrashIcon, CheckIcon } from "@shared/iconos"
+import styles from "./EditarPruebaRecuento.module.css"
 
-import Swal from "sweetalert2"
-import styles from "./RegistroRecuento.module.css"
-
-export const RegistroRecuento = ({ onClose }) => {
-  // Se importa el hook useForm de react-hook-form para manejar el formulario
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
-  // Se define la función onSubmit que se ejecutará al enviar el formulario
-  const onSubmit = (data) => {
-
-    const payload = {
-      nombreRecuento: data.nombreRecuento,
-      cantidadMuestra: data.cantidadMuestra,
+export const EditarRp = ({ data, onClose }) => {
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
       metodoUsado: data.metodoUsado,
+      concepto: data.concepto,
       especificacion: data.especificacion,
-      tratamiento: data.tratamiento,
       volumenDiluyente: data.volumenDiluyente,
       tiempoDisolucion: data.tiempoDisolucion,
-      numeroRegistroProducto: "AAAA-0000-0000"
+      cantidadMuestra: data.cantidadMuestra,
+      tratamiento: data.tratamiento,
+      nombreRecuento: data.nombreRecuento,
+      numeroRegistroProducto: data.numeroRegistroProducto
     }
+  });
 
-    // Se muestra un modal de confirmación antes de registrar el recuento
+  const onSubmit = async (payload) => {
     Swal.fire({
-      title: "¿Deseas registrar este recuento?",
-      text: "Verifica que la información sea correcta antes de continuar.",
-      icon: "question",
+      title: "¿Estás seguro que quieres actualizar este recuento?",
+      icon: "warning",
+      confirmButtonText: "Aceptar",
       showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "red",
       heightAuto: false,
       scrollbarPadding: false,
-    })
-      .then(async (result) => {
-        // Si el usuario confirma, se procede a registrar el recuento
-        if (result.isConfirmed) {
-
-          // Se intenta registrar el recuento utilizando el servicio RegistrarPrecuento
-          try {
-            await RegistrarPrecuento(payload)
-
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const success = await EditarPrecuento(data.id, payload);
+          if (success) {
             Swal.fire({
               icon: "success",
-              title: "Registro Exitoso",
-              text: "El recuento se ha registrado correctamente.",
+              title: "Se actualizó el recuento con éxito",
               heightAuto: false,
               scrollbarPadding: false,
-            })
-              .then(() => {
-                onClose();
-              })
+            }).then(() => { onClose() });
           }
-          // Si ocurre un error, se captura y se muestra un mensaje de error
-          catch (error) {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: error.message || "No se pudo registrar el recuento. Intenta de nuevo.",
-              heightAuto: false,
-              scrollbarPadding: false,
-            });
-          }
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            title: "Error al actualizar el recuento",
+            text: err.message,
+            heightAuto: false,
+            scrollbarPadding: false,
+          });
         }
-      })
-  }
+      }
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -188,4 +177,4 @@ export const RegistroRecuento = ({ onClose }) => {
 
     </form>
   );
-}
+};
