@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Modal,Button } from "@shared/components"
-import { RegistroRecuento } from "./registroRP/registroRp"
+import { RegistroRecuento } from "./registroRP/RegistroRecuento"
 import { EditarRp } from "./editarRP/editarRp"
 
 export function RecuentosPage() {
