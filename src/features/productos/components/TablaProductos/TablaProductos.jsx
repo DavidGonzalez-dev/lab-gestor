@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { GetRegistrosEntradaProducto, deleteProducto, GetRegsitrosEntradaProductoPorUsuario } from "../../services"
 import useAuthStore from "@shared/stores/useAuthStore.js"
-import { getDateComparatorFunction, dateFormatter } from "@shared/utils"
+
+import { getDateComparatorFunction, dateFormatter, getPillVariantProductType, getPillVariantProductState } from "@shared/utils"
 
 import { Table, PillType, ButtonCellRenderer, Input, SelectButton } from "@shared/components"
 import { EyeIcon, TrashIcon, SearchIcono } from "@shared/iconos"
@@ -17,19 +18,6 @@ export const TablaProductos = () => {
 
     const { userId, userRole } = useAuthStore()
 
-
-    //Funcion para definir la variante del componente pill
-    const getPillVariant = (typeName) => {
-        switch (typeName) {
-
-            case "Producto Terminado":
-                return "lightBlue"
-            case "Material de Empaque":
-                return "gray"
-            case "Materia Prima":
-                return "orange"
-        }
-    }
 
     // Defincion de las columnas
     const colDefs = userRole === "admin" 

@@ -32,3 +32,27 @@ export function getDateComparatorFunction () {
         return 0;
     }
 }
+
+// Funcion para obtener la variante de pildora de un producto
+export const getPillVariantProductType = (typeName) => {
+    switch (typeName) {
+
+        case "Producto Terminado":
+            return "lightBlue"
+        case "Material de Empaque":
+            return "gray"
+        case "Materia Prima":
+            return "orange"
+    }
+}
+
+export const getPillVariantProductState = (estado) => {
+    switch (estado) {
+        case "Pendiente":
+            return "gray"
+        case "En proceso":
+            return "darkBlue"
+        case "Terminado":
+            return "green"
+    }
+    }

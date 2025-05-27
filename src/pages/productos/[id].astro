@@ -1,0 +1,71 @@
+---
+import { GetProductId } from "@features/productos/services";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import ProductCard from "@features/productos/components/Cards/ProductCard.astro";
+import EntryDetailsCard from "@features/productos/components/Cards/EntryDetailsCard.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+
+// Se hace trae la informacion del producto desde la API
+const { id } = Astro.params;
+let data = null;
+
+try {
+    data = await GetProductId(id);
+    console.log(data);
+} catch (error) {
+    console.error(error);
+}
+---
+
+<SidebarLayout>
+    <div class="container mainContainer">
+        <!-- Titulo -->
+        <div class="header">
+            <PillHeading variant="primary">
+                <h1>Informacion del Producto</h1>
+            </PillHeading>
+        </div>
+
+        <section id="productInfo">
+            <div class="row">
+                <div class="col-lg-6">
+                    {data && <ProductCard producto={data.producto} />}
+                </div>
+                <div class="col-lg-6">
+                    {data && <EntryDetailsCard details={data} />}
+                </div>
+            </div>
+        </section>
+    </div>
+</SidebarLayout>
+<style>
+    .mainContainer {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #productInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .notesContainer {
+        display: flex;
+        gap: 20px;
+    }
+
+    .customCard {
+        background-color: var(--color-white);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+</style>
