@@ -20,161 +20,146 @@ export const TablaProductos = () => {
 
 
     // Defincion de las columnas
-    const colDefs = userRole === "admin"
-        ? [
-            {
-                headerName: "Numero Registro",
-                width: 170,
-                flex: 0,
-                field: "numeroRegistroProducto",
-            },
-            {
-                headerName: "Condiciones Ambientales",
-                field: "condicionesAmbientales",
-            },
-            {
-                headerName: "Categoria",
-                field: "producto.tipo.nombreTipo",
-                width: 180,
-                flex: 0,
-                cellRenderer: PillType,
-                cellRendererParams: (p) => ({
-                    variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
-                })
-            },
-            {
-                headerName: "Recepcion",
-                field: "fechaRecepcion",
-                sortable: true,
-                unSortIcon: true,
-                filter: "agDateColumnFilter",
-                valueFormatter: (p) => dateFormatter(p.value),
-                filterParams: {
-                    comparator: getDateComparatorFunction()
-                }
-            },
-            {
-                headerName: "Inicio Analisis",
-                field: "fechaInicioAnalisis",
-                sortable: true,
-                unSortIcon: true,
-                filter: "agDateColumnFilter",
-                valueFormatter: (p) => dateFormatter(p.value),
-                filterParams: {
-                    comparator: getDateComparatorFunction()
-                }
-            },
-            {
-                headerName: "Estado",
-                field: "producto.estado.nombreEstado",
-                cellRenderer: PillType,
-                cellRendererParams: (p) => ({
-                    variant: getPillVariantProductState(p.data.producto.estado.nombreEstado)
-                })
-            },
-            {
-                headerName: "Responsable",
-                field: "usuario.firma",
-                cellRenderer: (p) => {
-                    return (
-                        <b>{p.data.usuario.firma}</b>
-                    )
-                },
-            },
-            {
-                headerName: "Detalles",
-                cellRenderer: ButtonCellRenderer,
-                width: 90,
-                flex: 0,
-                cellRendererParams: (p) => ({
-                    icon: EyeIcon,
-                    variant: "default",
-                    parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
-                })
-            },
-            {
-                headerName: "Eliminar",
-                cellRenderer: ButtonCellRenderer,
-                width: 90,
-                flex: 0,
-                cellRendererParams: (p) => ({
-                    icon: TrashIcon,
-                    variant: "buttonCancel",
-                    parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
-                })
+    const colDefs = userRole === "admin" 
+    ? [
+        {
+            headerName: "Numero Registro",
+            field: "numeroRegistroProducto",
+            width: 180,
+            flex: 0
+        },
+        {
+            headerName: "Categoria",
+            field: "producto.tipo.nombreTipo",
+            width: 170,
+            flex: 0,
+            cellRenderer: PillType,
+            cellRendererParams: (p) => ({
+                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
+            })
+        },
+        {
+            headerName: "Condiciones Ambientales",
+            width: 180,
+            flex: 0,
+            field: "condicionesAmbientales",
+        },
+        {
+            headerName: "Recepcion",
+            field: "fechaRecepcion",
+            width: 150,
+            flex: 0,
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
             }
-        ]
-        : [
-            {
-                headerName: "Numero Registro",
-                field: "numeroRegistroProducto",
-            },
-            {
-                headerName: "Condiciones Ambientales",
-                field: "condicionesAmbientales",
-            },
-            {
-                headerName: "Categoria",
-                field: "producto.tipo.nombreTipo",
-                cellRenderer: PillType,
-                cellRendererParams: (p) => ({
-                    variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
-                }),
-            },
-            {
-                headerName: "Recepcion",
-                field: "fechaRecepcion",
-                sortable: true,
-                unSortIcon: true,
-                filter: "agDateColumnFilter",
-                valueFormatter: (p) => dateFormatter(p.value),
-                filterParams: {
-                    comparator: getDateComparatorFunction()
-                }
-            },
-            {
-                headerName: "Inicio Analisis",
-                field: "fechaInicioAnalisis",
-                sortable: true,
-                unSortIcon: true,
-                filter: "agDateColumnFilter",
-                valueFormatter: (p) => dateFormatter(p.value),
-                filterParams: {
-                    comparator: getDateComparatorFunction()
-                }
-            },
-            {
-                headerName: "Estado",
-                field: "producto.estado.nombreEstado",
-                cellRenderer: PillType,
-                cellRendererParams: (p) => ({
-                    variant: getPillVariantProductState(p.data.producto.estado.nombreEstado)
-                }),
-            },
-            {
-                headerName: "Detalles",
-                cellRenderer: ButtonCellRenderer,
-                width: 90,
-                flex: 0,
-                cellRendererParams: (p) => ({
-                    icon: EyeIcon,
-                    variant: "default",
-                    parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
-                })
-            },
-            {
-                headerName: "Eliminar",
-                cellRenderer: ButtonCellRenderer,
-                width: 90,
-                flex: 0,
-                cellRendererParams: (p) => ({
-                    icon: TrashIcon,
-                    variant: "buttonCancel",
-                    parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
-                })
+        },
+        {
+            headerName: "Inicio Analisis",
+            field: "fechaInicioAnalisis",
+            width: 180,
+            flex: 0,
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
             }
-        ]
-
+        },
+        {
+            headerName: "Responsable",
+            field: "usuario.firma",
+            cellRenderer: (p) => {
+                return(
+                 <b>{p.data.usuario.firma}</b>
+                ) 
+            },
+        },
+        {
+            headerName: "Detalles",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (p) => ({
+                icon: EyeIcon,
+                variant: "default",
+                parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
+            })
+        },
+        {
+            headerName: "Eliminar",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (p) => ({
+                icon: TrashIcon,
+                variant: "buttonCancel",
+                parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
+            })
+        }
+    ] 
+    : [
+        {
+            headerName: "Numero Registro",
+            field: "numeroRegistroProducto",
+        },
+        {
+            headerName: "Categoria",
+            field: "producto.tipo.nombreTipo",
+            cellRenderer: PillType,
+            cellRendererParams: (p) => ({
+                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
+            })
+        },
+        {
+            headerName: "Condiciones Ambientales",
+            field: "condicionesAmbientales",
+        },
+        {
+            headerName: "Recepcion",
+            field: "fechaRecepcion",
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
+            }
+        },
+        {
+            headerName: "Inicio Analisis",
+            field: "fechaInicioAnalisis",
+            sortable: true,
+            unSortIcon: true,
+            filter: "agDateColumnFilter",
+            valueFormatter: (p) => dateFormatter(p.value),
+            filterParams: {
+                comparator: getDateComparatorFunction()
+            }
+        },
+        {
+            headerName: "Detalles",
+            cellRenderer: ButtonCellRenderer,
+            withth: 100,
+            flex: 0,
+            cellRendererParams: (p) => ({
+                icon: EyeIcon,
+                variant: "default",
+                parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
+            })
+        },
+        {
+            headerName: "Eliminar",
+            cellRenderer: ButtonCellRenderer,
+            width: 100,
+            flex: 0,
+            cellRendererParams: (p) => ({
+                icon: TrashIcon,
+                variant: "buttonCancel",
+                parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
+            })
+        }
+    ] 
 
     //? ----------------------------------------------
     //? Logica de los filtros
