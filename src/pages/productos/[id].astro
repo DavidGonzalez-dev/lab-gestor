@@ -1,7 +1,8 @@
 ---
 import { GetProductId } from "@features/productos/services";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import ProductCard from "@features/productos/components/Cards/ProductCard.astro";
+import ProductCard1 from "@features/productos/components/Cards/ProductCard.astro";
+import { ProductCard } from "@features/productos/components/ProductCard/ProductCard";
 import EntryDetailsCard from "@features/productos/components/Cards/EntryDetailsCard.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
@@ -29,7 +30,7 @@ try {
         <section id="productInfo">
             <div class="row">
                 <div class="col-lg-6">
-                    {data && <ProductCard producto={data.producto} />}
+                    {data && <ProductCard client:only producto={data.producto} />}
                 </div>
                 <div class="col-lg-6">
                     {data && <EntryDetailsCard details={data} />}

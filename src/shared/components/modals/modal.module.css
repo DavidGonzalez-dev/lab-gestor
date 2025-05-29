@@ -12,9 +12,12 @@
     background: #fff;
     padding: 30px;
     border-radius: 12px;
-    width: 30%;
+    width: 40%;
+    min-width: fit-content;
     max-width: 50%;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    height: 80%;
+    overflow: auto;
   }
   
   .header {

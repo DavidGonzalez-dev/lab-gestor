@@ -90,6 +90,7 @@ export const deleteProducto = async (numeroRegistroProducto) => {
   }
 }
 
+// Este servicio nos permite obtener la informacion de un producto en especifico
 export const GetProductId = async (numeroRegistro) => {
   // Se hace el llamado a la api
   try {
@@ -112,3 +113,23 @@ export const GetProductId = async (numeroRegistro) => {
     }
   }
 }
+
+export const UpdateProduct = async (numeroRegistro, payload) => {
+  console.log(payload)
+   try {
+      await api.put(`/productos/${numeroRegistro}`, payload)
+      return true
+   } catch (error) {
+      if(error.response.status){
+        switch(error.response.status){
+          case HttpStatusCode.UnprocessableEntity:
+            throw new Error(error.response.data.error)
+          case HttpStatusCode.NotFound:
+            throw new Error("El producto que estas intentando actualizar no existe, si tu u otro usuario lo elimino de la base de datos intenta recargar la pagina para reflejar los cambios")
+          case HttpStatusCode.InternalServerError:
+            throw new Error("Ups! no eres tu, tuvimos un problema en el servidor, vuelve a intentarlo mas tarde.")
+        }
+      }
+      throw new Error("Error desconocido")
+   }
+} 
