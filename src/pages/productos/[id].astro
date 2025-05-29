@@ -30,7 +30,7 @@ try {
         <section id="productInfo">
             <div class="row">
                 <div class="col-lg-6">
-                    {data && <ProductCard client:only producto={data.producto} />}
+                    {data && <ProductCard client:load producto={data.producto} />}
                 </div>
                 <div class="col-lg-6">
                     {data && <EntryDetailsCard details={data} />}

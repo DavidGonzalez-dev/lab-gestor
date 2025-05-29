@@ -140,7 +140,7 @@ export const TablaProductos = () => {
         {
             headerName: "Detalles",
             cellRenderer: ButtonCellRenderer,
-            withth: 100,
+            width: 100,
             flex: 0,
             cellRendererParams: (p) => ({
                 icon: EyeIcon,
