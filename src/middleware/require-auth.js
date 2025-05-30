@@ -10,8 +10,8 @@ export async function requireAuth(context, next) {
 
     // Acceso a las rutas privadas por rol
     const accessControl = {
-        admin: ["/dashboard", "/usuarios", "/productos", "/clientes", "/fabricantes"],
-        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes"]
+        admin: ["/dashboard", "/usuarios", "/productos", "/clientes", "/fabricantes", "/recuentos"],
+        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos"]
     }
     const url = new URL(request.url)
 
