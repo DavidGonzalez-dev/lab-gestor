@@ -3,7 +3,8 @@ import { GetProductId } from "@features/productos/services";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import ProductCard1 from "@features/productos/components/Cards/ProductCard.astro";
 import { ProductCard } from "@features/productos/components/ProductCard/ProductCard";
-import EntryDetailsCard from "@features/productos/components/Cards/EntryDetailsCard.astro";
+import {EntryDetailsCard } from "@features/productos/components/EntryDetailsCard/EntryDetailsCard"
+import EntryDetailsCard2 from "@features/productos/components/Cards/EntryDetailsCard.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
 // Se hace trae la informacion del producto desde la API
@@ -33,7 +34,7 @@ try {
                     {data && <ProductCard client:load producto={data.producto} />}
                 </div>
                 <div class="col-lg-6">
-                    {data && <EntryDetailsCard details={data} />}
+                    {data && <EntryDetailsCard client:load data={data} />}
                 </div>
             </div>
         </section>

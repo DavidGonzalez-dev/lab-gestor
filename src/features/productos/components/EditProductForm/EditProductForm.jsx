@@ -21,7 +21,6 @@ export const EditProductForm = ({ initialValues, closeAction }) => {
         idCliente: initialValues.cliente.id,
         idFabricante: initialValues.fabricante.id,
         idTipo: initialValues.tipo.id
-
     }
 
     // Importamos las utilidades de react-hook-form

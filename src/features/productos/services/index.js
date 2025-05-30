@@ -114,22 +114,44 @@ export const GetProductId = async (numeroRegistro) => {
   }
 }
 
+// Este servicio nos permite actulizar la informacion de registro de un producto en especifico
 export const UpdateProduct = async (numeroRegistro, payload) => {
   console.log(payload)
-   try {
-      await api.put(`/productos/${numeroRegistro}`, payload)
-      return true
-   } catch (error) {
-      if(error.response.status){
-        switch(error.response.status){
-          case HttpStatusCode.UnprocessableEntity:
-            throw new Error(error.response.data.error)
-          case HttpStatusCode.NotFound:
-            throw new Error("El producto que estas intentando actualizar no existe, si tu u otro usuario lo elimino de la base de datos intenta recargar la pagina para reflejar los cambios")
-          case HttpStatusCode.InternalServerError:
-            throw new Error("Ups! no eres tu, tuvimos un problema en el servidor, vuelve a intentarlo mas tarde.")
-        }
+  try {
+    await api.put(`/productos/${numeroRegistro}`, payload)
+    return true
+  } catch (error) {
+    if (error.response.status) {
+      switch (error.response.status) {
+        case HttpStatusCode.UnprocessableEntity:
+          throw new Error(error.response.data.error)
+        case HttpStatusCode.NotFound:
+          throw new Error("El producto que estas intentando actualizar no existe, si tu u otro usuario lo elimino de la base de datos intenta recargar la pagina para reflejar los cambios")
+        case HttpStatusCode.InternalServerError:
+          throw new Error("Ups! no eres tu, tuvimos un problema en el servidor, vuelve a intentarlo mas tarde.")
       }
-      throw new Error("Error desconocido")
-   }
-} 
+    }
+    throw new Error("Error desconocido")
+  }
+}
+
+// Este servicio nos permite actualizar la informacion del registro de entrada de un producto en especifico
+export const UpdateEntryDetails = async (numeroRegistroProducto, payload) => {
+
+  try {
+    await api.put(`/registroEntradaProductos/${numeroRegistroProducto}`, payload)
+    return true
+  } catch (error) {
+    if (error.response.status) {
+      switch (error.response.status) {
+        case HttpStatusCode.UnprocessableEntity:
+          throw new Error(error.response.data.error)
+        case HttpStatusCode.NotFound:
+          throw new Error("Ups! El registro de entrada que estas intentando actualizar no existe, si tu u otro usuario eliminaron el producto relacionado recarga la pagina para reflejar los cambios!")
+        case HttpStatusCode.InternalServerError:
+          throw new Error("Ups! no eres tu, somos nostros. Estamos teniendo problemas con el servidor vuelve a intentarlo mas tarde.")
+      }
+    }
+    throw new Error("Error desconocido revise la consola para mas detalles")
+  }
+}

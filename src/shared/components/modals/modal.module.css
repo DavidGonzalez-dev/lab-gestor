@@ -28,7 +28,7 @@
 
   .header h2 {
     font-size: 2rem;
-    color: var(--color-secundario);
+    color: var(--color-secundario) !important;
     text-align: center;
     font-weight: 700;
   }

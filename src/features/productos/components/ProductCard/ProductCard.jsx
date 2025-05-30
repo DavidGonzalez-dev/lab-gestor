@@ -46,24 +46,17 @@ export const ProductCard = ({ producto }) => {
                     <div className="col-lg-6">
                         <p>
                             <b>Fecha Fabricacion: </b>
-                            {
-                                new Date(producto.fechaFabricacion).toLocaleDateString(
-                                    "es-ES",
-                                )
-                            }
+                            {new Date(producto.fechaFabricacion).toISOString().split("T")[0]}
                         </p>
                         <p>
                             <b>Fecha Vencimiento: </b>
-                            {
-                                new Date(producto.fechaVencimiento).toLocaleDateString(
-                                    "es-ES",
-                                )
-                            }
+                            {new Date(producto.fechaVencimiento).toISOString().split("T")[0]}
+
                         </p>
                         <p><b>Compuesto Activo: </b> {producto.compuestoActivo}</p>
                         <p><b>Presentacion: </b> {producto.presentacion}</p>
                         <p><b>Descripcion: </b> {producto.descripcion}</p>
-                        
+
                     </div>
                     <div className="col-lg-6">
                         <p><b>Cantidad: </b> {producto.cantidad}</p>
@@ -83,7 +76,7 @@ export const ProductCard = ({ producto }) => {
 
             {/* Modal para edicion de informacion del producto */}
             <Modal isOpen={isModalOpen} title="Editar Producto" onClose={closeModal}>
-                <EditProductForm initialValues={producto} closeAction={closeModal}/>
+                <EditProductForm initialValues={producto} closeAction={closeModal} />
             </Modal>
         </article >
     )
