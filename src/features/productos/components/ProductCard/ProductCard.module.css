@@ -1,0 +1,37 @@
+    .productCard {
+        background-color: var(--color-white);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        gap: 40px;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .title h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-primario);
+    }
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-primario-oscuro);
+    }
+
+    .typeContainer {
+        margin-top: 10px;
+    }

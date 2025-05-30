@@ -35,8 +35,7 @@ export const TablaProductos = () => {
             flex: 0,
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
-                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
-            })
+                variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
         },
         {
             headerName: "Condiciones Ambientales",
@@ -108,8 +107,8 @@ export const TablaProductos = () => {
             field: "producto.tipo.nombreTipo",
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
-                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
-            })
+            variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
+
         },
         {
             headerName: "Condiciones Ambientales",
@@ -140,7 +139,7 @@ export const TablaProductos = () => {
         {
             headerName: "Detalles",
             cellRenderer: ButtonCellRenderer,
-            withth: 100,
+            width: 100,
             flex: 0,
             cellRendererParams: (p) => ({
                 icon: EyeIcon,
