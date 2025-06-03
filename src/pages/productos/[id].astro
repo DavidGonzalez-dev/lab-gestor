@@ -1,10 +1,9 @@
 ---
 import { GetProductId } from "@features/productos/services";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import ProductCard1 from "@features/productos/components/Cards/ProductCard.astro";
 import { ProductCard } from "@features/productos/components/ProductCard/ProductCard";
-import {EntryDetailsCard } from "@features/productos/components/EntryDetailsCard/EntryDetailsCard"
-import EntryDetailsCard2 from "@features/productos/components/Cards/EntryDetailsCard.astro";
+import { AnalisisSelect } from "@features/productos/components/AnalisisSelect/AnalisisSelect";
+import { EntryDetailsCard } from "@features/productos/components/EntryDetailsCard/EntryDetailsCard";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
 // Se hace trae la informacion del producto desde la API
@@ -26,17 +25,26 @@ try {
             <PillHeading variant="primary">
                 <h1>Informacion del Producto</h1>
             </PillHeading>
+            <AnalisisSelect numeroRegistroProducto={data.numeroRegistroProducto} client:only/>
         </div>
 
         <section id="productInfo">
             <div class="row">
                 <div class="col-lg-6">
-                    {data && <ProductCard client:load producto={data.producto} />}
+                    {
+                        data && (
+                            <ProductCard client:load producto={data.producto} />
+                        )
+                    }
                 </div>
                 <div class="col-lg-6">
                     {data && <EntryDetailsCard client:load data={data} />}
                 </div>
             </div>
+        </section>
+
+        <section class="analisisSection">
+            
         </section>
     </div>
 </SidebarLayout>
@@ -50,7 +58,8 @@ try {
 
     .header {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
     }
 
     #productInfo {

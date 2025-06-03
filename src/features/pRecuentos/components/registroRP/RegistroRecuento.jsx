@@ -7,7 +7,7 @@ import { TrashIcon, CheckIcon } from "@shared/iconos"
 import Swal from "sweetalert2"
 import styles from "./RegistroRecuento.module.css"
 
-export const RegistroRecuento = ({ onClose }) => {
+export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
   // Se importa el hook useForm de react-hook-form para manejar el formulario
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -22,8 +22,10 @@ export const RegistroRecuento = ({ onClose }) => {
       tratamiento: data.tratamiento,
       volumenDiluyente: data.volumenDiluyente,
       tiempoDisolucion: data.tiempoDisolucion,
-      numeroRegistroProducto: "AAAA-0000-0000"
+      numeroRegistroProducto: numeroRegistroProducto
     }
+
+    console.log(payload)
 
     // Se muestra un modal de confirmación antes de registrar el recuento
     Swal.fire({
