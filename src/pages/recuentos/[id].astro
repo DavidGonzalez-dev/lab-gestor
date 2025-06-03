@@ -1,0 +1,47 @@
+---
+import { RecuentoCard } from "@features/pRecuentos/components/RecuentosCard/Recuentocard";
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+
+import { VistaRecuentoID } from "@features/pRecuentos/services";
+
+const { id } = Astro.params;
+
+// Traemos la informacion del cliente
+let recuento = null;
+try {
+  recuento = await VistaRecuentoID(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">
+      
+      <PillHeading variant="primary">
+        <h1>Detalle recuento</h1>
+      </PillHeading>
+
+    <!-- Informacion del cliente -->
+    <div>
+      {
+        recuento ? (
+          <RecuentoCard client:only recuento={recuento} />
+        ) : (
+          <p>No se encontró información del Recuento</p>
+        )
+      }
+    </div>
+  </div>
+</SidebarLayout>
+
+<style>
+  .mainContainer{
+    margin-top: 5dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+</style>
