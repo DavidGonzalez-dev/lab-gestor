@@ -17,7 +17,7 @@ export const SuccessAlert = Swal.mixin({
     confirmButtonColor: "#22861e",
     scrollbarPadding: false,
     heightAuto: false,
-})
+
 
 export const ErrorAlert = Swal.mixin({
     icon: "error",

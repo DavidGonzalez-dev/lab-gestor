@@ -24,9 +24,6 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
       tiempoDisolucion: data.tiempoDisolucion,
       numeroRegistroProducto: numeroRegistroProducto
     }
-
-    console.log(payload)
-
     // Se muestra un modal de confirmación antes de registrar el recuento
     Swal.fire({
       title: "¿Deseas registrar este recuento?",
