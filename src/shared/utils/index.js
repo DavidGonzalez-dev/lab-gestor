@@ -14,7 +14,7 @@ export function dateFormatter(date) {
 }
 
 // Funcion de Comparador de Fechas para el filtro para tablas
-export function getDateComparatorFunction () {
+export function getDateComparatorFunction() {
     return (filterDate, cellValue) => {
         if (!cellValue) return -1;
 
@@ -46,6 +46,7 @@ export const getPillVariantProductType = (typeName) => {
     }
 }
 
+// Funcion para obtener la variante de la pildora segun el estado del producto
 export const getPillVariantProductState = (estado) => {
     switch (estado) {
         case "Pendiente":
@@ -55,4 +56,4 @@ export const getPillVariantProductState = (estado) => {
         case "Terminado":
             return "green"
     }
-    }
+}

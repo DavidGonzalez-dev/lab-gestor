@@ -155,3 +155,29 @@ export const UpdateEntryDetails = async (numeroRegistroProducto, payload) => {
     throw new Error("Error desconocido revise la consola para mas detalles")
   }
 }
+
+//Este servicio nos permite obtener los analisis asociados a un producto
+export const GetProductAnalisys = async (numeroRegistroProducto) => {
+  try {
+
+    const response = await api.get(`productos/${numeroRegistroProducto}/analisis`)
+    if (response.data) {
+      return response.data.data
+    }
+    
+  } catch (error) {
+
+    if (error.response.status) {
+
+      switch (error.response.status) {
+        case HttpStatusCode.NotFound:
+          throw new Error("Ups! El producto no existe")
+        case HttpStatusCode.InternalServerError:
+          throw new Error(error.response.data.data.error)
+      }
+
+    }
+    
+    throw new Error("Ups! No es tu culpa es nuestra, estamos teniendo problemas con el servidor, vuelve a intentarlo de nuevo.")
+  }
+}
