@@ -49,7 +49,8 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
               scrollbarPadding: false,
             })
               .then(() => {
-                onClose();
+                onClose()
+                location.reload()
               })
           }
           // Si ocurre un error, se captura y se muestra un mensaje de error
