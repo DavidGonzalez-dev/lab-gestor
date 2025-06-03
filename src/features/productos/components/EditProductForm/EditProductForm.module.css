@@ -1,0 +1,39 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.twoColumns{
+    display: flex;
+    gap: 10px
+}
+
+.typeSelector{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.typeSelector label{
+    font-size: 16px;
+    color: var(--color-primario);
+    font-weight: 700;
+}
+
+.typeSelector .selectButtonContainer{
+    display: flex;
+    gap: 30px;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

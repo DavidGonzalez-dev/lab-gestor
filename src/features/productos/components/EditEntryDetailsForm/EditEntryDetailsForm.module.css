@@ -1,0 +1,19 @@
+.form, .inputContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.form{
+    gap: 40px;
+    padding: 30px 0;
+}
+
+.inputContainer{
+    gap: 5px;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

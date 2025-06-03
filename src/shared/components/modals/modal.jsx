@@ -15,12 +15,13 @@ export const Modal = ({ isOpen, onClose, title, children }) => {
           <h2>{title}</h2>
           <button onClick={onClose} className={styles.closeButton}><CloseIcon /></button>
         </div>
+        <hr />
 
         {/* Contenido del modal */}
         <div className={styles.content}>
           {children}
         </div>
-        
+
       </div>
     </div>
   );
