@@ -34,14 +34,14 @@ export const EditarRp = ({ data, onClose }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const success = await EditarPrecuento(data.id,payload);
+          const success = await EditarPrecuento(data.id, payload);
           if (success) {
             Swal.fire({
               icon: "success",
               title: "Se actualizó el recuento con éxito",
               heightAuto: false,
               scrollbarPadding: false,
-            }).then(() => location.reload());
+            }).then(() => { onClose() });
           }
         } catch (err) {
           Swal.fire({

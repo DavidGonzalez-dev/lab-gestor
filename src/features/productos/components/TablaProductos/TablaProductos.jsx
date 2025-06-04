@@ -35,7 +35,7 @@ export const TablaProductos = () => {
             flex: 0,
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
-                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
+                variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
             })
         },
         {
@@ -108,7 +108,7 @@ export const TablaProductos = () => {
             field: "producto.tipo.nombreTipo",
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
-                variant: getPillVariant(p.data.producto.tipo.nombreTipo)
+                variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
             })
         },
         {
