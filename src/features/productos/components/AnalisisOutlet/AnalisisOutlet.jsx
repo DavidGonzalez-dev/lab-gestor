@@ -34,7 +34,7 @@ export const AnalisisOutlet = ({ numeroRegistroProducto }) => {
         return (
             <div className={styles.cardsContainer}>
                 {analisis.pruebasRecuento.map(prueba => (
-                    <AnalisisCard title={prueba.nombreRecuento} status={prueba.estado} key={prueba.nombreRecuento}>
+                    <AnalisisCard title={prueba.nombreRecuento} status={prueba.estado} key={prueba.id} redirectFunction={() => window.location.href = `../recuentos/${prueba.id}`}>
                         <span>Prueba Recuento</span>
                         <p><b>Tratamiento: </b>{prueba.tratamiento}</p>
                     </AnalisisCard>
