@@ -48,7 +48,7 @@ export const UserEmailForm = () => {
 
             <div className={styles.buttonsContainer}>
 
-                <Button variant="buttonCancel">
+                <Button variant="buttonCancel" parentMethod={() => window.location.href = "/login"}>
                     Cancelar
                     <ArrowBackIcon />
                 </Button>
