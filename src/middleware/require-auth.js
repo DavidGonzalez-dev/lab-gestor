@@ -16,7 +16,7 @@ export async function requireAuth(context, next) {
     const url = new URL(request.url)
 
     // Verificamos si la ruta es publica
-    const isPublic = publicRoutes.some(route => url.pathname.startsWith(route))
+    const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith(route))
 
 
     let isValid = false // Variable para verificar si el token es valido
@@ -36,10 +36,10 @@ export async function requireAuth(context, next) {
     }
     // En caso de haber un error se hace un log en la consola del servidor
     catch (error) {
-        if (error.response.data){
+        if (error.response.data) {
             console.info(error.response.data)
         }
-        else{
+        else {
             console.error("Error al conectarse al servidor")
         }
     }
@@ -72,6 +72,6 @@ export async function requireAuth(context, next) {
         }
         return next()
     }
-
+    
     return redirect("/login")
 }   
