@@ -6,8 +6,10 @@ import { HttpStatusCode } from "axios"
 export const sendVerificationEmail = async (data) => {
 
     try {
-        await api.post("/passwordResetMail", data)
-        return true
+        const response = await api.post("/passwordResetMail", data)
+        if (response.data.data){
+            return response.data.data.correoUsuario
+        }
 
 
     } catch (error) {
@@ -24,4 +26,27 @@ export const sendVerificationEmail = async (data) => {
         }
         throw new Error("En este momento estamos haciendole mantenimiento al sistema, vuelve a intentarlo mas tarde.")
     }
+}
+
+// Servicio para verificar el codigo de verificacion
+export const validateVerificationToke = async (data) => {
+
+    try {
+        
+        await api.post("/verifyToken", data)
+        return true
+
+    } catch (error) {
+        if (error.response.status){
+            switch(error.response.status){
+                case HttpStatusCode.NotFound:
+                    throw new Error(error.response.data.message)
+                case HttpStatusCode.Gone:
+                    throw new Error(error.response.data.message)
+                case HttpStatusCode.Unauthorized:
+                    throw new Error("Ups! Este codigo de verificacion no corresponde a ninguno generado recientemente, vuelve a intentarlo.")
+            }
+        }
+        throw new Error("Ups! no es tu culpa es nuestra, estamos teniendo problemas con el servidor en este momento, vuelve a intentarlo mas tarde.")
+    }   
 }

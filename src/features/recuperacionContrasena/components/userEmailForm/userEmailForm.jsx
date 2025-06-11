@@ -5,16 +5,17 @@ import { CheckIcon, ArrowBackIcon } from "@shared/iconos"
 import { SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
 
 import { useForm } from "react-hook-form"
-import { sendVerificationEmail } from "../../services"
+import usePasswordResetStore from "@shared/stores/usePasswordResetStore"
 
 export const UserEmailForm = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const { sendVerificationCode } = usePasswordResetStore()
 
     // Funcion para manejar el envio de datos
     const onSubmit = async (data) => {
         try {
-            const success = await sendVerificationEmail(data)
+            const success = await sendVerificationCode(data)
             if (success) {
                 SuccessAlert.fire({
                     title: "Correo enviado con exito!",

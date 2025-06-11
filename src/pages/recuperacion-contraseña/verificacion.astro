@@ -1,0 +1,39 @@
+---
+import Layout from "@shared/layouts/Layout.astro";
+import NavHeader from "@shared/components/NavHeader/NavHeader.astro";
+import { LockCheckIcon } from "@shared/iconos";
+import { CheckVerificationCodeForm } from "@features/recuperacionContrasena/components/CheckVerificationCode/CheckVerificationCodeForm";
+---
+
+<Layout>
+    <NavHeader />
+    <div class="container d-flex flex-column align-items-center gap-4 py-5">
+        <div class="header">
+            <h1>Código de Verificación</h1>
+            <LockCheckIcon />
+        </div>
+
+        <div class="content">
+            <CheckVerificationCodeForm client:load/>
+        </div>
+    </div>
+</Layout>
+<style>
+    .header{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .header h1{
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: var(--color-secundario);
+    }
+
+    .header svg{
+        color: var(--color-primario);
+        height: 5rem;
+
+    }
+</style>
