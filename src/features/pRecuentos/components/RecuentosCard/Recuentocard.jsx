@@ -113,6 +113,7 @@ export function RecuentoCard({ recuento }) {
           <EditarRp data={recuento} onClose={() => setIsModalOpen(false)} />
         </Modal>
       </div>
+
     </div>
   );
 }

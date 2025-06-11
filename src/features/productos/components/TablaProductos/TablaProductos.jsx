@@ -36,6 +36,8 @@ export const TablaProductos = () => {
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
                 variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
+
+
             })
         },
         {
@@ -68,6 +70,7 @@ export const TablaProductos = () => {
             valueFormatter: (p) => dateFormatter(p.value),
             filterParams: {
                 comparator: getDateComparatorFunction()
+
             }
         },
         {
@@ -140,7 +143,7 @@ export const TablaProductos = () => {
         {
             headerName: "Detalles",
             cellRenderer: ButtonCellRenderer,
-            withth: 100,
+            width: 100,
             flex: 0,
             cellRendererParams: (p) => ({
                 icon: EyeIcon,

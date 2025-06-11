@@ -1,8 +1,10 @@
 ---
 import { GetProductId } from "@features/productos/services";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import ProductCard from "@features/productos/components/Cards/ProductCard.astro";
-import EntryDetailsCard from "@features/productos/components/Cards/EntryDetailsCard.astro";
+import { ProductCard } from "@features/productos/components/ProductCard/ProductCard";
+import { AnalisisSelect } from "@features/productos/components/AnalisisSelect/AnalisisSelect";
+import { EntryDetailsCard } from "@features/productos/components/EntryDetailsCard/EntryDetailsCard";
+import {AnalisisOutlet} from "@features/productos/components/AnalisisOutlet/AnalisisOutlet"
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
 // Se hace trae la informacion del producto desde la API
@@ -24,17 +26,27 @@ try {
             <PillHeading variant="primary">
                 <h1>Informacion del Producto</h1>
             </PillHeading>
+            <AnalisisSelect numeroRegistroProducto={data.numeroRegistroProducto} client:only/>
         </div>
 
         <section id="productInfo">
             <div class="row">
                 <div class="col-lg-6">
-                    {data && <ProductCard producto={data.producto} />}
+                    {
+                        data && (
+                            <ProductCard client:load producto={data.producto} />
+                        )
+                    }
                 </div>
                 <div class="col-lg-6">
-                    {data && <EntryDetailsCard details={data} />}
+                    {data && <EntryDetailsCard client:load data={data} />}
                 </div>
             </div>
+        </section>
+
+        <section class="analisisSection">
+            <h2>Analisis Registrados</h2>
+            <AnalisisOutlet numeroRegistroProducto={data.numeroRegistroProducto} client:only/>
         </section>
     </div>
 </SidebarLayout>
@@ -48,7 +60,8 @@ try {
 
     .header {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
     }
 
     #productInfo {
@@ -67,5 +80,13 @@ try {
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
+    }
+
+    h2{
+        font-size: 2rem;
+        color: var(--color-primario);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px !important;
     }
 </style>

@@ -90,6 +90,7 @@ export const deleteProducto = async (numeroRegistroProducto) => {
   }
 }
 
+// Este servicio nos permite obtener la informacion de un producto en especifico
 export const GetProductId = async (numeroRegistro) => {
   // Se hace el llamado a la api
   try {
@@ -110,5 +111,73 @@ export const GetProductId = async (numeroRegistro) => {
       default:
         throw new Error("No eres tu somo nosotros, tenemos problemas de conexion vuelve a intentarlo mas tarde!")
     }
+  }
+}
+
+// Este servicio nos permite actulizar la informacion de registro de un producto en especifico
+export const UpdateProduct = async (numeroRegistro, payload) => {
+  console.log(payload)
+  try {
+    await api.put(`/productos/${numeroRegistro}`, payload)
+    return true
+  } catch (error) {
+    if (error.response.status) {
+      switch (error.response.status) {
+        case HttpStatusCode.UnprocessableEntity:
+          throw new Error(error.response.data.error)
+        case HttpStatusCode.NotFound:
+          throw new Error("El producto que estas intentando actualizar no existe, si tu u otro usuario lo elimino de la base de datos intenta recargar la pagina para reflejar los cambios")
+        case HttpStatusCode.InternalServerError:
+          throw new Error("Ups! no eres tu, tuvimos un problema en el servidor, vuelve a intentarlo mas tarde.")
+      }
+    }
+    throw new Error("Error desconocido")
+  }
+}
+
+// Este servicio nos permite actualizar la informacion del registro de entrada de un producto en especifico
+export const UpdateEntryDetails = async (numeroRegistroProducto, payload) => {
+
+  try {
+    await api.put(`/registroEntradaProductos/${numeroRegistroProducto}`, payload)
+    return true
+  } catch (error) {
+    if (error.response.status) {
+      switch (error.response.status) {
+        case HttpStatusCode.UnprocessableEntity:
+          throw new Error(error.response.data.error)
+        case HttpStatusCode.NotFound:
+          throw new Error("Ups! El registro de entrada que estas intentando actualizar no existe, si tu u otro usuario eliminaron el producto relacionado recarga la pagina para reflejar los cambios!")
+        case HttpStatusCode.InternalServerError:
+          throw new Error("Ups! no eres tu, somos nostros. Estamos teniendo problemas con el servidor vuelve a intentarlo mas tarde.")
+      }
+    }
+    throw new Error("Error desconocido revise la consola para mas detalles")
+  }
+}
+
+//Este servicio nos permite obtener los analisis asociados a un producto
+export const GetProductAnalisys = async (numeroRegistroProducto) => {
+  try {
+
+    const response = await api.get(`productos/${numeroRegistroProducto}/analisis`)
+    if (response.data) {
+      return response.data.data
+    }
+    
+  } catch (error) {
+
+    if (error.response.status) {
+
+      switch (error.response.status) {
+        case HttpStatusCode.NotFound:
+          throw new Error("Ups! El producto no existe")
+        case HttpStatusCode.InternalServerError:
+          throw new Error(error.response.data.data.error)
+      }
+
+    }
+    
+    throw new Error("Ups! No es tu culpa es nuestra, estamos teniendo problemas con el servidor, vuelve a intentarlo de nuevo.")
   }
 }

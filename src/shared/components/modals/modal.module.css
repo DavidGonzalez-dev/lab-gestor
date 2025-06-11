@@ -10,32 +10,25 @@
   
   .modal {
     background: #fff;
-    padding: 30px;
+    padding: 40px;
     border-radius: 12px;
-<<<<<<< HEAD
-    width: 30%;
-    max-width: 50%;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-=======
-    width: 40%;
+    width: 50%;
     min-width: fit-content;
-    max-width: 50%;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    height: 90%;
+    height: 80%;
     overflow: auto;
->>>>>>> 9bfd499430fd9443f5dfa57beea3ab23202cc40b
   }
   
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .header h2 {
     font-size: 2rem;
-    color: var(--color-secundario);
+    color: var(--color-secundario) !important;
     text-align: center;
     font-weight: 700;
   }
