@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, CustomTextArea, Button, Modal } from "@shared/components";
+import {Button, Modal } from "@shared/components";
 import { EditIcon, TrashIcon } from "@shared/iconos";
 import { EditarRp } from "../editarRP/EditarPruebaRecuento";
 import Swal from "sweetalert2";
@@ -45,48 +45,74 @@ export function RecuentoCard({ recuento }) {
   };
 
   return (
-    <div className={styles.infoContainer}>
-      <div className="row">
-        <div>
-          <span>{recuento.numeroRegistroProducto}</span>
-          <h2>{recuento.nombreRecuento}</h2>
-        </div>
+    <div>
 
-        <div className="col-lg-6">
-          <Input label="Nombre Recuento" value={recuento.nombreRecuento} disabled />
-          <Input label="Cantidad Muestra" value={recuento.cantidadMuestra} disabled />
-          <div>
-            <Input label="Método" value={recuento.metodoUsado} disabled />
-            <Input label="Especificación" value={recuento.especificacion} disabled />
+      <p className={styles.nuemroR}><span className={styles.texto}>Numero registro producto: </span>{recuento.numeroRegistroProducto}</p>
+      <div className={styles.infoContainer}>
+        <div className="row">
+
+          <div className="col-lg-5">
+            <p className={styles.contenido}>
+              <span className={styles.texto}>Nombre Prueba: </span>
+              <br />
+              {recuento.nombreRecuento}
+            </p>
+            <p className={styles.contenido}>
+              <span className={styles.texto}>Cantidad Muestra: </span>
+              <br />
+              {recuento.cantidadMuestra}
+            </p>
+            <div>
+              <p className={styles.contenido}>
+                <span className={styles.texto}>Método: </span>
+                <br />
+                {recuento.metodoUsado}
+              </p>
+              <p className={styles.contenido}>
+                <span className={styles.texto}>Especificación: </span>
+                <br />
+                {recuento.especificacion}
+              </p>
+            </div>
+          </div>
+
+          <div className="col-lg-5">
+            <p className={styles.contenido}>
+              <span className={styles.texto}>Tratamiento: </span>
+              <br />
+              {recuento.tratamiento} 
+            </p>
+            <p className={styles.contenido}> 
+              <span className={styles.texto}>Volumen Diluyente: </span>
+              <br />
+              {recuento.volumenDiluyente}
+            </p>
+            <p className={styles.contenido}>
+              <span className={styles.texto}>Tiempo Disolución: </span>
+              <br />
+              {recuento.tiempoDisolucion}
+            </p>
           </div>
         </div>
 
-        <div className="col-lg-6">
-          <CustomTextArea label="Tratamiento" value={recuento.tratamiento} disabled />
-          <div>
-            <Input label="Volumen Diluyente" value={recuento.volumenDiluyente} disabled />
-            <Input label="Tiempo Disolución" value={recuento.tiempoDisolucion} disabled />
-          </div>
+        <div className={`${styles.buttonContainer} mt-6`}>
+          <Button variant="buttonCancel" parentMethod={handleDelete}>
+            Eliminar <TrashIcon />
+          </Button>
+
+          <Button variant="buttonEdit" parentMethod={() => setIsModalOpen(true)}>
+            Editar <EditIcon />
+          </Button>
         </div>
+
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Editar Recuento"
+        >
+          <EditarRp data={recuento} onClose={() => setIsModalOpen(false)} />
+        </Modal>
       </div>
-
-      <div className={`${styles.buttonContainer} mt-6`}>
-        <Button variant="buttonCancel" parentMethod={handleDelete}>
-          Eliminar <TrashIcon />
-        </Button>
-
-        <Button variant="buttonEdit" parentMethod={() => setIsModalOpen(true)}>
-          Editar <EditIcon />
-        </Button>
-      </div>
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Editar Recuento"
-      >
-        <EditarRp data={recuento} onClose={() => setIsModalOpen(false)} />
-      </Modal>
     </div>
   );
 }
