@@ -14,7 +14,7 @@ const useAuthStore = create(
             isLoading: false,
 
 
-            //Acicones
+            //Accicones
             // Funcion de autenticacion
             login: async (credentials) => {
                 set({ isLoading: true })
@@ -60,7 +60,7 @@ const useAuthStore = create(
                     set({
                         userId: null,
                         userRole: null,
-                        usAuthenticated: false,
+                        isAuthenticated: false,
                         isLoading: false
                     })
                 }
