@@ -20,7 +20,7 @@ export const UserEmailForm = () => {
                 SuccessAlert.fire({
                     title: "Correo enviado con exito!",
                     text: "Revisa tu correo, te enviamos un codigo de verificacion para hacer el cambio de contraseña, si no lo ves en tu bandeja de entrada revisa la carpeta de spam!"
-                })
+                }).then(() => window.location.href = "recuperacion-contraseña/verificacion")
             }
         } catch (error) {
             ErrorAlert.fire({
