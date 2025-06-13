@@ -1,0 +1,56 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+import decoracion from "@assets/ilustraciones/decoracionTitulos.svg";
+import NavHeader from "@shared/components/NavHeader/NavHeader.astro";
+
+import { UserEmailForm } from "@features/recuperacionContrasena/components/userEmailForm/userEmailForm";
+---
+
+<Layout title="LabGestor - RecuperarContraseña">
+    
+    <NavHeader />
+    <div class="container d-flex justify-content-center align-items-center mt-5">
+        <article class="formContainer">
+            <div class="formHeader">
+                <h1>Recuperacion de Contraseña</h1>
+                <img src={decoracion.src} alt="decoracion" />
+            </div>
+
+            <div class="formContent">
+                <p>
+                    Ingresa tu correo electronico y te enviaremos un correo con las instrucciones para recuperar tu contraseña
+                </p>
+                <UserEmailForm client:load />
+            </div>
+        </article>
+    </div>
+</Layout>
+
+<style>
+    .formContainer{
+        display: flex;
+        flex-direction: column;
+        width: 45%;
+        align-items: center;
+        gap: 20px;
+        padding: 50px 30px;
+        border: 2px solid var(--color-primario);
+        border-radius: 10px;
+        box-shadow: 0 5px 20px 0px #00000010;
+    }
+
+    .formHeader{
+        text-align: center;
+    }
+
+    .formHeader h1{
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--color-primario);
+    }
+
+    .formContent p{
+        font-size: 1rem;
+    }
+</style>

@@ -20,8 +20,8 @@ import "@shared/styles/index.css"
                     <img src={Decoracion.src} alt="decoracion" class="w-100" />
                 </div>
                 <!-- Formulario -->
-                <LoginForm client:only />
-                <a href="/contrasena">Olvidaste tu Contraseña?</a>
+                <LoginForm client:load />
+                <a href="/recuperacion-contraseña">¿Olvidaste tu Contraseña?</a>
             </section>
 
             <!-- Ilustraciones -->
@@ -98,7 +98,7 @@ import "@shared/styles/index.css"
     }
 
     #ilustracion {
-        height: 60%;
+        max-height: 60%;
         width: 100%;
     }
 </style>

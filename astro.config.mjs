@@ -15,7 +15,7 @@ export default defineConfig({
     plugins: [
       svgr({
         svgrOptions: {
-          icon: true, // Opcional: convierte SVG en componentes con soporte de íconos
+          icon: true, // convierte SVG en componentes con soporte de íconos
         },
       }),
     ],

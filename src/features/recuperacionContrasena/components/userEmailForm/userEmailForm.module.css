@@ -1,0 +1,11 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.buttonsContainer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
