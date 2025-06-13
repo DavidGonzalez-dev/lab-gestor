@@ -23,6 +23,7 @@ import ArrowBackIcon from "./ArrowBackIcon.svg?react"
 import ArrowForwardIcon from "./ArrowForwardIcon.svg?react"
 import EditIcon from "./EditIcon.svg?react"
 import CloseIcon from "./CloseIcon.svg?react";
+import LockCheckIcon from "./LockCheckIcon.svg?react"
 
 
 export {
@@ -50,5 +51,6 @@ export {
   ArrowBackIcon,
   EditIcon,
   ArrowForwardIcon,
-  CloseIcon
+  CloseIcon,
+  LockCheckIcon
 };
