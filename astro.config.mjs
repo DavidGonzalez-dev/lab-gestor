@@ -1,21 +1,18 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import node from "@astrojs/node";
 import react from '@astrojs/react';
-import svgr from 'vite-plugin-svgr'; // Importa el plugin
+import svgr from 'vite-plugin-svgr';
+import vercel from '@astrojs/vercel'; // 👈 aquí está el cambio
 
-// https://astro.build/config
 export default defineConfig({
   integrations: [react()],
-  output: "server",
-  adapter: node({
-    mode: "standalone"
-  }),
+  output: 'server', // Esto es correcto
+  adapter: vercel(), // 👈 usa el adaptador de Vercel
   vite: {
     plugins: [
       svgr({
         svgrOptions: {
-          icon: true, // convierte SVG en componentes con soporte de íconos
+          icon: true,
         },
       }),
     ],
