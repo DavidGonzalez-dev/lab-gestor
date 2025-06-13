@@ -1,0 +1,47 @@
+.codeInputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.codeInputContainer label{
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+.inputContainer{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.codeInput{
+    color: var(--color-primario);
+    height: 3rem;
+    width: 3rem;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 500;
+    border: 2px solid #979797;
+    border-radius: 0.5rem;
+    background-color: white;
+    outline: none;
+    transition: all .2s ease-in-out;
+}
+
+.codeInput:hover, .codeInput:focus {
+    border-color: var(--color-primario);
+}
+
+.codeInput:focus{
+    outline: 2px solid var(--color-primario-claro);
+    box-shadow: 0 0 0 2px rgba(17, 69, 112, 0.1);
+}
+
+.codeInput.invalid{
+    border-color: var(--color-rojo);
+    outline: 2px solid rgba(255, 115, 105, 0.4) !important;
+    box-shadow: 0 0 0 2px rgba(255, 115, 105, 0.4) !important;
+}

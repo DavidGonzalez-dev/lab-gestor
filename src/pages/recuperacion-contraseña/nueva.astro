@@ -1,0 +1,53 @@
+---
+import Layout from "@shared/layouts/Layout.astro";
+import NavHeader from "@shared/components/NavHeader/NavHeader.astro";
+import { ResetPasswordForm } from "@features/recuperacionContrasena/components/resetPasswordForm/ResetPasswordForm";
+---
+
+<Layout>
+    <NavHeader />
+    <div class="container d-flex flex-column align-items-center gap-4 py-5">
+        <div class="header">
+            <h1>Ingresa tu Nueva Contraseña</h1>
+        </div>
+
+        <div class="content">
+            <p>
+                Tu nueva contraseña debe contener al menos una letra mayúscula,
+                una letra minúscula, un número, un carácter especial y tener un
+                mínimo de 8 caracteres. Recuerda que el enlace de recuperación
+                es válido por 15 minutos. Si el token expira, deberás solicitar
+                uno nuevo y repetir el proceso.
+            </p>
+            <ResetPasswordForm client:load />
+        </div>
+    </div>
+</Layout>
+<style>
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .header h1 {
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: var(--color-secundario);
+    }
+
+    .header svg {
+        color: var(--color-primario);
+        height: 5rem;
+    }
+    .content {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .content p{
+        font-size: 1rem;
+    }
+</style>

@@ -6,17 +6,17 @@ export async function requireAuth(context, next) {
     const authCookie = request.headers.get("cookie")
 
     // Rutas publicas que no requieren autenticacion
-    const publicRoutes = ["/", "/login", "/contrasena", "/unauthorized"]
+    const publicRoutes = ["/", "/login", "/recuperacion-contraseña", "/unauthorized"]
 
     // Acceso a las rutas privadas por rol
     const accessControl = {
-        admin: ["/dashboard", "/usuarios", "/productos", "/clientes", "/fabricantes"],
-        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes"]
+        admin: ["/dashboard", "/usuarios", "/productos", "/clientes", "/fabricantes", "/recuentos"],
+        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos"]
     }
     const url = new URL(request.url)
 
     // Verificamos si la ruta es publica
-    const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith("/api/"))
+    const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith(route))
 
 
     let isValid = false // Variable para verificar si el token es valido
@@ -36,7 +36,12 @@ export async function requireAuth(context, next) {
     }
     // En caso de haber un error se hace un log en la consola del servidor
     catch (error) {
-        console.log(error)
+        if (error.response.data) {
+            console.info(error.response.data)
+        }
+        else {
+            console.error("Error al conectarse al servidor")
+        }
     }
 
     // ----------------
@@ -67,6 +72,6 @@ export async function requireAuth(context, next) {
         }
         return next()
     }
-
+    
     return redirect("/login")
 }   
