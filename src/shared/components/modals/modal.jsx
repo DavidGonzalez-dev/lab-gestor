@@ -1,4 +1,4 @@
-import styles from "./Modal.module.css";
+import styles from "./modal.module.css";
 import { CloseIcon } from "@shared/iconos";
 
 export const Modal = ({ isOpen, onClose, title, children }) => {
@@ -15,6 +15,8 @@ export const Modal = ({ isOpen, onClose, title, children }) => {
           <h2>{title}</h2>
           <button onClick={onClose} className={styles.closeButton}><CloseIcon /></button>
         </div>
+        <hr />
+
         <hr />
 
         {/* Contenido del modal */}

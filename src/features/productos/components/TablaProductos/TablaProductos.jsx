@@ -36,7 +36,6 @@ export const TablaProductos = () => {
             cellRenderer: PillType,
             cellRendererParams: (p) => ({
                 variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
-
             })
         },
         {
