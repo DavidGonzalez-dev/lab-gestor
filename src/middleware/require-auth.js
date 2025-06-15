@@ -6,7 +6,7 @@ export async function requireAuth(context, next) {
     const authCookie = request.headers.get("cookie")
 
     // Rutas publicas que no requieren autenticacion
-    const publicRoutes = ["/", "/login", "/recuperacion-contraseña", "/unauthorized"]
+    const publicRoutes = [ "/login", "/recuperacion-contrase%C3%B1a", "/unauthorized"]
 
     // Acceso a las rutas privadas por rol
     const accessControl = {
@@ -15,8 +15,13 @@ export async function requireAuth(context, next) {
     }
     const url = new URL(request.url)
 
+    console.log("Ruta a la que se intenta ingresar: ", url.pathname)
     // Verificamos si la ruta es publica
-    const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith(route))
+    const isPublic = url.pathname == "/" || publicRoutes.some(route => url.pathname.startsWith(route))
+
+    if (!authCookie && !isPublic) {
+        return redirect("/login")
+    }
 
 
     let isValid = false // Variable para verificar si el token es valido
@@ -24,6 +29,7 @@ export async function requireAuth(context, next) {
 
     // Obtenemos la cookie de autenticacion y verificamos
     try {
+
         const response = await api.get("/validar-token", {
             headers: {
                 Cookie: authCookie
@@ -54,7 +60,8 @@ export async function requireAuth(context, next) {
     }
 
     // Si la ruta es publica se salta las validaciones
-    if (isPublic) {
+    if (isPublic ) {
+        console.log("la ruta es publica")
         return next()
     }
 
@@ -72,6 +79,5 @@ export async function requireAuth(context, next) {
         }
         return next()
     }
-    
-    return redirect("/login")
+        
 }   
