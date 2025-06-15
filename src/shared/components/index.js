@@ -1,4 +1,5 @@
 export * from "./sidebar/SideBar.jsx"
+export * from "./SearchBar/DashboardHeader.jsx"
 export * from "./inputs/Input/input.jsx"
 export * from "./inputs/CustomTextArea/CustomTextArea.jsx"
 export * from "./inputs/CustomSelect/CustomSelect.jsx"

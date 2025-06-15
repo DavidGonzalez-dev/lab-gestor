@@ -1,0 +1,66 @@
+.ContenedorPrincipal {
+    width: 80%;
+    height: 65px;
+    display: flex;
+    justify-content: center; 
+    margin: 10px 0px;
+    position: fixed;
+    z-index: 2;
+}
+
+  .BarraBusqueda {
+    width: 100%;
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-primario);
+    border-radius: 15px;
+}
+
+.BarraBusqueda h3{
+    font-weight: 700;
+    color: var(--color-primario);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.iconos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.iconoPerfil{
+    color: var(--color-primario);
+    border: 2px solid;
+    padding: .7rem;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s all;
+}
+
+.iconoPerfil svg{
+    stroke-width: 2.5;
+}
+
+.iconoPerfil:hover{
+    color: white;
+    border-color: transparent;
+    background-color: var(--color-primario);
+}
+
+.logoBarraNavegacion{
+    width: 84px;
+    height: 40px;
+    padding: 0px;
+}
+.logoBarraNavegacion img {
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
+}
