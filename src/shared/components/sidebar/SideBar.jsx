@@ -3,11 +3,22 @@ import useSidebarStore from "@shared/stores/useSidebarStore.js";
 import Logo from "../../../../public/assets/logo/logo-nav.svg"
 import { BarraLateralIcon, BarraDeslizadaIcon, ClientesIcon, FabricantesIcon, InicioIcon, ProductosIcon, ReporteIcon, EstadisticasIcon, UsuariosIcon, PerfilIcon, CerrarSesionIcon } from "@shared/iconos";
 import styles from "./SideBar.module.css"
+import { useEffect } from "react";
 
 export function SideBar() {
     // Estado para controlar si está expandida o colapsada
     const { isCollapsed, toggleSidebar } = useSidebarStore()
-    const { logout, userRole } = useAuthStore()
+    const { logout, userRole, isAuthenticated } = useAuthStore()
+
+
+    // Revisamos si el usuario esta autenticdo antes de renderizar la vista
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            // Este paso es importante para que NO renderice nada mientras redirige
+            window.location.href = "/login";
+        }
+    }, [isAuthenticated]);
 
     return (
         <aside className={`${styles.sidebar} ${isCollapsed ? styles.colapsada : ''}`}>

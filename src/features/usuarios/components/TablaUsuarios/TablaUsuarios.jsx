@@ -12,7 +12,7 @@ import { getUsuarios, DeshabilitarUsuario } from "../../services/"
 import Swal from "sweetalert2"
 
 import { ToTitleCase } from "@shared/utils"
-import { SearchIcono, TrashIcon, EyeIcon } from "@shared/iconos"
+import { SearchIcono, ForbidIcon, EyeIcon } from "@shared/iconos"
 import styles from "./TablaUsuarios.module.css"
 
 export const TablaUsuarios = () => {
@@ -77,13 +77,13 @@ export const TablaUsuarios = () => {
       }),
     },
     {
-      headerName: "Eliminar",
+      headerName: "Deshabilitar",
       field: "eliminar",
       width: 100,
       cellClass: "custom-cell-center",
       cellRenderer: ButtonCellRenderer,
       cellRendererParams: (p) => ({
-        icon: TrashIcon,
+        icon: ForbidIcon,
         variant: "buttonCancel",
         parentMethod: () => eliminarUsuario(p.data),
       }),
@@ -128,6 +128,7 @@ export const TablaUsuarios = () => {
         scrollbarPadding: false,
       })
     }
+
     // En caso de no estarlo se sigue con el flujo normal
     else {
       Swal.fire({

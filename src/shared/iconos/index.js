@@ -24,7 +24,7 @@ import ArrowForwardIcon from "./ArrowForwardIcon.svg?react"
 import EditIcon from "./EditIcon.svg?react"
 import CloseIcon from "./CloseIcon.svg?react";
 import LockCheckIcon from "./LockCheckIcon.svg?react"
-
+import ForbidIcon from "./ForbidIcon.svg?react"
 
 export {
   AnalistaIcon,
@@ -52,5 +52,6 @@ export {
   EditIcon,
   ArrowForwardIcon,
   CloseIcon,
-  LockCheckIcon
+  LockCheckIcon,
+  ForbidIcon
 };
