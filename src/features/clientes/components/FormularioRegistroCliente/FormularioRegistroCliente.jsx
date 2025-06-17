@@ -1,8 +1,10 @@
-import { Button, Input } from "@shared/components/"
+import { Button, Input, LoaderSpiner } from "@shared/components/"
 import { CheckIcon, TrashIcon } from "@shared/iconos"
+import Swal from "sweetalert2"
+
 import { useForm } from "react-hook-form"
 import { registrarCliente } from "../../services/"
-import Swal from "sweetalert2"
+import { useState } from "react"
 
 import styles from "./FormularioRegistroCliente.module.css"
 
@@ -10,6 +12,7 @@ export const FormularioRegistroCliente = () => {
 
     // Inicializamos el estado del formulario
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const [isLoading, setIsLoading] = useState(false)
 
 
     // Definir logica de envio de datos
@@ -31,6 +34,7 @@ export const FormularioRegistroCliente = () => {
             if (result.isConfirmed) {
                 //Se crea el cliente en la base de datos
                 try {
+                    setIsLoading(true)
                     const success = await registrarCliente(data)
                     // Si se crea el usuario con exito se muestra una alerta
                     if (success) {
@@ -50,6 +54,9 @@ export const FormularioRegistroCliente = () => {
                         text: err.message
                     })
                 }
+                finally {
+                    setIsLoading(false)
+                }
             }
         })
     }
@@ -65,7 +72,12 @@ export const FormularioRegistroCliente = () => {
                     label={"Nombre del Cliente"}
                     placeHolder={"Nombre cliente"}
                     error={errors.nombre}
-                    {...register("nombre", { required: "El nombre es obligatorio*" })}
+                    {...register("nombre", { 
+                        required: "El nombre es obligatorio*", 
+                        pattern: {
+                            value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                            message: "El nombre solo puede contener letras y espacios*"
+                        }})}
                 />
 
 
@@ -76,14 +88,25 @@ export const FormularioRegistroCliente = () => {
                     label={"Direccion del Cliente"}
                     placeHolder={"Direccion cliente"}
                     error={errors.direccion}
-                    {...register("direccion", { required: "El direccion es obligatorio*" })}
+                    {...register("direccion", {
+                        required: "El direccion es obligatorio*",
+                        pattern: {
+                            value: /(cra|cr|calle|cl|av|avenida|transversal|tv|diag|dg|manzana|mz|circular|circ)[a-z]*\.?\s*\d+[a-zA-Z]?\s*(#|n°|no\.?)\s*\d+[a-zA-Z]?(?:[-]\d+)?$/,
+                            message: "Ingrese una direccion valida*"
+                        }
+                    })}
                 />
             </div>
 
             {/* Botones de Accion */}
             <div className={styles.actionButtons}>
-                <Button variant={"buttonCancel"} parentMethod={() => window.location.href = "/clientes"}>Cancelar <TrashIcon /></Button>
-                <Button variant={"buttonAccept"} type="submit" >Aceptar <CheckIcon /></Button>
+                <Button variant={"buttonCancel"} parentMethod={() => window.location.href = "/clientes"}>
+                    Cancelar <TrashIcon />
+                </Button>
+
+                <Button variant={"buttonAccept"} type="submit" disabled={isLoading} >
+                    {isLoading ? <LoaderSpiner /> : <>Aceptar <CheckIcon /></>}
+                </Button>
             </div>
         </form>
     )

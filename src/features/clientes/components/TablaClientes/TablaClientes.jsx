@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react"
-import { Table, Input } from "@shared/components"
-import { SearchIcono } from "@shared/iconos"
+import { Table, Input, ComponentLoader } from "@shared/components"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
-import { EyeIcon, TrashIcon } from "@shared/iconos"
-import { getClientes, eliminarCliente } from "../../services"
+import { EyeIcon, TrashIcon, SearchIcono } from "@shared/iconos"
 import Swal from "sweetalert2"
+
+import { useEffect, useState } from "react"
+import { getClientes, eliminarCliente } from "../../services"
 
 import styles from "./TablaClientes.module.css"
 
 const TablaClientes = () => {
   const [rowData, setRowData] = useState([])
   const [searchText, setSearchText] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const colDefs = [
     {
       headerName: "Nombre Cliente",
@@ -52,7 +53,7 @@ const TablaClientes = () => {
     console.log(id)
     Swal.fire({
       icon: "warning",
-      title: "¿Estas seguro d elminar el cliente?",
+      title: "¿Estas seguro de eliminar el cliente?",
       text: "Al eliminar este cliente es posible que los productos relacionados se actualicen, por ende, se recomienda solo eliminar clientes que aun no esten relacionados con algun producto.",
       cancelButtonText: "Cancelar",
       cancelButtonColor: "red",
@@ -114,10 +115,13 @@ const TablaClientes = () => {
   // Funcion para cargar los clientes
   const loadClientes = async () => {
     try {
+      setIsLoading(true)
       const clientes = await getClientes()
       setRowData(clientes)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -128,6 +132,10 @@ const TablaClientes = () => {
   }, [])
 
 
+  if (isLoading) {
+    return <ComponentLoader />
+  }
+  
   return (
     <div className="container">
       <div className={`${styles.searchBarContainer} mb-2 w-50`}>
