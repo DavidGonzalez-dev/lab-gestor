@@ -16,8 +16,8 @@ export const RegistrarPrecuento = async (data) => {
         throw new Error(err.response.data.error);
       case HttpStatusCode.Conflict:
         throw new Error(err.response.data.error)
-      default:
-        throw new Error("Error en el servidor, vuelve a intentarlo más tarde");
+      case HttpStatusCode.BadRequest:
+        throw new Error(err.response.data.error);
     }
   }
 }

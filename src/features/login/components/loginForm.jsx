@@ -1,4 +1,4 @@
-import { Input, Button } from "@shared/components/";
+import { Input, Button, LoaderSpiner } from "@shared/components/";
 import styles from "./loginFrom.module.css";
 import { useForm } from "react-hook-form";
 import useAuthStore from "@shared/stores/useAuthStore";
@@ -7,9 +7,10 @@ import { useState } from "react";
 
 const LoginForm = () => {
     // Estado para manejar cuando el componente esta cargando o no
-    const { login, isLoading } = useAuthStore()
+    const { login } = useAuthStore()
     const [serverError, setServerError] = useState(null)
     const [hasServerError, setHasServerError] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     // Importamos las utilidades de react-hook-form
     const {
@@ -19,11 +20,11 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        // Se hace envio de la informacion del usuario
+
         try {
-            // Se verifica si la respuesta de la api fue positiva
+            setIsLoading(true);
             const success = await login(data);
-            // En caso de haber aprobador las credenciales se redirige al dashboard
+
             if (success) {
                 Swal.fire({
                     title: "Bienvenido",
@@ -40,12 +41,12 @@ const LoginForm = () => {
                 })
             }
 
-        }
-        // En caso de haber un error se muestra por pantalla
-        catch (error) {
+        } catch (error) {
             setServerError(error.message)
             setHasServerError(true)
 
+        } finally {
+            setIsLoading(false);
         }
 
     };
@@ -90,7 +91,7 @@ const LoginForm = () => {
                     })}
                 />
             </div>
-            <Button type={"submit"} disabled={isLoading}>{isLoading ? "Cargando..." : "Ingresar"}</Button>
+            <Button type={"submit"} disabled={isLoading}>{isLoading ? <LoaderSpiner /> : "Ingresar"}</Button>
             {serverError && <span id={styles.wrongCredentialsSpan}>{serverError}</span>}
         </form>
     );
