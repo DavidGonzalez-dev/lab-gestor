@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getFabricantes, eliminarFabricante } from "../../services"
-import { Table, Input } from "@shared/components"
+
+import { Table, Input, ComponentLoader } from "@shared/components"
 import { SearchIcono } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
 import { EyeIcon, TrashIcon } from "@shared/iconos"
@@ -11,6 +12,7 @@ import Swal from "sweetalert2"
 const TablaFabricantes = () => {
     const [rowData, setRowData] = useState([])
     const [searchText, setSearchText] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const colDefs = [
         {
             headerName: "Nombre Fabricante",
@@ -117,11 +119,15 @@ const TablaFabricantes = () => {
     // Funcion para cargar los Fabricantes
     const loadFabricantes = async () => {
         try {
+            setIsLoading(true)
             const fabricantes = await getFabricantes()
             setRowData(fabricantes)
         }
         catch (err) {
             console.log(err)
+        }
+        finally {
+            setIsLoading(false)
         }
     }
 
@@ -129,6 +135,10 @@ const TablaFabricantes = () => {
     useEffect(() => {
         loadFabricantes()
     }, [])
+
+    if (isLoading) {
+        return <ComponentLoader />;
+    }
 
     return (
         <div className="container">

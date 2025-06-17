@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 import { EditFabricante } from "../../services";
@@ -11,10 +11,7 @@ import styles from "./FabricanteEditForm.module.css";
 
 export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
 
-  // Verificamos que el usuario halla desencadenado que el modal se abra
-  if (!isOpen) {
-    return null
-  }
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -49,6 +46,7 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          setIsLoading(true);
           const response = await EditFabricante(fabricante.id, payload);
           if (response) {
             Swal.fire({
@@ -70,6 +68,8 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
             heightAuto: false,
             scrollbarPadding: false,
           });
+        } finally {
+          setIsLoading(false);
         }
       }
     });
@@ -85,6 +85,12 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
       });
     }
   }, [fabricante, reset]);
+
+
+  // Verificamos que el usuario halla desencadenado que el modal se abra
+  if (!isOpen) {
+    return null
+  }
 
   return (
     <div className={styles.overlay}>
@@ -106,6 +112,10 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
               error={errors.nombre}
               {...register("nombre", {
                 required: "El nombre es obligatorio*",
+                pattern: {
+                  value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                  message: "El nombre solo puede contener letras y espacios",
+                }
               })}
             />
 
@@ -118,6 +128,10 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
               error={errors.direccion}
               {...register("direccion", {
                 required: "La dirección es obligatoria*",
+                pattern: {
+                  value: /^(cra|cr|calle|cl|av|avenida|transversal|tv|diag|dg|manzana|mz|circular|circ)[a-z]*\.?\s*\d+[a-zA-Z]?\s*(#|n°|no\.?)\s*\d+[a-zA-Z]?(?:[-]\d+)?$/,
+                  message: "Ingrese una direccion valida, ej: Calle 45 #10-23",
+                }
               })}
             />
           </div>
@@ -129,8 +143,8 @@ export function FabricanteEditForm({ isOpen, onClose, fabricante }) {
               Cancelar <TrashIcon />
             </Button>
 
-            <Button type="submit" variant="buttonAccept">
-              Guardar <CheckIcon />
+            <Button type="submit" variant="buttonAccept" disabled={isLoading}>
+              {isLoading ? <LoaderSpiner /> : <>Guardar <CheckIcon /></>}
             </Button>
 
           </div>
