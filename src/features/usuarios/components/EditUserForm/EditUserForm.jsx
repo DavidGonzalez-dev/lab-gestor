@@ -1,16 +1,16 @@
 import { useForm, Controller } from "react-hook-form"
-import Swal from "sweetalert2"
 import { EditUser } from "../../services"
-import { Input, SelectButton, Button } from "@shared/components"
+import { useState } from "react"
+
+import Swal from "sweetalert2"
+import { Input, SelectButton, Button, LoaderSpiner } from "@shared/components"
 import { AdminIcon, AnalistaIcon, CheckIcon, TrashIcon } from "@shared/iconos"
+
 import styles from "./EditUserForm.module.css"
 
 // Modal de edición de usuario
 export function EditUserModal({ isOpen, onClose, usuario }) {
-  if (!isOpen) return null
-
-  console.log(usuario)
-  console.log(usuario.rol.codigorol)
+  
 
   // Configuración del formulario con react-hook-form
   const {
@@ -28,6 +28,9 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
       estado: usuario.estado,
     },
   })
+
+  const [isLoading, setIsLoading] = useState(false)
+
   // Función para manejar el envío del formulario
   const onSubmit = (data) => {
 
@@ -76,6 +79,9 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
       }
     })
   }
+
+
+  if (!isOpen) return null
 
   return (
     <div className={styles.overlay}>
@@ -226,8 +232,8 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
             <Button variant="buttonCancel" parentMethod={onClose}>
               Cancelar <TrashIcon />
             </Button>
-            <Button type="submit" variant="buttonAccept">
-              Guardar <CheckIcon />
+            <Button type="submit" variant="buttonAccept" disabled={isLoading}>
+              {isLoading ? <LoaderSpiner /> : <>Guardar <CheckIcon /></>}
             </Button>
           </div>
         </form>
