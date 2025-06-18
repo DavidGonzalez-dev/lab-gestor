@@ -1,4 +1,4 @@
-import { Input, Button, LoaderSpiner } from "@shared/components/";
+import { Input, Button, LoaderSpiner, CustomCheckBox } from "@shared/components/";
 import styles from "./loginFrom.module.css";
 import { useForm } from "react-hook-form";
 import useAuthStore from "@shared/stores/useAuthStore";
@@ -11,6 +11,7 @@ const LoginForm = () => {
     const [serverError, setServerError] = useState(null)
     const [hasServerError, setHasServerError] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const[showPassword, setShowPassword] = useState(false)
 
     // Importamos las utilidades de react-hook-form
     const {
@@ -51,6 +52,10 @@ const LoginForm = () => {
 
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    }
+
     const clearErrorsOnFocus = () => {
         setServerError("")
         setHasServerError(false)
@@ -79,9 +84,9 @@ const LoginForm = () => {
 
                 <Input
                     id={"password"}
-                    type={"password"}
+                    type={showPassword ? "text" : "password"}
                     label={"Contraseña"}
-                    placeHolder={"Ingrese su contraseña"}
+                    placeHolder={"*********"}
                     disabled={isLoading}
                     hasServerError={hasServerError}
                     onFocus={clearErrorsOnFocus}
@@ -89,6 +94,12 @@ const LoginForm = () => {
                     {...register("password", {
                         required: "La contraseña es requerida*",
                     })}
+                />
+                <CustomCheckBox
+                    label={"Mostrar contraseña"}
+                    name={"rememberMe"}
+                    id={"rememberMe"}
+                    onChange={togglePasswordVisibility}
                 />
             </div>
             <Button type={"submit"} disabled={isLoading}>{isLoading ? <LoaderSpiner /> : "Ingresar"}</Button>
