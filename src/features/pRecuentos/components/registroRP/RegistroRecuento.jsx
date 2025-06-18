@@ -1,15 +1,17 @@
-import { Input, Button, CustomTextArea } from "@shared/components"
-import { useForm } from "react-hook-form"
+import { set, useForm } from "react-hook-form"
 import { RegistrarPrecuento } from "../../services"
+import { useState } from "react"
 
+import { Input, Button, CustomTextArea, LoaderSpiner } from "@shared/components"
 import { TrashIcon, CheckIcon } from "@shared/iconos"
 
 import Swal from "sweetalert2"
 import styles from "./RegistroRecuento.module.css"
 
 export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
-  // Se importa el hook useForm de react-hook-form para manejar el formulario
+
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Se define la función onSubmit que se ejecutará al enviar el formulario
   const onSubmit = (data) => {
@@ -39,6 +41,7 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
 
           // Se intenta registrar el recuento utilizando el servicio RegistrarPrecuento
           try {
+            setIsLoading(true)
             await RegistrarPrecuento(payload)
 
             Swal.fire({
@@ -62,6 +65,8 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
               heightAuto: false,
               scrollbarPadding: false,
             });
+          } finally {
+            setIsLoading(false)
           }
         }
       })
@@ -82,7 +87,7 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
           {...register("nombreRecuento", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z]+$/,
+              value: /^[\p{L}\s]+$/u,
               message: "El nombre solo puede contener letras"
             }
           })}
@@ -114,7 +119,7 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
           {...register("metodoUsado", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z0-9-]+$/,
+              value: /^[\p{L}0-9\s-]+$/u,
               message: "Solo puede contener letras, números y guiones (-)"
             }
           })}
@@ -127,7 +132,12 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
           label="Especificación"
           id="especificacion"
           placeHolder="Especificación"
-          {...register("especificacion", { required: "Este campo es requerido" })}
+          {...register("especificacion", { required: "Este campo es requerido",
+            pattern: {
+              value: /^[\p{L}0-9\s<>=\/.,°%:-]+$/u,
+              message: "La especificación solo puede contener letras, números o los siguientes caracteres: <>=/.,°%"
+            }
+           })}
           error={errors.especificacion}
         />
 
@@ -140,8 +150,8 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
           {...register("tratamiento", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z]+$/,
-              message: "El tratamiento solo puede contener letras"
+              value: /^[\p{L}0-9\s]+$/u,
+              message: "El tratamiento solo puede contener letras, números y guiones (-)"
             }
           })}
           error={errors.tratamiento}
@@ -156,8 +166,8 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
           {...register("volumenDiluyente", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z0-9, ]+$/,
-              message: "Solo puede contener letras, números, comas (,) y espacios"
+              value: /^[0-9]+[a-zA-Z]+$/,
+              message: "El volumen debe contener un número seguido de una unidad de volumen, por ejemplo: 5 ml o 10mL*"
             }
           })}
           error={errors.volumenDiluyente}
@@ -170,7 +180,7 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
           id="tiempoDisolucion"
           placeHolder="Ej: 10min"
           {...register("tiempoDisolucion", {
-            required: "Este campo es requerido",
+            required: "Este campo es requerido*",
             pattern: {
               value: /^[0-9]+[a-zA-Z]+$/,
               message: "Debe contener un número seguido de unidad (ej: 10min, 5h)"
@@ -183,7 +193,9 @@ export const RegistroRecuento = ({ onClose, numeroRegistroProducto }) => {
       {/* Botones de acción */}
       <div className={styles.buttonContainer}>
         <Button variant="buttonCancel" parentMethod={onClose}>Cancelar <TrashIcon /></Button>
-        <Button type="submit" variant="buttonAccept">Aceptar <CheckIcon /></Button>
+        <Button type="submit" variant="buttonAccept" disabled={isLoading}>
+          {isLoading ? <LoaderSpiner /> : <>Aceptar <CheckIcon /></>}
+        </Button>
       </div>
 
     </form>

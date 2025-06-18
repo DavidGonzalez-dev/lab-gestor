@@ -1,12 +1,15 @@
-import { Input, Button, CustomTextArea } from "@shared/components";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { EditarPrecuento } from "../../services";
+
+import { Input, Button, CustomTextArea } from "@shared/components";
 import Swal from "sweetalert2";
 import { CheckIcon, TrashIcon } from "@shared/iconos";
-import { EditarPrecuento } from "../../services";
 
 import styles from "./EditarPruebaRecuento.module.css"
 
 export const EditarRp = ({ data, onClose }) => {
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       metodoUsado: data.metodoUsado,
@@ -21,6 +24,8 @@ export const EditarRp = ({ data, onClose }) => {
     }
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit = async (payload) => {
     Swal.fire({
       title: "¿Estás seguro que quieres actualizar este recuento?",
@@ -34,7 +39,8 @@ export const EditarRp = ({ data, onClose }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const success = await EditarPrecuento(data.id,payload);
+          setIsLoading(true);
+          const success = await EditarPrecuento(data.id, payload);
           if (success) {
             Swal.fire({
               icon: "success",
@@ -51,6 +57,8 @@ export const EditarRp = ({ data, onClose }) => {
             heightAuto: false,
             scrollbarPadding: false,
           });
+        } finally {
+          setIsLoading(false);
         }
       }
     });
@@ -171,8 +179,13 @@ export const EditarRp = ({ data, onClose }) => {
 
       {/* Botones de acción */}
       <div className={styles.buttonContainer}>
-        <Button variant="buttonCancel" parentMethod={onClose}>Cancelar <TrashIcon /></Button>
-        <Button type="submit" variant="buttonAccept">Aceptar <CheckIcon /></Button>
+        <Button variant="buttonCancel" parentMethod={onClose}>
+          Cancelar <TrashIcon />
+        </Button>
+        
+        <Button type="submit" variant="buttonAccept" disabled={isLoading}>
+          {isLoading ? <LoaderSpiner /> : <>Aceptar <CheckIcon /></>}
+        </Button>
       </div>
 
     </form>
