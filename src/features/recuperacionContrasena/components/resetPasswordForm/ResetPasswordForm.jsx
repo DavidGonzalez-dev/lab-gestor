@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import usePasswordResetStore from "@shared/stores/usePasswordResetStore"
 import { CheckIcon, TrashIcon } from "@shared/iconos"
 
-import { Input, Button, LoaderSpiner } from "@shared/components"
+import { Input, Button, LoaderSpiner, CustomCheckBox } from "@shared/components"
 import { resetPassword } from "../../services"
 import { SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
 import { useState } from "react"
@@ -14,10 +14,14 @@ export const ResetPasswordForm = () => {
     const { userEmail } = usePasswordResetStore() // Obtenemos el emial del usuario
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
     const [isLoading, setIsLoading] = useState(false) // Estado para manejar el loading
+    const [showPassword, setShowPassword] = useState(false) // Estado para mostrar/ocultar la contraseña
 
     // Guardamos la contraseña enm una variable con el fin de compararla con la confirmacion de contraseña
     const password = watch("contrasena")
 
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    }
 
     // Funcion para envio de datos  
     const onSubmit = async (data) => {
@@ -55,7 +59,7 @@ export const ResetPasswordForm = () => {
             <div className={styles.inputContainer}>
                 <Input
                     id="contrasena"
-                    type="text"
+                    type={showPassword ? "text" : "password"}
                     error={errors.contrasena}
                     placeholder="Ingresa tu nueva contraseña"
                     label="Nueva Contraseña"
@@ -80,7 +84,7 @@ export const ResetPasswordForm = () => {
 
                 <Input
                     id="confirmacionContrasena"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     error={errors.confirmacionContrasena}
                     placeholder="Confirma tu contraseña"
                     label="Confirma tu Contraseña"
@@ -90,7 +94,12 @@ export const ResetPasswordForm = () => {
                     })}
                 />
 
-
+                <CustomCheckBox
+                    label={"Mostrar contraseña"}
+                    name={"rememberMe"}
+                    id={"rememberMe"}
+                    onChange={togglePasswordVisibility}
+                />
             </div>
 
             <div className={styles.buttonContainer}>
