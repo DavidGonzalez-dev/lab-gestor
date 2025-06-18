@@ -4,14 +4,16 @@ import { useForm } from "react-hook-form"
 import usePasswordResetStore from "@shared/stores/usePasswordResetStore"
 import { CheckIcon, TrashIcon } from "@shared/iconos"
 
-import { Input, Button } from "@shared/components"
+import { Input, Button, LoaderSpiner } from "@shared/components"
 import { resetPassword } from "../../services"
 import { SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
+import { useState } from "react"
 
 export const ResetPasswordForm = () => {
 
     const { userEmail } = usePasswordResetStore() // Obtenemos el emial del usuario
     const { register, handleSubmit, formState: { errors }, watch } = useForm()
+    const [isLoading, setIsLoading] = useState(false) // Estado para manejar el loading
 
     // Guardamos la contraseña enm una variable con el fin de compararla con la confirmacion de contraseña
     const password = watch("contrasena")
@@ -25,6 +27,7 @@ export const ResetPasswordForm = () => {
         }
 
         try {
+            setIsLoading(true)
             const success = await resetPassword(payload)
             if (success) {
                 SuccessAlert.fire({
@@ -43,35 +46,37 @@ export const ResetPasswordForm = () => {
             }).then((result) => {
                 if (result.isConfirmed) window.location.href = "/recuperacion-contraseña"
             })
+        } finally {
+            setIsLoading(false)
         }
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.inputContainer}>
-                    <Input
-                        id="contrasena"
-                        type="text"
-                        error={errors.contrasena}
-                        placeholder="Ingresa tu nueva contraseña"
-                        label="Nueva Contraseña"
-                        {...register("contrasena", {
-                            required: "Introduce una contraseña para continuar*",
-                            validate: {
-                                hasUpperCase: value =>
-                                    /[A-Z]/.test(value) || "Debe contener al menos una letra mayúscula*",
-                                hasLowerCase: value =>
-                                    /[a-z]/.test(value) || "Debe contener al menos una letra minúscula*",
-                                hasNumber: value =>
-                                    /\d/.test(value) || "Debe contener al menos un número*",
-                                hasSpecialChar: value =>
-                                    /[^A-Za-z0-9]/.test(value) || "Debe contener un carácter especial*"
-                            },
-                            minLength: {
-                                value: 8,
-                                message: "La contraseña debe tener al menos 8 caracteres*"
-                            }
-                        })}
-                    />
+                <Input
+                    id="contrasena"
+                    type="text"
+                    error={errors.contrasena}
+                    placeholder="Ingresa tu nueva contraseña"
+                    label="Nueva Contraseña"
+                    {...register("contrasena", {
+                        required: "Introduce una contraseña para continuar*",
+                        validate: {
+                            hasUpperCase: value =>
+                                /[A-Z]/.test(value) || "Debe contener al menos una letra mayúscula*",
+                            hasLowerCase: value =>
+                                /[a-z]/.test(value) || "Debe contener al menos una letra minúscula*",
+                            hasNumber: value =>
+                                /\d/.test(value) || "Debe contener al menos un número*",
+                            hasSpecialChar: value =>
+                                /[^A-Za-z0-9]/.test(value) || "Debe contener un carácter especial*"
+                        },
+                        minLength: {
+                            value: 8,
+                            message: "La contraseña debe tener al menos 8 caracteres*"
+                        }
+                    })}
+                />
 
                 <Input
                     id="confirmacionContrasena"
@@ -94,9 +99,8 @@ export const ResetPasswordForm = () => {
                     <TrashIcon />
                 </Button>
 
-                <Button type="submit" variant="buttonAccept">
-                    Confirmar
-                    <CheckIcon />
+                <Button type="submit" variant="buttonAccept" disabled={isLoading}>
+                    {isLoading ? <LoaderSpiner /> : <>Confirmar <CheckIcon /></>}
                 </Button>
             </div>
         </form>
