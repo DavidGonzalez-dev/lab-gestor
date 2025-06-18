@@ -1,0 +1,53 @@
+---
+import Layout from "@layouts/Layout.astro";
+import notFoundIlustraction from "@assets/ilustraciones/not-found.svg";
+import NavHeader from "@shared/components/NavHeader/NavHeader.astro";
+import { Button } from "@shared/components";
+import { ArrowBackIcon } from "@shared/iconos";
+---
+
+<Layout>
+    <NavHeader />
+    <div class="container mainContainer">
+        <div class="text">
+            <h1>404 - Página no encontrada</h1>
+            <p>Lo sentimos, la página que estás buscando no existe.</p>
+            <a href="/">
+                <Button>
+                    Ir al inicio
+                    <ArrowBackIcon />
+                </Button>
+            </a>
+        </div>
+        <img src={notFoundIlustraction.src} alt="Página no encontrada" />
+    </div>
+</Layout>
+<style>
+    .mainContainer {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        height: 80vh;
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--color-primario);
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    img {
+        max-width: 50%;
+        height: auto;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
