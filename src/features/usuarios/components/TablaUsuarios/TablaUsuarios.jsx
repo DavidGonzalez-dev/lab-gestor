@@ -1,18 +1,12 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 
-import {
-  Table,
-  PillType,
-  PillState,
-  Input,
-  ButtonCellRenderer,
-} from "@shared/components"
+import { Table, PillType, PillState, Input, ButtonCellRenderer, ComponentLoader} from "@shared/components"
 
 import { getUsuarios, DeshabilitarUsuario } from "../../services/"
 import Swal from "sweetalert2"
 
 import { ToTitleCase } from "@shared/utils"
-import { SearchIcono, TrashIcon, EyeIcon } from "@shared/iconos"
+import { SearchIcono, ForbidIcon, EyeIcon } from "@shared/iconos"
 import styles from "./TablaUsuarios.module.css"
 
 export const TablaUsuarios = () => {
@@ -21,6 +15,9 @@ export const TablaUsuarios = () => {
   //? ----------------------------------------------
   const [rowData, setRowData] = useState([]) // Estado para almacenar la informacion de la tabla
   const [searchText, setSearchText] = useState("") // Estado para almacenar el texto que se busca
+  const [isLoading, setIsLoading] = useState(false) // Estado para manejar la carga de datos
+
+
   // Definición de columnas
   const columnDefs = [
     {
@@ -77,13 +74,13 @@ export const TablaUsuarios = () => {
       }),
     },
     {
-      headerName: "Eliminar",
+      headerName: "Deshabilitar",
       field: "eliminar",
       width: 100,
       cellClass: "custom-cell-center",
       cellRenderer: ButtonCellRenderer,
       cellRendererParams: (p) => ({
-        icon: TrashIcon,
+        icon: ForbidIcon,
         variant: "buttonCancel",
         parentMethod: () => eliminarUsuario(p.data),
       }),
@@ -128,6 +125,7 @@ export const TablaUsuarios = () => {
         scrollbarPadding: false,
       })
     }
+
     // En caso de no estarlo se sigue con el flujo normal
     else {
       Swal.fire({
@@ -181,10 +179,13 @@ export const TablaUsuarios = () => {
   // Funcion para cargar los usuarios desde el servidor
   const loadUsers = async () => {
     try {
+      setIsLoading(true)
       const users = await getUsuarios()
       setRowData(users)
     } catch (error) {
       console.error("Error cargando los usuarios:", error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -193,6 +194,12 @@ export const TablaUsuarios = () => {
     loadUsers()
   }, [])
 
+
+  if (isLoading) {
+    return (
+          <ComponentLoader />
+    )
+  }
   return (
     <div className="container">
       <div className={`${styles.searchBarContainer} mb-2 w-50`}>

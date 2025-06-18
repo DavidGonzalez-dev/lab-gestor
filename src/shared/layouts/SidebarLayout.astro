@@ -2,8 +2,7 @@
 import Logo from "@assets/logo/logo-light.svg";
 const { title } = Astro.props;
 
-import { SideBar } from "@shared/components/";
-import NavBar from "@shared/components/SearchBar/NavBar.astro";
+import { SideBar, DashboardHeader } from "@shared/components/";
 import "@shared/styles/index.css"
 ---
 
@@ -30,8 +29,8 @@ import "@shared/styles/index.css"
 	</head>
 	<body>
 		<SideBar client:only />
-		<main>	
-			<NavBar/>
+		<main>
+			<DashboardHeader client:load/>
 			<div class="mainContent">
 				<slot />
 			</div>

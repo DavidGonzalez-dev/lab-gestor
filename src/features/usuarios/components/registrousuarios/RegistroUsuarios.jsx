@@ -1,9 +1,10 @@
-import { Input, SelectButton, Button } from "@shared/components";
+import { Input, SelectButton, Button, LoaderSpiner } from "@shared/components";
 import { AnalistaIcon, AdminIcon, TrashIcon, CheckIcon } from "@shared/iconos";
 
 import Swal from "sweetalert2";
 import { useForm, Controller } from "react-hook-form";
 import { RegistrarUsuario } from "../../services";
+import { useState } from "react";
 
 import styles from "./registroUsuarios.module.css";
 
@@ -21,6 +22,8 @@ export default function RegistroUsuario() {
       rol: 2, // Codigo del rol del analsita en la base de datos
     },
   });
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   // Funcion para manejar la logica de envio de datos al servidor
   const onSubmit = (data) => {
@@ -43,6 +46,7 @@ export default function RegistroUsuario() {
 
         // Se hace llamada a la api
         try {
+          setIsLoading(true);
           const success = await RegistrarUsuario(data);
           if (success) {
             Swal.fire({
@@ -61,6 +65,9 @@ export default function RegistroUsuario() {
             heightAuto: false,
             scrollbarPadding: false,
           })
+        }
+        finally {
+          setIsLoading(false);
         }
       }
     });
@@ -196,7 +203,9 @@ export default function RegistroUsuario() {
         {/* Botones de Accion */}
         <div className={styles.actionButtons}>
           <Button variant="buttonCancel" parentMethod={redirectPrevious}>Cancelar <TrashIcon /></Button>
-          <Button type={"submit"} variant={"buttonAccept"}>Aceptar <CheckIcon /></Button>
+          <Button type={"submit"} variant={"buttonAccept"} disabled={isLoading}>
+            {isLoading ? <LoaderSpiner/> : <>Aceptar <CheckIcon /></>}
+          </Button>
         </div>
 
       </form>

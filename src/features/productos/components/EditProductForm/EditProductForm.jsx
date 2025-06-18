@@ -1,6 +1,6 @@
 import styles from "./EditProductForm.module.css"
 
-import { Input, CustomSelect, CustomTextArea, Button, SelectButton } from "@shared/components"
+import { Input, CustomSelect, CustomTextArea, Button, SelectButton, LoaderSpiner } from "@shared/components"
 import { SuccessAlert, ErrorAlert, ConfirmAlert } from "@shared/components/Alerts"
 import { CajaIcon, BotellaIcon, ProductosIcon, CheckIcon, TrashIcon } from "@shared/iconos"
 
@@ -23,10 +23,11 @@ export const EditProductForm = ({ initialValues, closeAction }) => {
         idTipo: initialValues.tipo.id
     }
 
-    // Importamos las utilidades de react-hook-form
     const { register, handleSubmit, formState: { errors }, watch, control } = useForm({
         defaultValues: formattedInitialValues
     })
+
+    const [isLoading, setIsLoading] = useState(false)
 
     // Observamos la fecha de fabricacion con el fin de hacer validaciones
     const fechaFabricacion = watch("fechaFabricacion")
@@ -43,7 +44,9 @@ export const EditProductForm = ({ initialValues, closeAction }) => {
         })
         .then(async (result) => {
             if(result.isConfirmed){
+                
                 try{
+                    setIsLoading(true)
                     const success = await UpdateProduct(initialValues.numeroRegistro, payload)
                     if(success){
                         SuccessAlert.fire({
@@ -55,6 +58,8 @@ export const EditProductForm = ({ initialValues, closeAction }) => {
                         title: "Ups! hubo un error",
                         text: error.message
                     })
+                } finally {
+                    setIsLoading(false)
                 }
             }
         })
@@ -311,9 +316,8 @@ export const EditProductForm = ({ initialValues, closeAction }) => {
                 </Button>
 
 
-                <Button variant="buttonAccept" type="submit">
-                    Aceptar
-                    <CheckIcon />
+                <Button variant="buttonAccept" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoaderSpiner /> : <>Aceptar <CheckIcon /></>}
                 </Button>
 
             </div>

@@ -5,73 +5,67 @@ export async function requireAuth(context, next) {
     const { request, redirect } = context
     const authCookie = request.headers.get("cookie")
 
-    // Rutas publicas que no requieren autenticacion
-    const publicRoutes = ["/", "/login", "/recuperacion-contraseña", "/unauthorized"]
+    // DEFINICION DE LAS RUTAS PUBLICAS QUE NO REQUIEREN AUTENTICACION
+    const publicRoutes = ["/login", "/recuperacion-contrase%C3%B1a", "/unauthorized", "/fav.ico"]
 
-    // Acceso a las rutas privadas por rol
+    // DEFINCION DE LAS RUTAS PRIVADAS PRO ROL
     const accessControl = {
-        admin: ["/dashboard", "/usuarios", "/productos", "/clientes", "/fabricantes", "/recuentos"],
-        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos"]
+        admin: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/usuarios", ...publicRoutes],
+        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", ...publicRoutes]
     }
+
     const url = new URL(request.url)
 
     // Verificamos si la ruta es publica
-    const isPublic = publicRoutes.some(route => url.pathname === route || url.pathname.startsWith(route))
+    const isPublic = url.pathname == "/" || publicRoutes.some(route => url.pathname.startsWith(route))
 
+    if (!isPublic && !authCookie) {
+        return redirect("/unauthorized")
+    }
 
+    // Verificamos que el usuario tenga un token de autenticacion valido
+    
     let isValid = false // Variable para verificar si el token es valido
     let userRole = null // Variable para guardar el rol del usuario
 
-    // Obtenemos la cookie de autenticacion y verificamos
-    try {
-        const response = await api.get("/validar-token", {
-            headers: {
-                Cookie: authCookie
+    if (authCookie) {
+        try {
+            const response = await api.get("/validar-token", {
+                headers: {
+                    Cookie: authCookie
+                }
+            })
+            isValid = response.data.data.valid
+            userRole = response.data.data.rol
+        }
+        // En caso de haber un error se hace un log en la consola del servidor
+        catch (error) {
+            if (error.response) {
+                console.error(error.response.data)
             }
-        })
-
-        isValid = response.data.data.valid
-        userRole = response.data.data.rol
-
-    }
-    // En caso de haber un error se hace un log en la consola del servidor
-    catch (error) {
-        if (error.response.data) {
-            console.info(error.response.data)
-        }
-        else {
-            console.error("Error al conectarse al servidor")
+            else {
+                console.error("Error al conectarse al servidor: ", error)
+            }
         }
     }
 
-    // ----------------
-    // Validaciones
-    // ----------------
-
-    // Si ya se autentico e intenta ir a lofin, redirige a su dashboard
-    if (isValid && url.pathname === "/login") {
-        return redirect("/dashboard")
-    }
-
-    // Si la ruta es publica se salta las validaciones
-    if (isPublic) {
-        return next()
-    }
-
-    // Verificamos que el usuario autenticado tenga acceso a la ruta
+    // Verificamos que el usuario tenga los permisos necesarios para ingresar a la ruta
     if (isValid) {
-        // Obtenemos las rutas a las que el usuario tiene aceso
-        const allowedRoutes = accessControl[userRole] || []
 
-        // Verificar si la ruta actual esta permitida para el usuario
+        // Si el usuario esta intentando ingresar al login se le redirige al dashboard directamente
+        if (url.pathname === "/login") {
+            return redirect("dashboard")
+        }
+
+        const allowedRoutes = accessControl[userRole] || []
         const hasAccess = allowedRoutes.some(route => url.pathname.startsWith(route))
 
-        //Redirigimos en caso de que el usuario no tenga acceso
-        if (!hasAccess) {
+        if (!hasAccess && !isPublic){
             return redirect("/unauthorized")
         }
         return next()
     }
-    
-    return redirect("/login")
+
+    return next()
+
 }   

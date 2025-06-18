@@ -5,11 +5,12 @@ import { registrarFabricante } from "../../services"
 import Swal from "sweetalert2"
 
 import styles from "./FormularioRegistroFabricante.module.css"
+import { useState } from "react"
 
 const FormularioRegistroFabricante = () => {
 
-    // Inicializamos el estado del formulario
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const [isLoading, setIsLoading] = useState(false)
 
 
     // Definir logica de envio de datos
@@ -31,6 +32,7 @@ const FormularioRegistroFabricante = () => {
             if (result.isConfirmed) {
                 //Se crea el Fabricante en la base de datos
                 try {
+                    setIsLoading(true)
                     const success = await registrarFabricante(data)
                     // Si se crea el usuario con exito se muestra una alerta
                     if (success) {
@@ -51,6 +53,9 @@ const FormularioRegistroFabricante = () => {
                         scrollbarPadding: false,
                     })
                 }
+                finally {
+                    setIsLoading(false)
+                }
             }
         })
     }
@@ -66,7 +71,13 @@ const FormularioRegistroFabricante = () => {
                     label={"Nombre del Fabricante"}
                     placeHolder={"Nombre Fabricante"}
                     error={errors.nombre}
-                    {...register("nombre", { required: "El nombre es obligatorio*" })}
+                    {...register("nombre", {
+                        required: "El nombre es obligatorio*",
+                        pattern: {
+                            value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/,
+                            message: "El nombre solo puede contener letras y espacios",
+                        }
+                    })}
                 />
 
 
@@ -77,14 +88,25 @@ const FormularioRegistroFabricante = () => {
                     label={"Direccion del Fabricante"}
                     placeHolder={"Direccion Fabricante"}
                     error={errors.direccion}
-                    {...register("direccion", { required: "El direccion es obligatorio*" })}
+                    {...register("direccion", {
+                        required: "El direccion es obligatorio*",
+                        pattern: {
+                            value: /^(cra|cr|calle|cl|av|avenida|transversal|tv|diag|dg|manzana|mz|circular|circ)[a-z]*\.?\s*\d+[a-zA-Z]?\s*(#|n°|no\.?)\s*\d+[a-zA-Z]?(?:[-]\d+)?$/,
+                            message: "Ingrese una direccion valida, ej: Calle 45 #10-23",
+                        }
+                    })}
                 />
             </div>
 
             {/* Botones de Accion */}
             <div className={styles.actionButtons}>
-                <Button variant={"buttonCancel"} parentMethod={() => window.location.href = "/fabricantes"}>Cancelar <TrashIcon /></Button>
-                <Button variant={"buttonAccept"} type="submit" >Aceptar <CheckIcon /></Button>
+                <Button variant={"buttonCancel"} parentMethod={() => window.location.href = "/fabricantes"}>
+                    Cancelar <TrashIcon />
+                </Button>
+
+                <Button variant={"buttonAccept"} type="submit" disabled={isLoading} >
+                    {isLoading ? <LoaderSpiner /> : <>Aceptar <CheckIcon /></>}
+                </Button>
             </div>
         </form>
     )

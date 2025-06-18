@@ -1,4 +1,4 @@
-import { Input, Button } from "@shared/components/";
+import { Input, Button, LoaderSpiner, CustomCheckBox } from "@shared/components/";
 import styles from "./loginFrom.module.css";
 import { useForm } from "react-hook-form";
 import useAuthStore from "@shared/stores/useAuthStore";
@@ -7,9 +7,11 @@ import { useState } from "react";
 
 const LoginForm = () => {
     // Estado para manejar cuando el componente esta cargando o no
-    const { login, isLoading } = useAuthStore()
+    const { login } = useAuthStore()
     const [serverError, setServerError] = useState(null)
     const [hasServerError, setHasServerError] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const[showPassword, setShowPassword] = useState(false)
 
     // Importamos las utilidades de react-hook-form
     const {
@@ -19,11 +21,11 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        // Se hace envio de la informacion del usuario
+
         try {
-            // Se verifica si la respuesta de la api fue positiva
+            setIsLoading(true);
             const success = await login(data);
-            // En caso de haber aprobador las credenciales se redirige al dashboard
+
             if (success) {
                 Swal.fire({
                     title: "Bienvenido",
@@ -40,15 +42,19 @@ const LoginForm = () => {
                 })
             }
 
-        }
-        // En caso de haber un error se muestra por pantalla
-        catch (error) {
+        } catch (error) {
             setServerError(error.message)
             setHasServerError(true)
 
+        } finally {
+            setIsLoading(false);
         }
 
     };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    }
 
     const clearErrorsOnFocus = () => {
         setServerError("")
@@ -78,9 +84,9 @@ const LoginForm = () => {
 
                 <Input
                     id={"password"}
-                    type={"password"}
+                    type={showPassword ? "text" : "password"}
                     label={"Contraseña"}
-                    placeHolder={"Ingrese su contraseña"}
+                    placeHolder={"*********"}
                     disabled={isLoading}
                     hasServerError={hasServerError}
                     onFocus={clearErrorsOnFocus}
@@ -89,8 +95,14 @@ const LoginForm = () => {
                         required: "La contraseña es requerida*",
                     })}
                 />
+                <CustomCheckBox
+                    label={"Mostrar contraseña"}
+                    name={"rememberMe"}
+                    id={"rememberMe"}
+                    onChange={togglePasswordVisibility}
+                />
             </div>
-            <Button type={"submit"} disabled={isLoading}>{isLoading ? "Cargando..." : "Ingresar"}</Button>
+            <Button type={"submit"} disabled={isLoading}>{isLoading ? <LoaderSpiner /> : "Ingresar"}</Button>
             {serverError && <span id={styles.wrongCredentialsSpan}>{serverError}</span>}
         </form>
     );

@@ -10,6 +10,7 @@ const useAuthStore = create(
             // Estado incial
             userId: null,
             userRole: null,
+            userName: null,
             isAuthenticated: false,
             isLoading: false,
 
@@ -21,10 +22,11 @@ const useAuthStore = create(
                 // Hacemos el fetch de datos para setear el rol del usuario y el id del mismo en el estado global
                 try {
                     const response = await api.post("/login", credentials)
-                    console.log(response.data.data.rol)
+                    console.log(response.data.data.nombre)
                     set({ 
                         userRole: response.data.data.rol, 
                         userId: response.data.data.id,
+                        userName: response.data.data.nombre,
                         isAuthenticated: true
                      })
                      return true
@@ -50,7 +52,7 @@ const useAuthStore = create(
                 //Hacemos la llamada a la api
                 try{
                     await api.post("/logout")
-                    window.location.href = "/login"
+                    window.location.replace("/login")
                 }
                 // En caso de un error arrojamos una expcion
                 catch(err){
@@ -60,6 +62,7 @@ const useAuthStore = create(
                     set({
                         userId: null,
                         userRole: null,
+                        userName: null,
                         isAuthenticated: false,
                         isLoading: false
                     })
@@ -71,6 +74,7 @@ const useAuthStore = create(
             partialize: (state) => ({
                 userId: state.userId,
                 userRole: state.userRole,
+                userName: state.userName,
                 isAuthenticated:state.isAuthenticated
             })
         }
