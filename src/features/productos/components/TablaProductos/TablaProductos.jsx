@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { GetRegistrosEntradaProducto, deleteProducto, GetRegsitrosEntradaProductoPorUsuario } from "../../services"
 import useAuthStore from "@shared/stores/useAuthStore.js"
 
-import { getDateComparatorFunction, dateFormatter, getPillVariantProductType, getPillVariantProductState } from "@shared/utils"
+import { getDateComparatorFunction, dateFormatter, getPillVariantProductType } from "@shared/utils"
 
-import { Table, PillType, ButtonCellRenderer, Input, SelectButton } from "@shared/components"
+import { Table, PillType, ButtonCellRenderer, Input, SelectButton, ComponentLoader } from "@shared/components"
 import { EyeIcon, TrashIcon, SearchIcono } from "@shared/iconos"
 
 import styles from "./TablaProductos.module.css"
@@ -15,152 +15,153 @@ export const TablaProductos = () => {
     const [rowData, setRowData] = useState([]) // Estado para guardar la informacion de la tabla
     const [searchText, setSearchText] = useState("") // Estado para guardar el valor de busqueda de la barra de busqueda
     const [type, setType] = useState("all") // Estado para guardar el filtro del tipo de producto
+    const [isLoading, setIsLoading] = useState(true) // Estado para manejar el loading de la tabla
 
     const { userId, userRole } = useAuthStore()
 
 
     // Defincion de las columnas
-    const colDefs = userRole === "admin" 
-    ? [
-        {
-            headerName: "Numero Registro",
-            field: "numeroRegistroProducto",
-            width: 180,
-            flex: 0
-        },
-        {
-            headerName: "Categoria",
-            field: "producto.tipo.nombreTipo",
-            width: 170,
-            flex: 0,
-            cellRenderer: PillType,
-            cellRendererParams: (p) => ({
-                variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
-            })
-        },
-        {
-            headerName: "Condiciones Ambientales",
-            width: 180,
-            flex: 0,
-            field: "condicionesAmbientales",
-        },
-        {
-            headerName: "Recepcion",
-            field: "fechaRecepcion",
-            width: 150,
-            flex: 0,
-            sortable: true,
-            unSortIcon: true,
-            filter: "agDateColumnFilter",
-            valueFormatter: (p) => dateFormatter(p.value),
-            filterParams: {
-                comparator: getDateComparatorFunction()
-            }
-        },
-        {
-            headerName: "Inicio Analisis",
-            field: "fechaInicioAnalisis",
-            width: 180,
-            flex: 0,
-            sortable: true,
-            unSortIcon: true,
-            filter: "agDateColumnFilter",
-            valueFormatter: (p) => dateFormatter(p.value),
-            filterParams: {
-                comparator: getDateComparatorFunction()
-
-            }
-        },
-        {
-            headerName: "Responsable",
-            field: "usuario.firma",
-            cellRenderer: (p) => {
-                return(
-                 <b>{p.data.usuario.firma}</b>
-                ) 
+    const colDefs = userRole === "admin"
+        ? [
+            {
+                headerName: "Numero Registro",
+                field: "numeroRegistroProducto",
+                width: 180,
+                flex: 0
             },
-        },
-        {
-            headerName: "Detalles",
-            cellRenderer: ButtonCellRenderer,
-            cellRendererParams: (p) => ({
-                icon: EyeIcon,
-                variant: "default",
-                parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
-            })
-        },
-        {
-            headerName: "Eliminar",
-            cellRenderer: ButtonCellRenderer,
-            cellRendererParams: (p) => ({
-                icon: TrashIcon,
-                variant: "buttonCancel",
-                parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
-            })
-        }
-    ] 
-    : [
-        {
-            headerName: "Numero Registro",
-            field: "numeroRegistroProducto",
-        },
-        {
-            headerName: "Categoria",
-            field: "producto.tipo.nombreTipo",
-            cellRenderer: PillType,
-            cellRendererParams: (p) => ({
-                variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
-            })
-        },
-        {
-            headerName: "Condiciones Ambientales",
-            field: "condicionesAmbientales",
-        },
-        {
-            headerName: "Recepcion",
-            field: "fechaRecepcion",
-            sortable: true,
-            unSortIcon: true,
-            filter: "agDateColumnFilter",
-            valueFormatter: (p) => dateFormatter(p.value),
-            filterParams: {
-                comparator: getDateComparatorFunction()
+            {
+                headerName: "Categoria",
+                field: "producto.tipo.nombreTipo",
+                width: 170,
+                flex: 0,
+                cellRenderer: PillType,
+                cellRendererParams: (p) => ({
+                    variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
+                })
+            },
+            {
+                headerName: "Condiciones Ambientales",
+                width: 180,
+                flex: 0,
+                field: "condicionesAmbientales",
+            },
+            {
+                headerName: "Recepcion",
+                field: "fechaRecepcion",
+                width: 150,
+                flex: 0,
+                sortable: true,
+                unSortIcon: true,
+                filter: "agDateColumnFilter",
+                valueFormatter: (p) => dateFormatter(p.value),
+                filterParams: {
+                    comparator: getDateComparatorFunction()
+                }
+            },
+            {
+                headerName: "Inicio Analisis",
+                field: "fechaInicioAnalisis",
+                width: 180,
+                flex: 0,
+                sortable: true,
+                unSortIcon: true,
+                filter: "agDateColumnFilter",
+                valueFormatter: (p) => dateFormatter(p.value),
+                filterParams: {
+                    comparator: getDateComparatorFunction()
+
+                }
+            },
+            {
+                headerName: "Responsable",
+                field: "usuario.firma",
+                cellRenderer: (p) => {
+                    return (
+                        <b>{p.data.usuario.firma}</b>
+                    )
+                },
+            },
+            {
+                headerName: "Detalles",
+                cellRenderer: ButtonCellRenderer,
+                cellRendererParams: (p) => ({
+                    icon: EyeIcon,
+                    variant: "default",
+                    parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
+                })
+            },
+            {
+                headerName: "Eliminar",
+                cellRenderer: ButtonCellRenderer,
+                cellRendererParams: (p) => ({
+                    icon: TrashIcon,
+                    variant: "buttonCancel",
+                    parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
+                })
             }
-        },
-        {
-            headerName: "Inicio Analisis",
-            field: "fechaInicioAnalisis",
-            sortable: true,
-            unSortIcon: true,
-            filter: "agDateColumnFilter",
-            valueFormatter: (p) => dateFormatter(p.value),
-            filterParams: {
-                comparator: getDateComparatorFunction()
+        ]
+        : [
+            {
+                headerName: "Numero Registro",
+                field: "numeroRegistroProducto",
+            },
+            {
+                headerName: "Categoria",
+                field: "producto.tipo.nombreTipo",
+                cellRenderer: PillType,
+                cellRendererParams: (p) => ({
+                    variant: getPillVariantProductType(p.data.producto.tipo.nombreTipo)
+                })
+            },
+            {
+                headerName: "Condiciones Ambientales",
+                field: "condicionesAmbientales",
+            },
+            {
+                headerName: "Recepcion",
+                field: "fechaRecepcion",
+                sortable: true,
+                unSortIcon: true,
+                filter: "agDateColumnFilter",
+                valueFormatter: (p) => dateFormatter(p.value),
+                filterParams: {
+                    comparator: getDateComparatorFunction()
+                }
+            },
+            {
+                headerName: "Inicio Analisis",
+                field: "fechaInicioAnalisis",
+                sortable: true,
+                unSortIcon: true,
+                filter: "agDateColumnFilter",
+                valueFormatter: (p) => dateFormatter(p.value),
+                filterParams: {
+                    comparator: getDateComparatorFunction()
+                }
+            },
+            {
+                headerName: "Detalles",
+                cellRenderer: ButtonCellRenderer,
+                width: 100,
+                flex: 0,
+                cellRendererParams: (p) => ({
+                    icon: EyeIcon,
+                    variant: "default",
+                    parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
+                })
+            },
+            {
+                headerName: "Eliminar",
+                cellRenderer: ButtonCellRenderer,
+                width: 100,
+                flex: 0,
+                cellRendererParams: (p) => ({
+                    icon: TrashIcon,
+                    variant: "buttonCancel",
+                    parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
+                })
             }
-        },
-        {
-            headerName: "Detalles",
-            cellRenderer: ButtonCellRenderer,
-            width: 100,
-            flex: 0,
-            cellRendererParams: (p) => ({
-                icon: EyeIcon,
-                variant: "default",
-                parentMethod: () => window.location.href = `productos/${p.data.numeroRegistroProducto}`
-            })
-        },
-        {
-            headerName: "Eliminar",
-            cellRenderer: ButtonCellRenderer,
-            width: 100,
-            flex: 0,
-            cellRendererParams: (p) => ({
-                icon: TrashIcon,
-                variant: "buttonCancel",
-                parentMethod: () => eliminarProducto(p.data.numeroRegistroProducto)
-            })
-        }
-    ] 
+        ]
 
     //? ----------------------------------------------
     //? Logica de los filtros
@@ -256,6 +257,7 @@ export const TablaProductos = () => {
     const loadProducts = async () => {
         // Se hace la peticion al servicio
         try {
+            setIsLoading(true)
             // Hacemos el fetch de datos dependiendo del rol del usuario
             let data = []
             if (userRole === "admin") {
@@ -271,12 +273,19 @@ export const TablaProductos = () => {
         // Se maneja las exepciones
         catch (err) {
             console.log(err.message)
+        } finally {
+            setIsLoading(false)
         }
     }
     // Carga de Datos
     useEffect(() => {
         loadProducts()
     }, [])
+
+
+    if (isLoading) {
+        return <ComponentLoader />
+    }   
 
     return (
         <div className="container">

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { EditarPrecuento } from "../../services";
 
-import { Input, Button, CustomTextArea } from "@shared/components";
+import { Input, Button, CustomTextArea, LoaderSpiner } from "@shared/components";
 import Swal from "sweetalert2";
 import { CheckIcon, TrashIcon } from "@shared/iconos";
 

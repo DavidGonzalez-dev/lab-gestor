@@ -1,12 +1,13 @@
 import styles from "./EditEntryDetailsForm.module.css"
 
-import { Input, CustomTextArea, Button } from "@shared/components"
+import { Input, CustomTextArea, Button, LoaderSpiner } from "@shared/components"
 import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
 import { TrashIcon, CheckIcon } from "@shared/iconos"
 
 import { UpdateEntryDetails } from "../../services"
 
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 
 
 export const EditEntryDetailsForm = ({ initialValues, closeModal }) => {
@@ -16,10 +17,12 @@ export const EditEntryDetailsForm = ({ initialValues, closeModal }) => {
         fechaInicioAnalisis: initialValues.fechaInicioAnalisis ? new Date(initialValues.fechaInicioAnalisis).toISOString().split('T')[0] : '',
         fechaFinalAnalisis: initialValues.fechaFinalAnalisis ? new Date(initialValues.fechaFinalAnalisis).toISOString().split('T')[0] : '',
     }
-    // Importamos las utilidades de react hook form
+
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: formattedDefaultValues
     })
+
+    const [isLoading, setIsLoading] = useState(false)
 
     // Guardamos los datos que necesitemos para hacer validaciones en los demas campos
     const fechaRecepcion = new Date(watch("fechaRecepcion"))
@@ -31,27 +34,30 @@ export const EditEntryDetailsForm = ({ initialValues, closeModal }) => {
             title: "Seguro que quiere actualizar los detalles de entrada de este producto?",
             text: "Es posible que estos cambios afecten la informacion de otros registros relacionados a este producto"
         })
-        .then(async (result) => {
+            .then(async (result) => {
 
-            if(result.isConfirmed){
+                if (result.isConfirmed) {
 
-                try {
-                    const success = await UpdateEntryDetails(initialValues.numeroRegistroProducto, payload)
+                    try {
+                        setIsLoading(true)
+                        const success = await UpdateEntryDetails(initialValues.numeroRegistroProducto, payload)
 
-                    if (success) {
-                        SuccessAlert.fire({
-                            title: "Se actualizaron los detalles de entrada con exito!"
-                        }).then(() => location.reload())
+                        if (success) {
+                            SuccessAlert.fire({
+                                title: "Se actualizaron los detalles de entrada con exito!"
+                            }).then(() => location.reload())
+                        }
+                    } catch (error) {
+                        ErrorAlert.fire({
+                            title: "Ups! Hubo un error",
+                            text: error.message
+                        })
+                    } finally {
+                        setIsLoading(false)
                     }
-                } catch (error) {
-                    ErrorAlert.fire({
-                        title:"Ups! Hubo un error",
-                        text: error.message
-                    })
                 }
-            }
 
-        })
+            })
     }
 
 
@@ -112,9 +118,11 @@ export const EditEntryDetailsForm = ({ initialValues, closeModal }) => {
                     <TrashIcon />
                 </Button>
 
-                <Button variant="buttonAccept" type="sumbit">
-                    Aceptar
-                    <CheckIcon />
+                <Button variant="buttonAccept" type="submit" disabled={isLoading}>
+                    {isLoading
+                        ? <LoaderSpiner />
+                        : <>Aceptar<CheckIcon /></>}
+
                 </Button>
             </div>
         </form>

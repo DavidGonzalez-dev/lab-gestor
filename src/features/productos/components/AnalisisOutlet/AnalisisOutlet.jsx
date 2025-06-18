@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
 import { GetProductAnalisys } from "../../services"
-import { AnalisisCard } from "@shared/components"
+import { AnalisisCard, ComponentLoader } from "@shared/components"
 
 import styles from "./AnalisisOutlet.module.css"
 
 export const AnalisisOutlet = ({ numeroRegistroProducto }) => {
 
     const [analisis, setAnalisis] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
 
     // Carga de datos
     const loadAnalisis = async () => {
         try {
-
+            setAnalisis
             const data = await GetProductAnalisys(numeroRegistroProducto)
             if (data) {
                 setAnalisis(data)
@@ -19,18 +20,21 @@ export const AnalisisOutlet = ({ numeroRegistroProducto }) => {
 
         } catch (error) {
             console.log(error.message)
+        } finally {
+            setIsLoading(false)
         }
     }
 
     useEffect(() => {
         loadAnalisis()
-        console.log(analisis)
-        console.log(analisis.pruebasRecuento)
     }, [])
 
 
-    if (analisis.pruebasRecuento) {
+    if(isLoading) {
+        return <ComponentLoader />
+    }
 
+    if (analisis.pruebasRecuento) {
         return (
             <div className={styles.cardsContainer}>
                 {analisis.pruebasRecuento.map(prueba => (

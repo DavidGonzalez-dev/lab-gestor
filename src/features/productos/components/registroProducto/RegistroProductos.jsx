@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useAuthStore from "../../../../shared/stores/useAuthStore";
 import { RegistrarProducto } from "../../services";
 
-import { Input, Button, CustomTextArea, SelectButton, CustomSelect, ProgressBar } from "@shared/components"
+import { Input, Button, CustomTextArea, SelectButton, CustomSelect, ProgressBar, LoaderSpiner } from "@shared/components"
 import { CajaIcon, ProductosIcon, BotellaIcon, TrashIcon, ArrowBackIcon, CheckIcon, ArrowForwardIcon } from "@shared/iconos"
 
 import { getClientes } from "@features/clientes/services";
@@ -26,6 +26,7 @@ export default function RegistroProducto() {
   const [clientes, setClientes] = useState([]) // Estado para almacenar los clientes
   const [fabricantes, setFabricantes] = useState([]) // Estado para almacenar los fabricantes
   const [step, setStep] = useState(1) // Estado para la paginacion de los pasos del formulario
+  const [isLoading, setIsLoading] = useState(false) // Estado para manejar el loading del formulario
 
   const { userId } = useAuthStore()
 
@@ -95,6 +96,7 @@ export default function RegistroProducto() {
 
           // Se intenta hacer la peticion al servidor
           try {
+            setIsLoading(true) // Activamos el loading
             const success = await RegistrarProducto(payload)
             if (success) {
               Swal.fire({
@@ -119,6 +121,8 @@ export default function RegistroProducto() {
               scrollbarPadding: false,
             })
 
+          } finally {
+            setIsLoading(false) // Desactivamos el loading
           }
         }
       })
@@ -476,9 +480,9 @@ export default function RegistroProducto() {
           }
         </Button>
 
-        <Button variant="buttonAccept" parentMethod={step === 3 ? handleSubmit(onSubmit) : nextStep}>
+        <Button variant="buttonAccept" parentMethod={step === 3 ? handleSubmit(onSubmit) : nextStep} disabled={isLoading}>
           {step === 3
-            ? <>Registrar <CheckIcon /></>
+            ? isLoading ? <LoaderSpiner /> : <>Registrar <CheckIcon /></>
             : <>Siguiente <ArrowForwardIcon/></>
           }
         </Button>
