@@ -1,0 +1,47 @@
+---
+import {OrganismoCard} from "@features/microOrganismos/components/MicroCard/OrganismosCard"
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro"
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro"
+
+import { VistaOrganismosID } from "@features/microOrganismos/services"
+
+const { id } = Astro.params;
+
+// Traemos la informacion del cliente
+let organismo = null;
+try {
+  organismo = await VistaOrganismosID(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">
+      
+      <PillHeading variant="primary">
+        <h1>Detalle organismo</h1>
+      </PillHeading>
+
+    <!-- Informacion del cliente -->
+    <div>
+      {
+        organismo ? (
+          <OrganismoCard client:only Organismo={organismo} />
+        ) : (
+          <p>No se encontró información del Micro Organismo</p>
+        )
+      }
+    </div>
+  </div>
+</SidebarLayout>
+
+<style>
+  .mainContainer{
+    margin-top: 5dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+</style>

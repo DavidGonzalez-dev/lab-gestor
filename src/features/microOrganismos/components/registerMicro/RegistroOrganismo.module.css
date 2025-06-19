@@ -14,22 +14,13 @@
   width: 40%;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  justify-content: center;
   gap: 10px;
-
+  min-height: 12dvh;
 }
 
 .buttonContainer{
   display: flex;
   gap: 20px;
-}
-.contenido {
-  font-size: 15px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
-}
-.texto {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--color-primario-oscuro);
 }
