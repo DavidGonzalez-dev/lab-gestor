@@ -74,13 +74,13 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
         {/* Nombre Recuento */}
         <Input
           type="text"
-          label="Nombre de Micro Organismo"
+          label="Nombre Microorganismo"
           id="nombreMicroorganismo"
-          placeHolder="Nombre Recuento"
+          placeHolder="Ej: Escherichia coli"
           {...register("nombreMicroorganismo", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z]+$/,
+              value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s()\/\-]+$/,
               message: "El nombre solo puede contener letras"
             }
           })}
@@ -112,7 +112,7 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
           {...register("metodoUsado", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z0-9-]+$/,
+              value: /^[\p{L}0-9-]+$/u,
               message: "Solo puede contener letras, números y guiones (-)"
             }
           })}
@@ -125,7 +125,12 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
           label="Especificación"
           id="especificacion"
           placeHolder="Especificación"
-          {...register("especificacion", { required: "Este campo es requerido" })}
+          {...register("especificacion", { required: "Este campo es requerido",
+            pattern: {
+              value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s()<>\-=\/.]+$/,
+              message: "La especificación solo puede contener letras, números y espacios y algunos caracteres especiales como (), <>, - y /"
+            }
+           })}
           error={errors.especificacion}
         />
 
@@ -138,8 +143,8 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
           {...register("tratamiento", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z]+$/,
-              message: "El tratamiento solo puede contener letras"
+              value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s()\/\-]+$/,
+              message: "El tratamiento solo puede contener letras, números y espacios y algunos caracteres especiales como (), <>, - y /"
             }
           })}
           error={errors.tratamiento}
@@ -154,8 +159,8 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
           {...register("volumenDiluyente", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z0-9, ]+$/,
-              message: "Solo puede contener letras, números, comas (,) y espacios"
+              value: /^[0-9]+[a-zA-Z]+$/,
+              message: "Solo puede contener letras, números y espacios"
             }
           })}
           error={errors.volumenDiluyente}
