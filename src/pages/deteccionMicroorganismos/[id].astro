@@ -1,19 +1,19 @@
 ---
-import { RecuentoCard } from "@features/pRecuentos/components/RecuentosCard/Recuentocard";
-import { Button } from "@shared/components";
-import { ArrowBackIcon } from "@shared/iconos";
-
+import { OrganismoCard } from "@features/microOrganismos/components/MicroCard/OrganismosCard";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
-import { VistaRecuentoID } from "@features/pRecuentos/services";
+import { Button } from "@shared/components";
+import { ArrowBackIcon } from "@shared/iconos";
+
+import { VistaOrganismosID } from "@features/microOrganismos/services";
 
 const { id } = Astro.params;
 
 // Traemos la informacion del analisis
-let recuento = null;
+let organismo = null;
 try {
-  recuento = await VistaRecuentoID(id);
+  organismo = await VistaOrganismosID(id);
 } catch (error) {
   console.error(error);
 }
@@ -23,25 +23,23 @@ try {
   <div class="container mainContainer">
     <div class="header">
       <PillHeading variant="primary">
-        <h1>Detalle Recuento</h1>
+        <h1>Detalle Deteccion</h1>
       </PillHeading>
 
-      <a href={`/productos/${recuento.numeroRegistroProducto}`}>
+      <a href={`/productos/${organismo.numeroRegistroProducto}`}>
         <Button variant="buttonCancel">
-          Atrás
+          Atras
           <ArrowBackIcon />
         </Button>
       </a>
-      
     </div>
-
     <!-- Informacion del analisis -->
     <div>
       {
-        recuento ? (
-          <RecuentoCard client:load recuento={recuento} />
+        organismo ? (
+          <OrganismoCard client:only Organismo={organismo} />
         ) : (
-          <p>No se encontró información del Recuento</p>
+          <p>No se encontró información del Micro Organismo</p>
         )
       }
     </div>
@@ -49,15 +47,18 @@ try {
 </SidebarLayout>
 
 <style>
+
   a {
     text-decoration: none;
   }
+
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
   }
+
 
   .mainContainer {
     margin-top: 5dvh;

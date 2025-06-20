@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { DropDownButton, Modal } from "@shared/components"
-
+import { RegistroOrganismo } from "@features/microOrganismos/components/registerMicro/RegistroOrganismo"
 import { RegistroRecuento } from "@features/pRecuentos/components/registroRP/RegistroRecuento"
 
 export const AnalisisSelect = ({numeroRegistroProducto}) => {
@@ -47,6 +47,9 @@ export const AnalisisSelect = ({numeroRegistroProducto}) => {
                 
                 {modalType === "pruebaRecuento" && (
                     <RegistroRecuento onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto}/>
+                )}
+                {modalType === "deteccionMicroorganimos" && (
+                    <RegistroOrganismo onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto}/>
                 )}
 
             </Modal>

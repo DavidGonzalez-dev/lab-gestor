@@ -1,6 +1,18 @@
 .cardsContainer {
     display: flex;
     gap: 20px;
-    justify-content: center;
-    min-height: 300px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.selectTypeContainer {
+    display: flex;
+    background: #d3d3d330;
+    border: 1px solid #a3a3a340;
+    padding: 4px;
+    align-items: flex-end;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10px;
 }
