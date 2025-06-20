@@ -4,9 +4,10 @@ import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import { ProductCard } from "@features/productos/components/ProductCard/ProductCard";
 import { AnalisisSelect } from "@features/productos/components/AnalisisSelect/AnalisisSelect";
 import { EntryDetailsCard } from "@features/productos/components/EntryDetailsCard/EntryDetailsCard";
-import {AnalisisOutlet} from "@features/productos/components/AnalisisOutlet/AnalisisOutlet"
+import { AnalisisOutlet } from "@features/productos/components/AnalisisOutlet/AnalisisOutlet";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
+import { TabsContainer, Tab } from "@shared/components";
 // Se hace trae la informacion del producto desde la API
 const { id } = Astro.params;
 let data = null;
@@ -21,12 +22,20 @@ try {
 
 <SidebarLayout>
     <div class="container mainContainer">
-        <!-- Titulo -->
+
+        <TabsContainer data={data} client:load/>
+
+        <!-- Titulo
         <div class="header">
             <PillHeading variant="primary">
                 <h1>Informacion del Producto</h1>
             </PillHeading>
-            <AnalisisSelect numeroRegistroProducto={data.numeroRegistroProducto} client:only/>
+            {data && (
+                <AnalisisSelect
+                    numeroRegistroProducto={data.numeroRegistroProducto}
+                    client:load
+                />
+            )}
         </div>
 
         <section id="productInfo">
@@ -46,8 +55,14 @@ try {
 
         <section class="analisisSection">
             <h2>Analisis Registrados</h2>
-            <AnalisisOutlet numeroRegistroProducto={data.numeroRegistroProducto} client:visible/>
-        </section>
+
+            {data && (
+                <AnalisisOutlet
+                    numeroRegistroProducto={data.numeroRegistroProducto}
+                    client:visible
+                />
+            )}
+        </section> -->
     </div>
 </SidebarLayout>
 <style>
@@ -82,7 +97,7 @@ try {
         padding: 20px;
     }
 
-    h2{
+    h2 {
         font-size: 2rem;
         color: var(--color-primario);
         font-weight: 700;
