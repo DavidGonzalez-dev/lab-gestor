@@ -1,5 +1,8 @@
 ---
-import { RecuentoCard ,ButtonAtras } from "@features/pRecuentos/components/RecuentosCard/Recuentocard";
+import { RecuentoCard } from "@features/pRecuentos/components/RecuentosCard/Recuentocard";
+import { Button } from "@shared/components";
+import { ArrowBackIcon } from "@shared/iconos";
+
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
@@ -18,16 +21,25 @@ try {
 
 <SidebarLayout>
   <div class="container mainContainer">
-      <ButtonAtras client:load numeroRegistroProducto={recuento.numeroRegistroProducto}></ButtonAtras>
+    <div class="header">
       <PillHeading variant="primary">
         <h1>Detalle recuento</h1>
       </PillHeading>
+
+      <a href={`/productos/${recuento.numeroRegistroProducto}`}>
+        <Button variant="buttonCancel">
+          Atras
+          <ArrowBackIcon />
+        </Button>
+      </a>
+      
+    </div>
 
     <!-- Informacion del analisis -->
     <div>
       {
         recuento ? (
-          <RecuentoCard client:only recuento={recuento} />
+          <RecuentoCard client:load recuento={recuento} />
         ) : (
           <p>No se encontró información del Recuento</p>
         )
@@ -37,11 +49,20 @@ try {
 </SidebarLayout>
 
 <style>
-  .mainContainer{
+  a {
+    text-decoration: none;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .mainContainer {
     margin-top: 5dvh;
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-
 </style>

@@ -1,16 +1,16 @@
 import { useState } from "react";
-import {Button, Modal } from "@shared/components";
-import { EditIcon, TrashIcon,ArrowBackIcon } from "@shared/iconos";
+import { Button, Modal } from "@shared/components";
+import { EditIcon, TrashIcon, ArrowBackIcon } from "@shared/iconos";
 import { EditarRp } from "../editarRP/EditarPruebaRecuento";
 import Swal from "sweetalert2";
 import { EliminarRecuento } from "../../services";
 import styles from "./RecuentoCard.module.css";
 
-export function ButtonAtras(recuento){
-  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href =`/productos/${recuento.numeroRegistroProducto}`}>
-          Atras
-          <ArrowBackIcon />
-        </Button>)
+export function ButtonAtras(recuento) {
+  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href = `/productos/${recuento.numeroRegistroProducto}`}>
+    Atras
+    <ArrowBackIcon />
+  </Button>)
 }
 
 export function RecuentoCard({ recuento }) {
@@ -54,49 +54,45 @@ export function RecuentoCard({ recuento }) {
   return (
     <div>
 
-      <p className={styles.nuemroR}><span className={styles.texto}>Numero registro producto: </span>{recuento.numeroRegistroProducto}</p>
       <div className={styles.infoContainer}>
+        <p className={styles.numeroRegistroProducto}><span>Numero registro producto: </span>{recuento.numeroRegistroProducto}</p>
+        <hr />
         <div className="row">
 
-          <div className="col-lg-5">
+          <div className="col-lg-6">
             <p className={styles.contenido}>
               <span className={styles.texto}>Nombre Prueba: </span>
-              <br />
               {recuento.nombreRecuento}
             </p>
             <p className={styles.contenido}>
               <span className={styles.texto}>Cantidad Muestra: </span>
-              <br />
               {recuento.cantidadMuestra}
             </p>
             <div>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Método: </span>
-                <br />
+
                 {recuento.metodoUsado}
               </p>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Especificación: </span>
-                <br />
+
                 {recuento.especificacion}
               </p>
             </div>
           </div>
 
-          <div className="col-lg-5">
+          <div className="col-lg-6">
             <p className={styles.contenido}>
               <span className={styles.texto}>Tratamiento: </span>
-              <br />
-              {recuento.tratamiento} 
+              {recuento.tratamiento}
             </p>
-            <p className={styles.contenido}> 
+            <p className={styles.contenido}>
               <span className={styles.texto}>Volumen Diluyente: </span>
-              <br />
               {recuento.volumenDiluyente}
             </p>
             <p className={styles.contenido}>
               <span className={styles.texto}>Tiempo Disolución: </span>
-              <br />
               {recuento.tiempoDisolucion}
             </p>
           </div>
