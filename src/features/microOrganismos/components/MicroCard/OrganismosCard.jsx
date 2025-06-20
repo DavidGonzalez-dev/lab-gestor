@@ -1,25 +1,18 @@
-import { useState } from "react";
-import { Button, Modal } from "@shared/components";
-import { EditIcon, TrashIcon, ArrowBackIcon } from "@shared/iconos";
-import { EditarRp } from "../editarRP/EditarPruebaRecuento";
+import { useState } from "react"
+import {Button, Modal } from "@shared/components"
+import { EditIcon, TrashIcon } from "@shared/iconos"
+import { EditarOrganismos} from '../editMicro/EditarOrganismo'
 import Swal from "sweetalert2";
-import { EliminarRecuento } from "../../services";
-import styles from "./RecuentoCard.module.css";
+import {  EliminarOrganismo } from "../../services"
+import styles from "./OrganismosCard.module.css"
 
-export function ButtonAtras(recuento) {
-  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href = `/productos/${recuento.numeroRegistroProducto}`}>
-    Atras
-    <ArrowBackIcon />
-  </Button>)
-}
-
-export function RecuentoCard({ recuento }) {
+export function OrganismoCard({ Organismo }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = () => {
     Swal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción eliminará el recuento de forma permanente.",
+      text: "Esta acción eliminará el Organismo de forma permanente.",
       icon: "question",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
@@ -29,9 +22,9 @@ export function RecuentoCard({ recuento }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await EliminarRecuento(recuento.id);
+          await  EliminarOrganismo(Organismo.id);
           Swal.fire({
-            title: "¡Se eliminó el recuento con éxito!",
+            title: "¡Se eliminó el Organismo con éxito!",
             icon: "success",
             heightAuto: false,
             scrollbarPadding: false,
@@ -41,7 +34,7 @@ export function RecuentoCard({ recuento }) {
         } catch (err) {
           Swal.fire({
             icon: "error",
-            title: "Hubo un error al eliminar el recuento",
+            title: "Hubo un error al eliminar el Organismo",
             text: err.message,
             heightAuto: false,
             scrollbarPadding: false,
@@ -53,31 +46,29 @@ export function RecuentoCard({ recuento }) {
 
   return (
     <div>
-
       <div className={styles.infoContainer}>
-        <p className={styles.numeroRegistroProducto}><span>Numero registro producto: </span>{recuento.numeroRegistroProducto}</p>
-        <hr />
+      <p className={styles.numeroRegistroProducto}><span>Numero registro producto: </span>{Organismo.numeroRegistroProducto}</p>
         <div className="row">
 
           <div className="col-lg-6">
             <p className={styles.contenido}>
-              <span className={styles.texto}>Nombre Prueba: </span>
-              {recuento.nombreRecuento}
+              <span className={styles.texto}>Nombre Microorganismo: </span>
+              {Organismo.nombreMicroorganismo}
             </p>
             <p className={styles.contenido}>
               <span className={styles.texto}>Cantidad Muestra: </span>
-              {recuento.cantidadMuestra}
+              {Organismo.cantidadMuestra}
             </p>
             <div>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Método: </span>
 
-                {recuento.metodoUsado}
+                {Organismo.metodoUsado}
               </p>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Especificación: </span>
 
-                {recuento.especificacion}
+                {Organismo.especificacion}
               </p>
             </div>
           </div>
@@ -85,15 +76,11 @@ export function RecuentoCard({ recuento }) {
           <div className="col-lg-6">
             <p className={styles.contenido}>
               <span className={styles.texto}>Tratamiento: </span>
-              {recuento.tratamiento}
+              {Organismo.tratamiento} 
             </p>
-            <p className={styles.contenido}>
+            <p className={styles.contenido}> 
               <span className={styles.texto}>Volumen Diluyente: </span>
-              {recuento.volumenDiluyente}
-            </p>
-            <p className={styles.contenido}>
-              <span className={styles.texto}>Tiempo Disolución: </span>
-              {recuento.tiempoDisolucion}
+              {Organismo.volumenDiluyente}
             </p>
           </div>
         </div>
@@ -111,11 +98,12 @@ export function RecuentoCard({ recuento }) {
         <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title="Editar Recuento"
+          title="Editar Organismo"
         >
-          <EditarRp data={recuento} onClose={() => setIsModalOpen(false)} />
+          <EditarOrganismos data={Organismo} onClose={() => setIsModalOpen(false)} />
         </Modal>
       </div>
+
     </div>
   );
 }

@@ -26,7 +26,8 @@ try {
             <PillHeading variant="primary">
                 <h1>Informacion del Producto</h1>
             </PillHeading>
-            <AnalisisSelect numeroRegistroProducto={data.numeroRegistroProducto} client:only/>
+
+            {data && <AnalisisSelect numeroRegistroProducto={data.numeroRegistroProducto} client:only/>}
         </div>
 
         <section id="productInfo">
@@ -46,7 +47,7 @@ try {
 
         <section class="analisisSection">
             <h2>Analisis Registrados</h2>
-            <AnalisisOutlet numeroRegistroProducto={data.numeroRegistroProducto} client:visible/>
+            {data && <AnalisisOutlet numeroRegistroProducto={data.numeroRegistroProducto} client:visible/>}
         </section>
     </div>
 </SidebarLayout>

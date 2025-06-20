@@ -36,7 +36,7 @@
   white-space: pre-wrap;
 }
 .texto {
-  font-size: 1rem;
+  font-size: 17px;
   font-weight: 600;
   color: var(--color-primario-oscuro);
 }
