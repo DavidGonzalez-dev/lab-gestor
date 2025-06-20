@@ -1,5 +1,5 @@
 ---
-import {OrganismoCard} from "@features/microOrganismos/components/MicroCard/OrganismosCard"
+import {OrganismoCard,ButtonAtras} from "@features/microOrganismos/components/MicroCard/OrganismosCard"
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro"
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro"
 
@@ -7,7 +7,7 @@ import { VistaOrganismosID } from "@features/microOrganismos/services"
 
 const { id } = Astro.params;
 
-// Traemos la informacion del cliente
+// Traemos la informacion del analisis
 let organismo = null;
 try {
   organismo = await VistaOrganismosID(id);
@@ -17,13 +17,14 @@ try {
 ---
 
 <SidebarLayout>
+          
   <div class="container mainContainer">
-      
+    
+      <ButtonAtras client:load numeroRegistroProducto={organismo.numeroRegistroProducto} ></ButtonAtras>
       <PillHeading variant="primary">
         <h1>Detalle organismo</h1>
-      </PillHeading>
-
-    <!-- Informacion del cliente -->
+      </PillHeading> 
+    <!-- Informacion del analisis -->
     <div>
       {
         organismo ? (

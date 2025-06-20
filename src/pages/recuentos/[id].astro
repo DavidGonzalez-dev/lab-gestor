@@ -1,5 +1,5 @@
 ---
-import { RecuentoCard } from "@features/pRecuentos/components/RecuentosCard/Recuentocard";
+import { RecuentoCard ,ButtonAtras } from "@features/pRecuentos/components/RecuentosCard/Recuentocard";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
@@ -7,7 +7,7 @@ import { VistaRecuentoID } from "@features/pRecuentos/services";
 
 const { id } = Astro.params;
 
-// Traemos la informacion del cliente
+// Traemos la informacion del analisis
 let recuento = null;
 try {
   recuento = await VistaRecuentoID(id);
@@ -18,12 +18,12 @@ try {
 
 <SidebarLayout>
   <div class="container mainContainer">
-      
+      <ButtonAtras client:load numeroRegistroProducto={recuento.numeroRegistroProducto}></ButtonAtras>
       <PillHeading variant="primary">
         <h1>Detalle recuento</h1>
       </PillHeading>
 
-    <!-- Informacion del cliente -->
+    <!-- Informacion del analisis -->
     <div>
       {
         recuento ? (

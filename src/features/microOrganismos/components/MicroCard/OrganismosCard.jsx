@@ -6,6 +6,13 @@ import Swal from "sweetalert2";
 import {  EliminarOrganismo } from "../../services"
 import styles from "./OrganismosCard.module.css"
 
+export function ButtonAtras(Organismo){
+  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href =`/productos/${Organismo.numeroRegistroProducto}`}>
+          Atras
+          <ArrowBackIcon />
+        </Button>)
+}
+
 export function OrganismoCard({ Organismo }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -43,14 +50,8 @@ export function OrganismoCard({ Organismo }) {
       }
     });
   };
-
   return (
     <div>
-        <Button variant={"buttonCancel"} parentMethod={() => window.location.href =`productos/${numeroRegistroProducto}`}>
-          Atras
-          <ArrowBackIcon />
-        </Button>
-
       <p className={styles.nuemroR}><span className={styles.texto}>Numero registro producto: </span>{Organismo.numeroRegistroProducto}</p>
       <div className={styles.infoContainer}>
         <div className="row">
@@ -112,6 +113,7 @@ export function OrganismoCard({ Organismo }) {
           <EditarOrganismos data={Organismo} onClose={() => setIsModalOpen(false)} />
         </Modal>
       </div>
+
     </div>
   );
 }

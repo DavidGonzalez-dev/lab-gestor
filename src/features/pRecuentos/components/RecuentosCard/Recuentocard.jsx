@@ -1,10 +1,17 @@
 import { useState } from "react";
 import {Button, Modal } from "@shared/components";
-import { EditIcon, TrashIcon } from "@shared/iconos";
+import { EditIcon, TrashIcon,ArrowBackIcon } from "@shared/iconos";
 import { EditarRp } from "../editarRP/EditarPruebaRecuento";
 import Swal from "sweetalert2";
 import { EliminarRecuento } from "../../services";
 import styles from "./RecuentoCard.module.css";
+
+export function ButtonAtras(recuento){
+  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href =`/productos/${recuento.numeroRegistroProducto}`}>
+          Atras
+          <ArrowBackIcon />
+        </Button>)
+}
 
 export function RecuentoCard({ recuento }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
