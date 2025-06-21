@@ -1,0 +1,9 @@
+.tabsContainer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.tabContent{
+ padding: 20px;
+}
