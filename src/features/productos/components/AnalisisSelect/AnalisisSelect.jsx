@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { DropDownButton, Modal } from "@shared/components"
+
 import { RegistroOrganismo } from "@features/microOrganismos/components/registerMicro/RegistroOrganismo"
 import { RegistroRecuento } from "@features/pRecuentos/components/registroRP/RegistroRecuento"
+import { RegistroControlNegativo } from "@features/controlesNegativos/components/RegistroControlNegativo/RegistroControlNegativo"
 
-export const AnalisisSelect = ({numeroRegistroProducto}) => {
+export const AnalisisSelect = ({ numeroRegistroProducto }) => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -44,12 +46,17 @@ export const AnalisisSelect = ({numeroRegistroProducto}) => {
 
             {/* Montamos el modal */}
             <Modal isOpen={isModalOpen} title="Registro de Analisis" onClose={closeModal}>
-                
+
                 {modalType === "pruebaRecuento" && (
-                    <RegistroRecuento onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto}/>
+                    <RegistroRecuento onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto} />
                 )}
+
                 {modalType === "deteccionMicroorganimos" && (
-                    <RegistroOrganismo onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto}/>
+                    <RegistroOrganismo onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto} />
+                )}
+
+                {modalType === "controlNegativo" && (
+                    <RegistroControlNegativo onClose={closeModal} numeroRegistroProducto={numeroRegistroProducto}/>
                 )}
 
             </Modal>
