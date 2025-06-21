@@ -7,3 +7,18 @@
 .tabContent{
  padding: 20px;
 }
+
+.analisisSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.analisisSection h2 {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 10px;
+}

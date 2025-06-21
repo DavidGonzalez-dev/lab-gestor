@@ -40,8 +40,11 @@ export const TabsContainer = ({ data }) => {
 
                 {/* Analisis del Producto */}
                 {activeTab === 1 &&
-                    (<section className="analisisSection">
-                        <h2>Analisis Registrados</h2>
+                    (<section className={styles.analisisSection}>
+                        <div className="header">
+                            <h2>Analisis Registrados</h2>
+                            <p>Aqui puedes ver los análisis registrados para este producto. Si quieres modificar o ver el detalle de cada analisis puedes darle al boton de ver más</p>
+                        </div>
                         {data && (
                             <AnalisisOutlet
                                 numeroRegistroProducto={data.numeroRegistroProducto}
