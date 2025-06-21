@@ -1,7 +1,7 @@
 import API from "@shared/services/api.js"
 import { HttpStatusCode } from "axios";
 
-// Este metodo nos permite registrar un control negativo de medios de cultivo
+// Este servicio nos permite registrar un control negativo de medios de cultivo
 export const RegistrarControlNegativo = async (data) => {
     try {
         const response = await API.post("/controlesNegativos", data);
@@ -21,6 +21,28 @@ export const RegistrarControlNegativo = async (data) => {
             }
         }
 
+        throw new Error("Lo sentimos, en este momento estamos teniendo problemas con el servidor vuelve a intentarlo mas tarde")
+    }
+}
+
+// Este servicio nos permite obtener los controles negativos de un producto
+export const GetControlesNegativosProducto = async (numeroRegistroProducto) => {
+
+    try {
+        const response = await API.get(`/controlesNegativos/producto/${numeroRegistroProducto}`)
+        if(response.data) {
+            return response.data.data
+        }
+        return []
+    } catch (error) {
+        if (error.response.status){
+            switch(error.response.status){
+                case HttpStatusCode.NotFound:
+                    throw new Error("El producto no existe, si otro usuario borro este producto intenta recargar la pagina para reflejar los cambios.")
+                case HttpStatusCode.InternalServerError:
+                    throw new Error(error.response.error)
+            }
+        }
         throw new Error("Lo sentimos, en este momento estamos teniendo problemas con el servidor vuelve a intentarlo mas tarde")
     }
 }
