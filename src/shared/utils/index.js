@@ -13,6 +13,16 @@ export function dateFormatter(date) {
     return formatDate.toLocaleDateString("es-ES")
 }
 
+// Funcion para formatear las fechas con hora
+export function dateTimeFormatter(date){
+    const formatDate = new Date(date).toISOString()
+
+    const fechaLocal = formatDate.split("T")[0];
+    const horaLocal = formatDate.split("T")[1].split(".")[0];
+
+    return fechaLocal + "-" + horaLocal;
+}
+
 // Funcion de Comparador de Fechas para el filtro para tablas
 export function getDateComparatorFunction() {
     return (filterDate, cellValue) => {

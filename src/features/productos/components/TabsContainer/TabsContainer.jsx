@@ -5,6 +5,7 @@ import styles from './TabsContainer.module.css';
 import { ProductCard } from '@features/productos/components/ProductCard/ProductCard';
 import { EntryDetailsCard } from '@features/productos/components/EntryDetailsCard/EntryDetailsCard';
 import { AnalisisOutlet } from '@features/productos/components/AnalisisOutlet/AnalisisOutlet';
+import { TablaControlesNegativos } from '@features/controlesNegativos/components/TablaControlesNegativos/TablaControlesNegativos';
 
 export const TabsContainer = ({ data }) => {
     const [activeTab, setActiveTab] = useState(0);
@@ -47,6 +48,20 @@ export const TabsContainer = ({ data }) => {
                         </div>
                         {data && (
                             <AnalisisOutlet
+                                numeroRegistroProducto={data.numeroRegistroProducto}
+                            />
+                        )}
+                    </section>)
+                }
+
+                {activeTab === 2 &&
+                    (<section className={styles.controlesNegativosSection}>
+                        <div className="header">
+                            <h2>Controles Negativos Registrados</h2>
+                            <p>Aqui puedes ver los controles negativos registrados para este producto. Si quieres modificar o ver el detalle de cada control negativo puedes darle al boton de ver más</p>
+                        </div>
+                        {data && (
+                            <TablaControlesNegativos
                                 numeroRegistroProducto={data.numeroRegistroProducto}
                             />
                         )}
