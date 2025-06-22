@@ -3,7 +3,7 @@ import styles from './TablaControlesNegativos.module.css'
 import { Table, ComponentLoader, Modal } from "@shared/components"
 import { TrashIcon, EditIcon } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
-import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/alerts"
+import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
 import { EditControlNegativo } from '../EditControlNegativo/EditControlNegativo'
 
 import { useState, useEffect } from 'react'
@@ -56,7 +56,6 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
 
         {
             headerName: "Eliminar",
-            cellRenderer: ButtonCellRenderer,
             cellRenderer: ButtonCellRenderer,
             cellRendererParams: (params) => ({
                 parentMethod: () => handleDelete(params.data),
