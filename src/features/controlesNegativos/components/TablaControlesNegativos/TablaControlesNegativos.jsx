@@ -1,10 +1,12 @@
 import styles from './TablaControlesNegativos.module.css'
 
 import { Table, ComponentLoader } from "@shared/components"
+import { TrashIcon, EditIcon } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
+import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/alerts"
 
 import { useState, useEffect } from 'react'
-import { GetControlesNegativosProducto } from '../../services'
+import { GetControlesNegativosProducto, DeleteControlNegativo } from '../../services'
 import { dateTimeFormatter } from '@shared/utils'
 
 export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
@@ -35,8 +37,69 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
         {
             field: "resultado",
             headerName: "Resultado",
+        },
+        {
+            headerName: "Editar",
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (params) => ({
+                parentMethod: () => {
+                    console.log("Editar", params.data);
+                },
+                icon: EditIcon,
+
+            }),
+            flex: 0,
+            width: 50
+
+        },
+
+        {
+            headerName: "Eliminar",
+            cellRenderer: ButtonCellRenderer,
+            cellRenderer: ButtonCellRenderer,
+            cellRendererParams: (params) => ({
+                parentMethod: () => handleDelete(params.data),
+                icon: TrashIcon,
+                variant: "buttonCancel",
+            }),
+            flex: 0,
+            width: 50
+
         }
     ]
+
+
+    // Funcion para eliminar el registro de control negativo
+    const handleDelete = async (data) => {
+
+        ConfirmAlert.fire({
+            title: "¿Estas seguro de eliminar este registro?",
+            text: "Este registro no se podra recuperar de ninguna manera."
+        })
+            .then(async (result) => {
+
+                if (result.isConfirmed) {
+
+                    try {
+                        const success = await DeleteControlNegativo(data.id)
+                        if (success) {
+                            SuccessAlert.fire({
+                                title: "Registro eliminado con exito."
+                            })
+                            .then(() => setRowData( prevData => prevData.filter(registro => registro.id != data.id)))
+                        }
+                    } catch (error) {
+                        Error.fire({
+                            title: "Hubo un error al eliminar el registro",
+                            text: error.message
+                        })
+                    }
+                }
+
+            })
+
+
+    }
 
 
     // Logica de carga de datos
@@ -56,7 +119,6 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
 
     useEffect(() => {
         loadRowData()
-        console.log(rowData)
     }, [])
 
     if (isLoading) {
