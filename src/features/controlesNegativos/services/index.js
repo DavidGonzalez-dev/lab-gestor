@@ -55,7 +55,7 @@ export const DeleteControlNegativo = async (id) => {
 
     } catch (error) {
         if (error.response.status) {
-            switch(error.response.status){
+            switch (error.response.status) {
                 case HttpStatusCode.NotFound:
                     throw new Error("Este registro no existe, es posible que otro usuario lo halla eliminado, recarga la pagina para ver los cambios mas recientes")
                 case HttpStatusCode.InternalServerError:
@@ -63,6 +63,26 @@ export const DeleteControlNegativo = async (id) => {
             }
         }
 
+        throw new Error("Lo sentimos, estamos teniendo problemas con el servidor, vuelve a intentarlo mas tarde.")
+    }
+}
+
+// Este servicio nos permite actualizar la informacion de un registro de control negativo
+export const UpdateControlNegativo = async (data) => {
+    try {
+        await API.put(`/controlesNegativos/${data.id}`, data)
+        return true
+    } catch (error) {
+        if (error.response.status) {
+            switch (error.response.status) {
+                case HttpStatusCode.UnprocessableEntity:
+                    throw new Error(`Formato erroneo: ${error.response.data.error}`)
+                case HttpStatusCode.NotFound:
+                    throw new Error("Este registro no existe, es posible que otro usuario lo halla eliminado, recarga la pagina para ver los cambios mas recientes")
+                case HttpStatusCode.InternalServerError:
+                    throw new Error(`Hubo un error al actualizar el registro: ${error.response.data.error}`)
+            }
+        }
         throw new Error("Lo sentimos, estamos teniendo problemas con el servidor, vuelve a intentarlo mas tarde.")
     }
 }

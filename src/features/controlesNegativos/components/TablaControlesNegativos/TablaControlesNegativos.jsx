@@ -1,9 +1,10 @@
 import styles from './TablaControlesNegativos.module.css'
 
-import { Table, ComponentLoader } from "@shared/components"
+import { Table, ComponentLoader, Modal } from "@shared/components"
 import { TrashIcon, EditIcon } from "@shared/iconos"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
 import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/alerts"
+import { EditControlNegativo } from '../EditControlNegativo/EditControlNegativo'
 
 import { useState, useEffect } from 'react'
 import { GetControlesNegativosProducto, DeleteControlNegativo } from '../../services'
@@ -13,6 +14,9 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
 
     const [rowData, setRowData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+
+    const [editData, setEditData] = useState(null)
+    const [openModal, setOpenModal] = useState(false)
 
 
     const colDefs = [
@@ -42,15 +46,12 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
             headerName: "Editar",
             cellRenderer: ButtonCellRenderer,
             cellRendererParams: (params) => ({
-                parentMethod: () => {
-                    console.log("Editar", params.data);
-                },
+                parentMethod: () => handleEdit(params.data),
                 icon: EditIcon,
 
             }),
             flex: 0,
             width: 50
-
         },
 
         {
@@ -64,7 +65,6 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
             }),
             flex: 0,
             width: 50
-
         }
     ]
 
@@ -86,10 +86,10 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
                             SuccessAlert.fire({
                                 title: "Registro eliminado con exito."
                             })
-                            .then(() => setRowData( prevData => prevData.filter(registro => registro.id != data.id)))
+                                .then(() => setRowData(prevData => prevData.filter(registro => registro.id != data.id)))
                         }
                     } catch (error) {
-                        Error.fire({
+                        ErrorAlert.fire({
                             title: "Hubo un error al eliminar el registro",
                             text: error.message
                         })
@@ -99,6 +99,18 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
             })
 
 
+    }
+
+
+    // Funcion para mostraer el modal de registro de control negativo
+    const handleEdit = (data) => {
+        setEditData(data)
+        toggleOpenModal()
+    }
+
+    // Funcion para mostrar y ocultar el modal
+    const toggleOpenModal = () => {
+        setOpenModal(!openModal)
     }
 
 
@@ -126,10 +138,15 @@ export const TablaControlesNegativos = ({ numeroRegistroProducto }) => {
     }
 
     return (
-        <Table
-            rowData={rowData}
-            columnDefs={colDefs}
-        />
+        <>
+            <Table
+                rowData={rowData}
+                columnDefs={colDefs}
+            />
+            <Modal isOpen={openModal} onClose={toggleOpenModal} title="Editar Control Negativo">
+                <EditControlNegativo initialValues={editData} onClose={toggleOpenModal}/>
+            </Modal>
+        </>
     )
 
 }
