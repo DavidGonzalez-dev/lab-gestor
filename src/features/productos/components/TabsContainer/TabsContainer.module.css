@@ -4,8 +4,8 @@
 
 }
 
-.tabContent{
- padding: 20px;
+.tabContent {
+    padding: 20px;
 }
 
 .analisisSection {
@@ -16,6 +16,21 @@
 }
 
 .analisisSection h2 {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 10px;
+}
+
+.controlesNegativosSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.controlesNegativosSection h2 {
     margin: 0;
     font-size: 1.7rem;
     font-weight: 700;

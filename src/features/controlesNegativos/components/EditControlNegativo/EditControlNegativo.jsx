@@ -123,7 +123,7 @@ export const EditControlNegativo = ({ initialValues, onClose }) => {
                         )
                         : (
                             <>
-                                Registrar
+                                Actualizar
                                 <CheckIcon />
                             </>
                         )}
