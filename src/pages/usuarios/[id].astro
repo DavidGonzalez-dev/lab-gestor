@@ -23,7 +23,7 @@ try {
     <div class="cardContainer">
       {
         usuario ? (
-          <DetalleUsuario client:only usuario={usuario} />
+          <DetalleUsuario client:load usuario={usuario} />
         ) : (
           <p>No se encontró información del usuario.</p>
         )

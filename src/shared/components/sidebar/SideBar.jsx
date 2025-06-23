@@ -65,10 +65,6 @@ export function SideBar() {
                             {!isCollapsed && <span>Reporte de Analisis</span>}
                         </a>
 
-                        {/* ESTADISTICAS */}
-
-
-
 
 
                         {userRole === "admin" && (
