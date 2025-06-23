@@ -11,13 +11,15 @@ import { useState } from "react"
 
 export const EditControlNegativo = ({ initialValues, onClose }) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
             ...initialValues,
             fechayhoraIncubacion: initialValues.fechayhoraIncubacion.slice(0, 16),
             fechayhoraLectura: initialValues.fechayhoraLectura.slice(0, 16),
         }
     })
+
+    const fechayhoraIncubacion = watch("fechayhoraIncubacion")
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -91,7 +93,9 @@ export const EditControlNegativo = ({ initialValues, onClose }) => {
                             type="datetime-local"
                             label="Fecha y Hora de Lectura"
                             id="fechayhoraLectura"
-                            {...register("fechayhoraLectura", { required: "Este campo es obligatorio*" })}
+                            {...register("fechayhoraLectura", { required: "Este campo es obligatorio*",
+                                validate: (value) => !fechayhoraIncubacion || new Date(value) > new Date(fechayhoraIncubacion) || "La fecha de lectura debe ser mayor a la fecha de incubacion*"
+                             })}
                             error={errors.fechayhoraLectura}
                         />
                     </div>
