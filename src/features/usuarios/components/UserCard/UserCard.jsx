@@ -1,9 +1,11 @@
-import { useState } from "react"
-import { PillType, PillState } from "@shared/components"
 import styles from "./UserCard.module.css"
+import { useState } from "react"
+import useAuthStore from "@shared/stores/useAuthStore"
+
+import { PillType, PillState, Modal } from "@shared/components"
 import { Button } from "@shared/components"
 import { ArrowBackIcon, EditIcon } from "@shared/iconos"
-import { EditUserModal } from "../EditUserForm/EditUserForm"
+import { EditUserForm } from "../EditUserForm/EditUserForm"
 
 /// función para volver atrás
 const redirectPrevious = () => {
@@ -12,9 +14,11 @@ const redirectPrevious = () => {
 
 export function DetalleUsuario({ usuario }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { userId } = useAuthStore()
 
-  const handleSave = () => {
-    setIsModalOpen(false)
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
   };
 
   return (
@@ -23,9 +27,15 @@ export function DetalleUsuario({ usuario }) {
       {/* Contenido de la tarjeta */}
       <div className={styles.box}>
 
-        {/* Contedor con informacion de texto plano */}
-        <div className={styles.infoContainer}>
+        <div className={styles.header}>
+          <h2>Informacion del Usuario</h2>
+          <hr />
+        </div>
 
+        {/* Contedor con informacion de texto plano */}
+        <div className="row">
+
+          <div className="col-lg-6">
             <p>
               <strong className={styles.texts}>Nombres:</strong> {usuario.nombres}
             </p>
@@ -41,9 +51,10 @@ export function DetalleUsuario({ usuario }) {
             <p>
               <strong className={styles.texts}>Firma:</strong> {usuario.firma}
             </p>
+          </div>
 
-
-          {/* Contenedor de los estados con pildora */}
+          <div className="col-lg-6">
+            {/* Contenedor de los estados con pildora */}
             <p>
               <strong className={styles.texts}>Rol:</strong>{" "}
               <PillType
@@ -58,28 +69,31 @@ export function DetalleUsuario({ usuario }) {
                 variant={usuario.estado ? "green" : "red"}
               />
             </p>
+          </div>
+
+          {/* Contenedor de botones de accion */}
+          <div className={styles.buttonGroup}>
+            {userId !== usuario.documento &&
+              <Button variant="buttonCancel" parentMethod={redirectPrevious}>
+                Atras <ArrowBackIcon />
+              </Button>
+            }
+
+
+            <Button variant="buttonEdit" parentMethod={() => setIsModalOpen(true)}>
+              Editar <EditIcon />
+            </Button>
+          </div>
         </div>
 
 
         {/* Modal para editar el usuario */}
-        <EditUserModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          usuario={usuario}
-          onSave={handleSave}
-        />
+        <Modal isOpen={isModalOpen} onClose={toggleModal} title="Editar Usuario">
+          <EditUserForm usuario={usuario} onClose={toggleModal} editMode={userId === usuario.documento ? "restricted" : "adminMode"} />
+        </Modal>
       </div>
 
-      {/* Contenedor de botones de accion */}
-      <div className={styles.buttonGroup}>
-        <Button variant="buttonCancel" parentMethod={redirectPrevious}>
-          Atras <ArrowBackIcon />
-        </Button>
 
-        <Button variant="buttonEdit" parentMethod={() => setIsModalOpen(true)}>
-          Editar <EditIcon/>
-        </Button>
-      </div>
     </div>
   );
 }

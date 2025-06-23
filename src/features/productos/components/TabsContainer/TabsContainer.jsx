@@ -1,13 +1,15 @@
-import { useState } from 'react';
 import { Tab } from '../../../../shared/components/Tabs/Tab/Tab';
 import styles from './TabsContainer.module.css';
 
 import { ProductCard } from '@features/productos/components/ProductCard/ProductCard';
 import { EntryDetailsCard } from '@features/productos/components/EntryDetailsCard/EntryDetailsCard';
 import { AnalisisOutlet } from '@features/productos/components/AnalisisOutlet/AnalisisOutlet';
+import { TablaControlesNegativos } from '@features/controlesNegativos/components/TablaControlesNegativos/TablaControlesNegativos';
+
+import useTabs from '@shared/stores/useTabsContainerStore';
 
 export const TabsContainer = ({ data }) => {
-    const [activeTab, setActiveTab] = useState(0);
+    const { activeTab, setActiveTab } = useTabs();
 
     const handleTabClick = (index) => {
         setActiveTab(index);
@@ -24,7 +26,11 @@ export const TabsContainer = ({ data }) => {
 
                 {/* Info Producto */}
                 {activeTab === 0 && (
-                    <section id="productInfo">
+                    <section className={styles.productInfo}>
+                        <div className="header">
+                            <h2>Detalles del Producto</h2>
+                            <p>Aqui puedes ver los detalles del producto asi como editar su informacion</p>
+                        </div>
                         <div className="row">
                             <div className="col-lg-6">
                                 {data && (
@@ -47,6 +53,20 @@ export const TabsContainer = ({ data }) => {
                         </div>
                         {data && (
                             <AnalisisOutlet
+                                numeroRegistroProducto={data.numeroRegistroProducto}
+                            />
+                        )}
+                    </section>)
+                }
+
+                {activeTab === 2 &&
+                    (<section className={styles.controlesNegativosSection}>
+                        <div className="header">
+                            <h2>Controles Negativos Registrados</h2>
+                            <p>Aqui puedes ver los controles negativos registrados para este producto. Si quieres modificar o ver el detalle de cada control negativo puedes darle al boton de ver más</p>
+                        </div>
+                        {data && (
+                            <TablaControlesNegativos
                                 numeroRegistroProducto={data.numeroRegistroProducto}
                             />
                         )}
