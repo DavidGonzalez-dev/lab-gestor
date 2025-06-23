@@ -1,0 +1,17 @@
+---
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import { PerfilCard } from "@features/usuarios/components/PerfilComponent/PerfilComponent";
+---
+
+<SidebarLayout>
+    <div class="container d-flex flex-column gap-3">
+        <div class="container d-flex flex-column gap-3">
+            <PillHeading variant="primary">
+                <h1>Perfil de Usuario</h1>
+            </PillHeading>
+            <p>Aqui pueder ver la informacion de tu perfil y actualizarla.</p>
+        </div>
+        <PerfilCard client:load />
+    </div>
+</SidebarLayout>
