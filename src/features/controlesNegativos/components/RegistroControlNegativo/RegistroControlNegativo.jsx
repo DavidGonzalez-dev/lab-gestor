@@ -12,7 +12,8 @@ export const RegistroControlNegativo = ({ onClose, numeroRegistroProducto }) => 
 
     const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const fechayHoraIncubacion = watch("fechaHoraIncubacion");
+    
+    const fechayhoraIncubacion = watch("fechayhoraIncubacion")
 
     const onSubmit = async (data) => {
 
@@ -87,7 +88,9 @@ export const RegistroControlNegativo = ({ onClose, numeroRegistroProducto }) => 
                             type="datetime-local"
                             label="Fecha y Hora de Lectura"
                             id="fechayhoraLectura"
-                            {...register("fechayhoraLectura", { required: "Este campo es obligatorio*" })}
+                            {...register("fechayhoraLectura", { required: "Este campo es obligatorio*",
+                                validate: (value) => !fechayhoraIncubacion || new Date(value) > new Date(fechayhoraIncubacion) || "La fecha de lectura debe ser mayor a la fecha de incubacion*"
+                             })}
                             error={errors.fechayhoraLectura}
                         />
                     </div>
