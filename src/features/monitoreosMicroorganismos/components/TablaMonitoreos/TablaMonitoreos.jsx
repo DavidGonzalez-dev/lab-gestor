@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { GetMonitoreosDeteccionById } from "../../services"
+import { GetMonitoreosDeteccionById, DeleteMonitoreoDeteccionById } from "../../services"
 import { dateTimeFormatter } from '@shared/utils'
 
-import { Table } from "@shared/components"
+import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
+import { Table, ComponentLoader, LoaderSpiner } from "@shared/components"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
 import { EditIcon, TrashIcon } from "@shared/iconos"
 
@@ -13,6 +14,7 @@ import styles from "./TablaMonitoreos.module.css"
 export const TablaMonitoreos = ({ idRecuento }) => {
 
     const [rowData, setRowData] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const colDefs = [
         {
@@ -79,7 +81,31 @@ export const TablaMonitoreos = ({ idRecuento }) => {
 
     // Funcion para borrado de datos
     const handleDelete = (data) => {
-        console.log(data)
+
+        ConfirmAlert.fire({
+            title: "¿Seguro quieres eliminar este registro de monitoreo?"
+        })
+            .then(async result => {
+
+                if (result.isConfirmed) {
+                    try {
+                        setIsLoading(true)
+                        const success = await DeleteMonitoreoDeteccionById(data.id)
+                        if (success) {
+                            SuccessAlert.fire({
+                                title: "Se elimino el registro de deteccion con exito"
+                            }).then(() => setRowData(prevData => prevData.filter(row => row.id !== data.id)))
+                        }
+                    } catch (error) {
+                        ErrorAlert.fire({
+                            title: "Ups! hubo un error al eliminar el registro",
+                            text: error.message
+                        })
+                    } finally {
+                        setIsLoading(false)
+                    }
+                }
+            })
     }
 
     // Funcion para edicion de datos
@@ -91,18 +117,24 @@ export const TablaMonitoreos = ({ idRecuento }) => {
     // Logica de carga de datos
     const loadData = async () => {
         try {
-
+            setIsLoading(true)
             const data = await GetMonitoreosDeteccionById(idRecuento)
             setRowData(data)
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
     useEffect(() => {
         loadData()
     }, [])
+
+    if (isLoading) {
+        return <ComponentLoader />
+    }
 
     return (
         <Table
