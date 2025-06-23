@@ -7,11 +7,11 @@ export const RegistrarOrganismo = async (data) => {
   try {
     await api.post("/deteccionMicroorganismos", data)
     return true
-  } 
+  }
   catch (err) {
     // Si hay respuesta del servidor
     console.log(err)
-    switch(err.response.status) {
+    switch (err.response.status) {
       case HttpStatusCode.UnprocessableEntity:
         throw new Error(err.response.data.error);
       case HttpStatusCode.Conflict:
@@ -46,11 +46,11 @@ export const EditOrganismo = async (id, data) => {
   }
 }
 // Este servicio permite visionar una prueba de recuento por id
-export const VistaOrganismosID = async (id)=>{
+export const VistaOrganismosID = async (id) => {
   try {
     const response = await api.get(`deteccionMicroorganismos/${id}`)
     return response.data.data
-  }  catch (err) {
+  } catch (err) {
     switch (err.response.status) {
       case HttpStatusCode.UnprocessableEntity:
         throw new Error(err.response.data.error)
@@ -59,20 +59,20 @@ export const VistaOrganismosID = async (id)=>{
       default:
         throw new Error("Error en el servidor, vuelve a intentarlo más tarde");
     }
-    }
+  }
 }
 
 // Este servicio permite eliminar el recuento
-export const EliminarOrganismo =async (id) => {
+export const EliminarOrganismo = async (id) => {
   try {
     await api.delete(`/deteccionMicroorganismos/${id}`)
     return true
   } catch (err) {
-     switch(err.response.status) {
-            case HttpStatusCode.NotFound:
-                throw new Error("El Micro Organismo ya ha sido eliminado de la base de datos del sistema, intenta recargar la pagina para reflejar los cambios!")
-            case HttpStatusCode.Conflict:
-                throw new Error("Este Micro organismos tiene actualmente productos relacionados, por ende no se puede borrar.")
-        }
+    switch (err.response.status) {
+      case HttpStatusCode.NotFound:
+        throw new Error("El Micro Organismo ya ha sido eliminado de la base de datos del sistema, intenta recargar la pagina para reflejar los cambios!")
+      case HttpStatusCode.Conflict:
+        throw new Error("Este Micro organismos tiene actualmente productos relacionados, por ende no se puede borrar.")
+    }
   }
 }

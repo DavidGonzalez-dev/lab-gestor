@@ -2,6 +2,7 @@
 import { OrganismoCard } from "@features/microOrganismos/components/MicroCard/OrganismosCard";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import { TablaMonitoreos } from "@features/monitoreosMicroorganismos/components/TablaMonitoreos/TablaMonitoreos";
 
 import { Button } from "@shared/components";
 import { ArrowBackIcon } from "@shared/iconos";
@@ -33,21 +34,33 @@ try {
         </Button>
       </a>
     </div>
+
     <!-- Informacion del analisis -->
-    <div>
+    <section>
       {
         organismo ? (
-          <OrganismoCard client:only Organismo={organismo} />
+          <OrganismoCard client:load Organismo={organismo} />
         ) : (
-          <p>No se encontró información del Micro Organismo</p>
+          <p>No se encontró información del Microorganismo</p>
         )
       }
-    </div>
+    </section>
+
+    <!-- Monitoreos de Detecciones -->
+    <section id="monitoreos-detecciones">
+      <div>
+        <h2>Monitoreos Deteccion</h2>
+        <p>
+          Aqui puedes registrar y gestionar los monitoreos que les hagas a las
+          detecciones de microorganismos especificos
+        </p>
+      </div>
+      <TablaMonitoreos client:visible idRecuento={organismo.id} />
+    </section>
   </div>
 </SidebarLayout>
 
 <style>
-
   a {
     text-decoration: none;
   }
@@ -59,11 +72,22 @@ try {
     margin-bottom: 20px;
   }
 
-
   .mainContainer {
     margin-top: 5dvh;
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--color-primario);
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
 </style>
