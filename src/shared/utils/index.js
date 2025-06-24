@@ -14,7 +14,7 @@ export function dateFormatter(date) {
 }
 
 // Funcion para formatear las fechas con hora
-export function dateTimeFormatter(date){
+export function dateTimeFormatter(date) {
     const formatDate = new Date(date).toISOString()
 
     const fechaLocal = formatDate.split("T")[0];
@@ -22,6 +22,28 @@ export function dateTimeFormatter(date){
 
     return fechaLocal + "-" + horaLocal;
 }
+
+export function toLocalISOString(dateString) {
+    const date = new Date(dateString);
+
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    const hh = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    const ss = String(date.getSeconds()).padStart(2, "0");
+
+    // Obtener zona horaria local como offset
+    const tzOffsetMin = date.getTimezoneOffset(); // en minutos
+    const offsetSign = tzOffsetMin > 0 ? "-" : "+";
+    const offsetH = String(Math.floor(Math.abs(tzOffsetMin) / 60)).padStart(2, "0");
+    const offsetM = String(Math.abs(tzOffsetMin) % 60).padStart(2, "0");
+
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}${offsetSign}${offsetH}:${offsetM}`;
+}
+
+
 
 // Funcion de Comparador de Fechas para el filtro para tablas
 export function getDateComparatorFunction() {

@@ -39,7 +39,7 @@ export const TablaMonitoreos = ({ idRecuento }) => {
             field: "etapaDeteccion.nombreEtapa",
             headerName: "Etapa",
             flex: 0,
-            width: 100
+            width: 170
         },
         {
             field: "etapaDeteccion.temperaturaEtapa",

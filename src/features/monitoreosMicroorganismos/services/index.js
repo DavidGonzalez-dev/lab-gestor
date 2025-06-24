@@ -42,3 +42,23 @@ export const DeleteMonitoreoDeteccionById = async (id) => {
         throw new Error("Lo sentimos, en este momento estamos teniendo problemas con el servidor, vuelve a intentarlo mas tarde")
     }
 }
+
+// Este servicio nos permite crear un registro de monitoreo de deteccion de microorganismo
+export const CreateMonitoreoDeteccion = async (data) => {
+    try {
+        const response = await api.post(`/monitoreosDetecciones`, data)
+        return response.data
+    } catch (error) {
+        if (error.response && error.response.status) {
+            switch (error.response.status) {
+                case HttpStatusCode.InternalServerError:
+                    throw new Error(`Error del lado del servidor: ${error.response.data.error}`)
+                case HttpStatusCode.NotAcceptable:
+                    throw new Error(`No se pudo crear el monitoreo de detección`)
+                case HttpStatusCode.BadRequest:
+                    throw new Error(`Hubo un error al crear el registro: ${error.response.data.error}`)
+            }
+        }
+        throw new Error("Lo sentimos, en este momento estamos teniendo problemas con el servidor, vuelve a intentarlo más tarde")
+    }
+}

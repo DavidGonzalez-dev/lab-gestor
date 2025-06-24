@@ -1,13 +1,13 @@
 ---
 import { OrganismoCard } from "@features/microOrganismos/components/MicroCard/OrganismosCard";
+import { TablaMonitoreos } from "@features/monitoreosMicroorganismos/components/TablaMonitoreos/TablaMonitoreos";
+import { VistaOrganismosID } from "@features/microOrganismos/services";
+import { BotonRegistro } from "@features/monitoreosMicroorganismos/components/BotonRegistro/BotonRegistro";
+
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
-import { TablaMonitoreos } from "@features/monitoreosMicroorganismos/components/TablaMonitoreos/TablaMonitoreos";
-
 import { Button } from "@shared/components";
 import { ArrowBackIcon } from "@shared/iconos";
-
-import { VistaOrganismosID } from "@features/microOrganismos/services";
 
 const { id } = Astro.params;
 
@@ -27,7 +27,9 @@ try {
         <h1>Detalle Deteccion</h1>
       </PillHeading>
 
-      <a href={`/productos/${organismo.numeroRegistroProducto}`}>
+      <a
+        href={organismo ? `/productos/${organismo.numeroRegistroProducto}` : ""}
+      >
         <Button variant="buttonCancel">
           Atras
           <ArrowBackIcon />
@@ -48,14 +50,23 @@ try {
 
     <!-- Monitoreos de Detecciones -->
     <section id="monitoreos-detecciones">
-      <div>
-        <h2>Monitoreos Deteccion</h2>
-        <p>
-          Aqui puedes registrar y gestionar los monitoreos que les hagas a las
-          detecciones de microorganismos especificos
-        </p>
+      <div class="header">
+        <div>
+          <h2>Monitoreos Deteccion</h2>
+          <p>
+            Aqui puedes registrar y gestionar los monitoreos que les hagas a las
+            detecciones de microorganismos especificos
+          </p>
+        </div>
+        {organismo && <BotonRegistro client:load idDeteccion={organismo.id} />}
       </div>
-      <TablaMonitoreos client:visible idRecuento={organismo.id} />
+      {
+        organismo ? (
+          <TablaMonitoreos client:visible idRecuento={organismo.id} />
+        ) : (
+          <p>No se econtro informacion de esta deteccion</p>
+        )
+      }
     </section>
   </div>
 </SidebarLayout>
@@ -90,4 +101,7 @@ try {
     font-size: 1rem;
   }
 
+  #monitoreos-detecciones .header {
+    align-items: flex-start;
+  }
 </style>
