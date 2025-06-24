@@ -4,10 +4,11 @@ import { Button, Input, CustomSelect, LoaderSpiner } from "@shared/components"
 import { CheckIcon, TrashIcon } from "@shared/iconos"
 import { SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
 
-import styles from "./RegistroMonitoreoDeteccion.module.css"
-import { CreateMonitoreoDeteccion } from "../../services"
+import { UpdateMonitoreoDeteccion } from "../../services"
 import { useState } from "react"
 import { toLocalISOString } from "@shared/utils"
+
+import styles from "./EditMonitoreoDeteccion.module.css"
 
 const etapasDeteccion = [
     {
@@ -24,9 +25,16 @@ const etapasDeteccion = [
     },
 ]
 
-export const RegistroMonitoreoDeteccion = ({ onCancel, idDeteccion }) => {
 
-    const { register, handleSubmit, formState: { errors }, watch } = useForm()
+export const EditMonitoreoDeteccion = ({ onCancel, initialValues }) => {
+
+    const { register, handleSubmit, formState: { errors }, watch } = useForm({
+        defaultValues: {
+            ...initialValues,
+            fechayhoraInicio: initialValues.fechayhoraInicio.slice(0, 16),
+            fechayhoraFinal: initialValues.fechayhoraFinal.slice(0, 16)
+        }
+    })
     const [isLoading, setIsLoading] = useState(false)
 
     const fechaHoraInicio = watch("fechayhoraInicio")
@@ -38,23 +46,21 @@ export const RegistroMonitoreoDeteccion = ({ onCancel, idDeteccion }) => {
             idEtapaDeteccion: parseInt(data.idEtapaDeteccion),
             fechayhoraInicio: toLocalISOString(data.fechayhoraInicio),
             fechayhoraFinal: toLocalISOString(data.fechayhoraFinal),
-            idDeteccionMicroorganismo: idDeteccion
-
         }
 
         try {
             setIsLoading(true)
 
-            const success = await CreateMonitoreoDeteccion(payload)
+            const success = await UpdateMonitoreoDeteccion(initialValues.id, payload)
             if (success) {
                 SuccessAlert.fire({
-                    title: "Registro creado con exito!"
+                    title: "Registro actualizado con exito!"
                 }).then(() => window.location.reload())
             }
 
         } catch (error) {
             ErrorAlert.fire({
-                title: "Hubo un error al crear el registro",
+                title: "Hubo un error al actualizar el registro",
                 text: error.message,
             })
         } finally {
@@ -129,9 +135,10 @@ export const RegistroMonitoreoDeteccion = ({ onCancel, idDeteccion }) => {
                                 type="datetime-local"
                                 label="Fecha y Hora de Incubación"
                                 id="fechayhoraFinal"
-                                {...register("fechayhoraFinal", { required: "Este campo es obligatorio*",
+                                {...register("fechayhoraFinal", {
+                                    required: "Este campo es obligatorio*",
                                     validate: value => !fechaHoraInicio || new Date(value) > new Date(fechaHoraInicio) || "La fecha de final debe ser mayor a la fecha de inicio*"
-                                 })}
+                                })}
                                 error={errors.fechayhoraFinal}
                             />
 
@@ -147,10 +154,11 @@ export const RegistroMonitoreoDeteccion = ({ onCancel, idDeteccion }) => {
                         <TrashIcon />
                     </Button>
                     <Button type="submit" variant="buttonAccept" disabled={isLoading}>
-                        {isLoading ? <LoaderSpiner /> : <>Registrar <CheckIcon /></>}
+                        {isLoading ? <LoaderSpiner /> : <>Actualizar <CheckIcon /></>}
                     </Button>
                 </div>
             </form>
         </>
     )
+
 }

@@ -3,9 +3,10 @@ import { GetMonitoreosDeteccionById, DeleteMonitoreoDeteccionById } from "../../
 import { dateTimeFormatter } from '@shared/utils'
 
 import { ConfirmAlert, SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
-import { Table, ComponentLoader, LoaderSpiner } from "@shared/components"
+import { Table, ComponentLoader, Modal } from "@shared/components"
 import { ButtonCellRenderer } from "@shared/components/Table/ButtonCellRenderer/ButtonCellRenderer"
 import { EditIcon, TrashIcon } from "@shared/iconos"
+import { EditMonitoreoDeteccion } from "../EditMonitoreoDeteccion/EditMonitoreoDeteccion"
 
 
 
@@ -15,6 +16,9 @@ export const TablaMonitoreos = ({ idRecuento }) => {
 
     const [rowData, setRowData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+
+    const [editData, setEditData] = useState(null)
+    const [openModal, setOpenModal] = useState(false)
 
     const colDefs = [
         {
@@ -79,6 +83,12 @@ export const TablaMonitoreos = ({ idRecuento }) => {
 
     ]
 
+
+    // Funcion para manejo del modal
+    const toggleModal = () => {
+        setOpenModal(!openModal)
+    }
+
     // Funcion para borrado de datos
     const handleDelete = (data) => {
 
@@ -110,7 +120,8 @@ export const TablaMonitoreos = ({ idRecuento }) => {
 
     // Funcion para edicion de datos
     const handleEdit = (data) => {
-        console.log(data)
+        setEditData(data)
+        toggleModal()
     }
 
 
@@ -137,10 +148,15 @@ export const TablaMonitoreos = ({ idRecuento }) => {
     }
 
     return (
-        <Table
-            rowData={rowData}
-            columnDefs={colDefs}
-        />
+        <>
+            <Table
+                rowData={rowData}
+                columnDefs={colDefs}
+            />
+            <Modal isOpen={openModal} onClose={toggleModal} title="Editar Registro">
+                <EditMonitoreoDeteccion onCancel={toggleModal} initialValues={editData}/>
+            </Modal>
+        </>
     )
 
 }
