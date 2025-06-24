@@ -1,12 +1,13 @@
 ---
 import { OrganismoCard } from "@features/microOrganismos/components/MicroCard/OrganismosCard";
+import { TablaMonitoreos } from "@features/monitoreosMicroorganismos/components/TablaMonitoreos/TablaMonitoreos";
+import { VistaOrganismosID } from "@features/microOrganismos/services";
+import { BotonRegistro } from "@features/monitoreosMicroorganismos/components/BotonRegistro/BotonRegistro";
+
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
-
 import { Button } from "@shared/components";
 import { ArrowBackIcon } from "@shared/iconos";
-
-import { VistaOrganismosID } from "@features/microOrganismos/services";
 
 const { id } = Astro.params;
 
@@ -26,28 +27,51 @@ try {
         <h1>Detalle Deteccion</h1>
       </PillHeading>
 
-      <a href={`/productos/${organismo.numeroRegistroProducto}`}>
+      <a
+        href={organismo ? `/productos/${organismo.numeroRegistroProducto}` : ""}
+      >
         <Button variant="buttonCancel">
           Atras
           <ArrowBackIcon />
         </Button>
       </a>
     </div>
+
     <!-- Informacion del analisis -->
-    <div>
+    <section>
       {
         organismo ? (
-          <OrganismoCard client:only Organismo={organismo} />
+          <OrganismoCard client:load Organismo={organismo} />
         ) : (
-          <p>No se encontró información del Micro Organismo</p>
+          <p>No se encontró información del Microorganismo</p>
         )
       }
-    </div>
+    </section>
+
+    <!-- Monitoreos de Detecciones -->
+    <section id="monitoreos-detecciones">
+      <div class="header">
+        <div>
+          <h2>Monitoreos Deteccion</h2>
+          <p>
+            Aqui puedes registrar y gestionar los monitoreos que les hagas a las
+            detecciones de microorganismos especificos
+          </p>
+        </div>
+        {organismo && <BotonRegistro client:load idDeteccion={organismo.id} />}
+      </div>
+      {
+        organismo ? (
+          <TablaMonitoreos client:visible idRecuento={organismo.id} />
+        ) : (
+          <p>No se econtro informacion de esta deteccion</p>
+        )
+      }
+    </section>
   </div>
 </SidebarLayout>
 
 <style>
-
   a {
     text-decoration: none;
   }
@@ -59,11 +83,25 @@ try {
     margin-bottom: 20px;
   }
 
-
   .mainContainer {
     margin-top: 5dvh;
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--color-primario);
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  #monitoreos-detecciones .header {
+    align-items: flex-start;
   }
 </style>

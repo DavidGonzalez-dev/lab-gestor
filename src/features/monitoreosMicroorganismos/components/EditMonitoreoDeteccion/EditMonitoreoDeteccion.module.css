@@ -1,0 +1,17 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

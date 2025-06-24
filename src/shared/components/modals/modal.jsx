@@ -17,8 +17,6 @@ export const Modal = ({ isOpen, onClose, title, children }) => {
         </div>
         <hr />
 
-        <hr />
-
         {/* Contenido del modal */}
         <div className={styles.content}>
           {children}
