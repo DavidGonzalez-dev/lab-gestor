@@ -6,7 +6,8 @@ import svgr from 'vite-plugin-svgr';
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: vercel({}), 
+  adapter: vercel({}),
+  output: "server", 
   integrations: [react()],
   vite: {
     plugins: [
