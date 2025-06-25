@@ -21,7 +21,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
 
   const onSubmit = async (payload) => {
     Swal.fire({
-      title: "¿Estás seguro que quieres actualizar este recuento?",
+      title: "¿Estás seguro que quieres actualizar este Microorganismo?",
       icon: "warning",
       confirmButtonText: "Aceptar",
       showCancelButton: true,
@@ -36,7 +36,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
           if (success) {
             Swal.fire({
               icon: "success",
-              title: "Se actualizó el recuento con éxito",
+              title: "Se actualizó el Microorganismo con éxito",
               heightAuto: false,
               scrollbarPadding: false,
             }).then(() => location.reload());

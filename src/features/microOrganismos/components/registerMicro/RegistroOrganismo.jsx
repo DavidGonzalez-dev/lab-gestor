@@ -21,9 +21,9 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
       volumenDiluyente: data.volumenDiluyente,
       numeroRegistroProducto: numeroRegistroProducto
     }
-    // Se muestra un modal de confirmación antes de registrar el recuento
+    // Se muestra un modal de confirmación antes de registrar el Microorganismo
     Swal.fire({
-      title: "¿Deseas registrar este recuento?",
+      title: "¿Deseas registrar este Microorganismo?",
       text: "Verifica que la información sea correcta antes de continuar.",
       icon: "question",
       showCancelButton: true,
@@ -31,10 +31,10 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
       scrollbarPadding: false,
     })
       .then(async (result) => {
-        // Si el usuario confirma, se procede a registrar el recuento
+        // Si el usuario confirma, se procede a registrar el Microorganismo
         if (result.isConfirmed) {
 
-          // Se intenta registrar el recuento utilizando el servicio RegistrarPrecuento
+          // Se intenta registrar el Microorganismo utilizando el servicio RegistrarOrganismo
           try {
             console.log (payload)
             await RegistrarOrganismo(payload)
@@ -42,7 +42,7 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
             Swal.fire({
               icon: "success",
               title: "Registro Exitoso",
-              text: "El recuento se ha registrado correctamente.",
+              text: "El Microorganismo se ha registrado correctamente.",
               heightAuto: false,
               scrollbarPadding: false,
             })
@@ -56,7 +56,7 @@ export const RegistroOrganismo = ({ onClose, numeroRegistroProducto }) => {
             Swal.fire({
               icon: "error",
               title: "Error",
-              text: error.message || "No se pudo registrar el recuento. Intenta de nuevo.",
+              text: error.message || "No se pudo registrar el Microorganismo. Intenta de nuevo.",
               heightAuto: false,
               scrollbarPadding: false,
             });

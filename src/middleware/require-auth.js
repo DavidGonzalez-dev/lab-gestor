@@ -25,8 +25,8 @@ export async function requireAuth(context, next) {
 
     // DEFINCION DE LAS RUTAS PRIVADAS PRO ROL
     const accessControl = {
-        admin: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/usuarios", "/Organismos",...publicRoutes],
-        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/Organismos",...publicRoutes]
+        admin: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/usuarios", "/Organismos","/CajasBioburden",...publicRoutes],
+        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/Organismos","/CajasBioburden",...publicRoutes]
     }
 
 
