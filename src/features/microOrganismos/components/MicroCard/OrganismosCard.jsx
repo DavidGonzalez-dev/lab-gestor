@@ -132,6 +132,10 @@ export function OrganismoCard({ Organismo }) {
 >>>>>>> c1e0612ce239198d8fe7da64f0d3691dd0c38a18
               {Organismo.volumenDiluyente}
             </p>
+            <p className={styles.contenido}> 
+              <span className={styles.texto}>Resultado: </span>
+              {Organismo.resultado ? Organismo.resultado : "Sin resultado"}
+            </p>
           </div>
         </div>
 

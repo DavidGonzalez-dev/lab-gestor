@@ -3,6 +3,7 @@ import { OrganismoCard } from "@features/microOrganismos/components/MicroCard/Or
 import { TablaMonitoreos } from "@features/monitoreosMicroorganismos/components/TablaMonitoreos/TablaMonitoreos";
 import { VistaOrganismosID } from "@features/microOrganismos/services";
 import { BotonRegistro } from "@features/monitoreosMicroorganismos/components/BotonRegistro/BotonRegistro";
+import {BotonFinalizacionDeteccion} from "@features/microOrganismos/components/BotonFinalizacionDeteccion/BotonFinalizacionDeteccion"
 
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
@@ -27,14 +28,20 @@ try {
         <h1>Detalle Deteccion</h1>
       </PillHeading>
 
-      <a
-        href={organismo ? `/productos/${organismo.numeroRegistroProducto}` : ""}
-      >
-        <Button variant="buttonCancel">
-          Atras
-          <ArrowBackIcon />
-        </Button>
-      </a>
+      <div class="buttons">
+        {organismo && <BotonFinalizacionDeteccion idDeteccion={organismo.id} client:load/>}
+ 
+        <a
+          href={organismo
+            ? `/productos/${organismo.numeroRegistroProducto}`
+            : ""}
+        >
+          <Button variant="buttonCancel">
+            Atras
+            <ArrowBackIcon />
+          </Button>
+        </a>
+      </div>
     </div>
 
     <!-- Informacion del analisis -->
@@ -87,6 +94,11 @@ try {
     margin-top: 5dvh;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+  }
+
+  .buttons{
+    display: flex;
     gap: 20px;
   }
 
