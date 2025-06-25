@@ -1,12 +1,11 @@
 ---
 import { GetProductId } from "@features/productos/services";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
-import { ProductCard } from "@features/productos/components/ProductCard/ProductCard";
 import { AnalisisSelect } from "@features/productos/components/AnalisisSelect/AnalisisSelect";
-import { EntryDetailsCard } from "@features/productos/components/EntryDetailsCard/EntryDetailsCard";
-import {AnalisisOutlet} from "@features/productos/components/AnalisisOutlet/AnalisisOutlet"
+import { BotonFinalizarProducto } from "@features/productos/components/BotonFinalizarProducto/BotonFinalizarProducto";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
+import { TabsContainer } from "@features/productos/components/TabsContainer/TabsContainer.jsx";
 // Se hace trae la informacion del producto desde la API
 const { id } = Astro.params;
 let data = null;
@@ -21,33 +20,26 @@ try {
 
 <SidebarLayout>
     <div class="container mainContainer">
-        <!-- Titulo -->
         <div class="header">
             <PillHeading variant="primary">
                 <h1>Informacion del Producto</h1>
             </PillHeading>
-            <AnalisisSelect numeroRegistroProducto={data.numeroRegistroProducto} client:only/>
+
+            <div class="buttonContainer">
+                {data && <BotonFinalizarProducto numeroRegistro={data.numeroRegistroProducto} client:load/>}
+
+                {
+                    data && (
+                        <AnalisisSelect
+                            numeroRegistroProducto={data.numeroRegistroProducto}
+                            client:load
+                        />
+                    )
+                }
+            </div>
         </div>
 
-        <section id="productInfo">
-            <div class="row">
-                <div class="col-lg-6">
-                    {
-                        data && (
-                            <ProductCard client:load producto={data.producto} />
-                        )
-                    }
-                </div>
-                <div class="col-lg-6">
-                    {data && <EntryDetailsCard client:load data={data} />}
-                </div>
-            </div>
-        </section>
-
-        <section class="analisisSection">
-            <h2>Analisis Registrados</h2>
-            <AnalisisOutlet numeroRegistroProducto={data.numeroRegistroProducto} client:visible/>
-        </section>
+        <TabsContainer data={data} client:load />
     </div>
 </SidebarLayout>
 <style>
@@ -64,29 +56,8 @@ try {
         align-items: center;
     }
 
-    #productInfo {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .notesContainer {
+    .buttonContainer {
         display: flex;
         gap: 20px;
-    }
-
-    .customCard {
-        background-color: var(--color-white);
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-
-    h2{
-        font-size: 2rem;
-        color: var(--color-primario);
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 30px !important;
     }
 </style>

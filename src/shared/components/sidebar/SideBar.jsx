@@ -36,7 +36,7 @@ export function SideBar() {
 
                     <article className={styles.menu}>
                         {/* HOME */}
-                        <a href="/inicio" className={styles.sidebarLink}>
+                        <a href="/dashboard" className={styles.sidebarLink}>
                             <InicioIcon />
                             {!isCollapsed && <span>Inicio</span>}
                         </a>
@@ -59,25 +59,9 @@ export function SideBar() {
                             {!isCollapsed && <span>Clientes</span>}
                         </a>
 
-                        {/* REPORTE DE ANALISIS */}
-                        <a href="/reporte" className={styles.sidebarLink}>
-                            <ReporteIcon />
-                            {!isCollapsed && <span>Reporte de Analisis</span>}
-                        </a>
-
-                        {/* ESTADISTICAS */}
-
-
-
-
 
                         {userRole === "admin" && (
                             <>
-                                {/* MODULO DE ESTADISTICAS */}
-                                <a href="/estadisticas" className={styles.sidebarLink}>
-                                    <EstadisticasIcon />
-                                    {!isCollapsed && <span>Estadisticas del Area</span>}
-                                </a>
                                 {/* MODULO DE USUARIOS */}
                                 <a href="/usuarios" className={styles.sidebarLink}>
                                     <UsuariosIcon />

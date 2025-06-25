@@ -4,17 +4,32 @@ export async function requireAuth(context, next) {
 
     const { request, redirect } = context
     const authCookie = request.headers.get("cookie")
+    
+    const url = new URL(request.url)
+
+    // Lista de todas tus rutas válidas (páginas existentes en /pages)
+    const allRoutes = [
+        "/", "/login", "/recuperacion-contraseña", "/unauthorized",
+        "/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/usuarios"
+    ]
+
+    const isExistingRoute = allRoutes.some(route => url.pathname === route || url.pathname.startsWith(route + "/"))
+
+    // Si no es una ruta conocida, no aplicamos redirección, dejamos que Astro sirva el 404
+    if (!isExistingRoute) {
+        return next()
+    }
 
     // DEFINICION DE LAS RUTAS PUBLICAS QUE NO REQUIEREN AUTENTICACION
     const publicRoutes = ["/login", "/recuperacion-contrase%C3%B1a", "/unauthorized", "/fav.ico"]
 
     // DEFINCION DE LAS RUTAS PRIVADAS PRO ROL
     const accessControl = {
-        admin: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/usuarios", ...publicRoutes],
-        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", ...publicRoutes]
+        admin: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/usuarios", "/Organismos","/CajasBioburden",...publicRoutes],
+        analista: ["/dashboard", "/productos", "/clientes", "/fabricantes", "/recuentos", "/Organismos","/CajasBioburden",...publicRoutes]
     }
 
-    const url = new URL(request.url)
+
 
     // Verificamos si la ruta es publica
     const isPublic = url.pathname == "/" || publicRoutes.some(route => url.pathname.startsWith(route))
@@ -23,8 +38,7 @@ export async function requireAuth(context, next) {
         return redirect("/unauthorized")
     }
 
-    // Verificamos que el usuario tenga un token de autenticacion valido
-    
+    // Verificamos que el usuario tenga un token de autenticacion valido    
     let isValid = false // Variable para verificar si el token es valido
     let userRole = null // Variable para guardar el rol del usuario
 
@@ -60,7 +74,7 @@ export async function requireAuth(context, next) {
         const allowedRoutes = accessControl[userRole] || []
         const hasAccess = allowedRoutes.some(route => url.pathname.startsWith(route))
 
-        if (!hasAccess && !isPublic){
+        if (!hasAccess && !isPublic) {
             return redirect("/unauthorized")
         }
         return next()

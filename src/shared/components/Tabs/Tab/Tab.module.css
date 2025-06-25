@@ -1,0 +1,17 @@
+
+.tab {
+    padding: 7px 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 10px 10px 0px 0px;
+    transition: 0.3s all;
+    background: #ececec;
+    border: 1px solid #e7e6e6;
+}
+
+.tab.active {
+    border: 1px solid #e7e6e6;
+    border-bottom: none;
+    font-weight: bold;
+    background: white;
+}

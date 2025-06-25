@@ -3,11 +3,16 @@ import { RecuentoCard } from "@features/pRecuentos/components/RecuentosCard/Recu
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
+import { Button } from "@shared/components";
+import { ArrowBackIcon } from "@shared/iconos";
+
+import { CajasBioburdenList } from "@features/cajasBio/components/Cajas/TablasCajas";
 import { VistaRecuentoID } from "@features/pRecuentos/services";
+import {TerminarPRecento} from "@features/pRecuentos/components/TerminarPRecuento/TerminarPRecuento"
 
 const { id } = Astro.params;
 
-// Traemos la informacion del cliente
+// Traemos la informacion del analisis
 let recuento = null;
 try {
   recuento = await VistaRecuentoID(id);
@@ -18,30 +23,54 @@ try {
 
 <SidebarLayout>
   <div class="container mainContainer">
-      
-      <PillHeading variant="primary">
-        <h1>Detalle recuento</h1>
-      </PillHeading>
-
-    <!-- Informacion del cliente -->
+    <!-- Informacion del analisis -->
     <div>
       {
         recuento ? (
-          <RecuentoCard client:only recuento={recuento} />
+          <div class="row">
+            <div class="col-lg-8 d-flex flex-column align-items-start gap-2">
+              <PillHeading variant="primary">
+                <h1>Detalle Recuento</h1>
+              </PillHeading>
+              <RecuentoCard client:load recuento={recuento} />
+              <div class="d-flex gap-3">
+              <TerminarPRecento recuento={recuento} client:load/>
+              <a href=`/productos/${recuento?.numeroRegistroProducto}`><Button variant="buttonCancel">Atras <ArrowBackIcon/></Button></a>
+              </div>
+
+            </div>
+            <div class="col-lg-4 d-flex flex-column align-items-center gap-2">
+              <PillHeading variant="primary">
+                <h1>Cajas Bioburden</h1>
+              </PillHeading>
+              <CajasBioburdenList client:load id={recuento.id} />
+            </div>
+          </div>
         ) : (
           <p>No se encontró información del Recuento</p>
         )
       }
     </div>
+
+    
   </div>
 </SidebarLayout>
 
 <style>
-  .mainContainer{
+  a {
+    text-decoration: none;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .mainContainer {
     margin-top: 5dvh;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
-
 </style>

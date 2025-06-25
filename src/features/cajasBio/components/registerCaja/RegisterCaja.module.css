@@ -1,0 +1,35 @@
+.infoContainer {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-primario);
+  width: 50%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.inputContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.contenido {
+  font-size: 15px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+.texto {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-primario-oscuro);
+}

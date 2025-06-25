@@ -13,6 +13,41 @@ export function dateFormatter(date) {
     return formatDate.toLocaleDateString("es-ES")
 }
 
+// Funcion para formatear las fechas con hora
+export function dateTimeFormatter(dateString) {
+    if (!dateString) return "Sin registro";
+    const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+    return new Date(dateString).toLocaleString("es-CO", options);
+}
+
+export function toLocalISOString(dateString) {
+    const date = new Date(dateString);
+
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    const hh = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    const ss = String(date.getSeconds()).padStart(2, "0");
+
+    // Obtener zona horaria local como offset
+    const tzOffsetMin = date.getTimezoneOffset(); // en minutos
+    const offsetSign = tzOffsetMin > 0 ? "-" : "+";
+    const offsetH = String(Math.floor(Math.abs(tzOffsetMin) / 60)).padStart(2, "0");
+    const offsetM = String(Math.abs(tzOffsetMin) % 60).padStart(2, "0");
+
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}${offsetSign}${offsetH}:${offsetM}`;
+}
+
+
+
 // Funcion de Comparador de Fechas para el filtro para tablas
 export function getDateComparatorFunction() {
     return (filterDate, cellValue) => {

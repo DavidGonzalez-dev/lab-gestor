@@ -3,6 +3,8 @@
     border-radius: 15px;
     width: 25%;
     padding: 30px;
+    min-height: 300px;
+    max-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

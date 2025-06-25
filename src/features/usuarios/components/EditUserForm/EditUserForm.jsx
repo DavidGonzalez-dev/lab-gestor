@@ -9,8 +9,7 @@ import { AdminIcon, AnalistaIcon, CheckIcon, TrashIcon } from "@shared/iconos"
 import styles from "./EditUserForm.module.css"
 
 // Modal de edición de usuario
-export function EditUserModal({ isOpen, onClose, usuario }) {
-  
+export function EditUserForm({ usuario, onClose, editMode = "adminMode" }) {
 
   // Configuración del formulario con react-hook-form
   const {
@@ -54,6 +53,7 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          setIsLoading(true)
           const response = await EditUser(data.id, payload)
           if (response) {
             Swal.fire({
@@ -63,7 +63,10 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
               scrollbarPadding: false,
             }).then(
               () => {
-                window.location.href = "/usuarios"
+                if (editMode === "adminMode") {
+                  return window.location.href = "/usuarios"
+                }
+                return window.location.reload()
               }
             )
           }
@@ -75,98 +78,90 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
             heightAuto: false,
             scrollbarPadding: false,
           })
+        } finally {
+          setIsLoading(false)
         }
       }
     })
   }
 
 
-  if (!isOpen) return null
-
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <h2>Editar Usuario</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 
-        {/* Formulario de edición */}
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <div className={styles.inputsContainer}>
 
-          <div className={styles.inputsContainer}>
 
-            {/* Columna de la izquierda campos de texto */}
-            <div className={styles.leftColumn}>
+        {/* Campo Documento */}
+        <Input
+          type="text"
+          label="#Documento"
+          id="documento"
+          disabled={true}
+          placeHolder="ej: 1234567"
+          error={errors.documento}
+          {...register("id", {
+            required: "El documento es obligatorio*",
+            pattern: {
+              value: /^[0-9]+$/,
+              message: "El documento solo puede contener números*",
+            },
+          })}
+        />
 
-              {/* Campo Documento */}
-              <Input
-                type="text"
-                label="#Documento"
-                id="documento"
-                disabled={true}
-                placeHolder="ej: 1234567"
-                error={errors.documento}
-                {...register("id", {
-                  required: "El documento es obligatorio*",
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: "El documento solo puede contener números*",
-                  },
-                })}
-              />
+        {/* Campo Nombres */}
+        <Input
+          type="text"
+          label="Nombres"
+          id="nombres"
+          placeHolder="ej: Andrea Paola"
+          error={errors.nombres}
+          {...register("nombres", {
+            required: "Debe tener al menos un nombre*",
+            pattern: {
+              value: /^[a-zA-Z\s]+$/,
+              message: "Solo puede contener letras y espacios*",
+            },
+          })}
+        />
 
-              {/* Campo Nombres */}
-              <Input
-                type="text"
-                label="Nombres"
-                id="nombres"
-                placeHolder="ej: Andrea Paola"
-                error={errors.nombres}
-                {...register("nombres", {
-                  required: "Debe tener al menos un nombre*",
-                  pattern: {
-                    value: /^[a-zA-Z\s]+$/,
-                    message: "Solo puede contener letras y espacios*",
-                  },
-                })}
-              />
+        {/* Campo Apellidos */}
+        <Input
+          type="text"
+          label="Apellidos"
+          id="apellidos"
+          placeHolder="ej: Torres Pérez"
+          error={errors.apellidos}
+          {...register("apellidos", {
+            required: "Debe tener al menos un apellido*",
+            pattern: {
+              value: /^[a-zA-Z\s]+$/,
+              message: "Solo puede contener letras y espacios*",
+            },
+          })}
+        />
 
-              {/* Campo Apellidos */}
-              <Input
-                type="text"
-                label="Apellidos"
-                id="apellidos"
-                placeHolder="ej: Torres Pérez"
-                error={errors.apellidos}
-                {...register("apellidos", {
-                  required: "Debe tener al menos un apellido*",
-                  pattern: {
-                    value: /^[a-zA-Z\s]+$/,
-                    message: "Solo puede contener letras y espacios*",
-                  },
-                })}
-              />
+        {/* Campo Correo */}
+        <Input
+          type="email"
+          label="Correo"
+          id="correo"
+          placeHolder="ej: ejemplo@gmail.com"
+          error={errors.correo}
+          {...register("correo", {
+            required: "El correo es obligatorio*",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Debe ser una dirección de correo válida*",
+            },
+          })}
+        />
 
-              {/* Campo Correo */}
-              <Input
-                type="email"
-                label="Correo"
-                id="correo"
-                placeHolder="ej: ejemplo@gmail.com"
-                error={errors.correo}
-                {...register("correo", {
-                  required: "El correo es obligatorio*",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Debe ser una dirección de correo válida*",
-                  },
-                })}
-              />
+        {editMode === "adminMode" &&
+          <div className="row">
 
-            </div>
-
-            {/* Columna de la derecha selectores */}
-            <div className={styles.rightColumn}>
-
-              {/* Selector de Rol */}
+            {/* Selector de Rol */}
+            <div className="col-lg-6">
               <Controller
                 control={control}
                 name="rolId"
@@ -194,8 +189,10 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
                   </div>
                 )}
               />
+            </div>
 
-              {/* Selector de Estado (Activo / Inactivo) */}
+            {/* Selector de Estado (Activo / Inactivo) */}
+            <div className="col-lg-6">
               <Controller
                 control={control}
                 name="estado"
@@ -222,22 +219,21 @@ export function EditUserModal({ isOpen, onClose, usuario }) {
                   </div>
                 )}
               />
-
             </div>
-
           </div>
-
-          {/* Botones de acción */}
-          <div className={styles.buttons}>
-            <Button variant="buttonCancel" parentMethod={onClose}>
-              Cancelar <TrashIcon />
-            </Button>
-            <Button type="submit" variant="buttonAccept" disabled={isLoading}>
-              {isLoading ? <LoaderSpiner /> : <>Guardar <CheckIcon /></>}
-            </Button>
-          </div>
-        </form>
+        }
       </div>
-    </div>
+
+
+      {/* Botones de acción */}
+      <div className={styles.buttons}>
+        <Button variant="buttonCancel" parentMethod={onClose}>
+          Cancelar <TrashIcon />
+        </Button>
+        <Button type="submit" variant="buttonAccept" disabled={isLoading}>
+          {isLoading ? <LoaderSpiner /> : <>Guardar <CheckIcon /></>}
+        </Button>
+      </div>
+    </form>
   )
 }

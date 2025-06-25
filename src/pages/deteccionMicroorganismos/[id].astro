@@ -1,0 +1,119 @@
+---
+import { OrganismoCard } from "@features/microOrganismos/components/MicroCard/OrganismosCard";
+import { TablaMonitoreos } from "@features/monitoreosMicroorganismos/components/TablaMonitoreos/TablaMonitoreos";
+import { VistaOrganismosID } from "@features/microOrganismos/services";
+import { BotonRegistro } from "@features/monitoreosMicroorganismos/components/BotonRegistro/BotonRegistro";
+import {BotonFinalizacionDeteccion} from "@features/microOrganismos/components/BotonFinalizacionDeteccion/BotonFinalizacionDeteccion"
+
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
+import { Button } from "@shared/components";
+import { ArrowBackIcon } from "@shared/iconos";
+
+const { id } = Astro.params;
+
+// Traemos la informacion del analisis
+let organismo = null;
+try {
+  organismo = await VistaOrganismosID(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">
+    <div class="header">
+      <PillHeading variant="primary">
+        <h1>Detalle Deteccion</h1>
+      </PillHeading>
+
+      <div class="buttons">
+        {organismo && <BotonFinalizacionDeteccion idDeteccion={organismo.id} client:load/>}
+ 
+        <a
+          href={organismo
+            ? `/productos/${organismo.numeroRegistroProducto}`
+            : ""}
+        >
+          <Button variant="buttonCancel">
+            Atras
+            <ArrowBackIcon />
+          </Button>
+        </a>
+      </div>
+    </div>
+
+    <!-- Informacion del analisis -->
+    <section>
+      {
+        organismo ? (
+          <OrganismoCard client:load Organismo={organismo} />
+        ) : (
+          <p>No se encontró información del Microorganismo</p>
+        )
+      }
+    </section>
+
+    <!-- Monitoreos de Detecciones -->
+    <section id="monitoreos-detecciones">
+      <div class="header">
+        <div>
+          <h2>Monitoreos Deteccion</h2>
+          <p>
+            Aqui puedes registrar y gestionar los monitoreos que les hagas a las
+            detecciones de microorganismos especificos
+          </p>
+        </div>
+        {organismo && <BotonRegistro client:load idDeteccion={organismo.id} />}
+      </div>
+      {
+        organismo ? (
+          <TablaMonitoreos client:visible idRecuento={organismo.id} />
+        ) : (
+          <p>No se econtro informacion de esta deteccion</p>
+        )
+      }
+    </section>
+  </div>
+</SidebarLayout>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .mainContainer {
+    margin-top: 5dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .buttons{
+    display: flex;
+    gap: 20px;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--color-primario);
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  #monitoreos-detecciones .header {
+    align-items: flex-start;
+  }
+</style>

@@ -1,32 +1,32 @@
 /* Contenedor */
 
-.mainContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
 .box {
   background: white;
-  padding: 30px;
+  padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-width: fit-content;
-  width: 25dvw;
-}
-
-.infoContainer{
+  border: 1px solid var(--color-primario);
+  width: 50%;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 20px;
 }
 
-.buttonGroup{
+.header {
+  font-size: 1.5rem;
+  color: var(--color-primario);
+}
+
+.header h2 {
+  font-weight: 700;
+}
+
+.buttonGroup {
+  margin-top: 30px;
   display: flex;
   gap: 20px;
 }
-/* texto para que se vea un poco mejor */
+
 .texts {
   color: #333;
   font-weight: 600;

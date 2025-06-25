@@ -164,7 +164,7 @@ export const GetProductAnalisys = async (numeroRegistroProducto) => {
     if (response.data) {
       return response.data.data
     }
-    
+
   } catch (error) {
 
     if (error.response.status) {
@@ -176,6 +176,31 @@ export const GetProductAnalisys = async (numeroRegistroProducto) => {
           throw new Error(error.response.data.data.error)
       }
 
+    }
+
+    throw new Error("Ups! No es tu culpa es nuestra, estamos teniendo problemas con el servidor, vuelve a intentarlo de nuevo.")
+  }
+}
+
+// Este servicio nos permite actualizar el estado de un producto
+export const UpdateProductStatus = async (numeroRegistro, data) => {
+
+  try {
+
+    await api.patch(`/actualizarEstadoProducto/${numeroRegistro}`, data)
+    return true
+
+  } catch (error) {
+
+    if (error.response.status) {
+      switch (error.response.status) {
+        case HttpStatusCode.NotFound:
+          throw new Error("Este producto no existe, probablemente otro usuario lo ha eliminado, recarga la pestaña para reflejar los cambios")
+        case HttpStatusCode.BadRequest:
+          throw new Error(error.response.data.error)
+        case HttpStatusCode.InternalServerError:
+          throw new Error(`Error del lado del servidor: ${error.response.data.error}`)
+      }
     }
     
     throw new Error("Ups! No es tu culpa es nuestra, estamos teniendo problemas con el servidor, vuelve a intentarlo de nuevo.")
