@@ -38,8 +38,8 @@ export const AnalisisOutlet = ({ numeroRegistroProducto }) => {
         return <ComponentLoader />
     }
 
-    if (analisis) {
 
+    if (analisis.pruebasRecuento) {
         return (
             <>
                  <div className={styles.selectTypeContainer}>

@@ -38,8 +38,7 @@ export async function requireAuth(context, next) {
         return redirect("/unauthorized")
     }
 
-    // Verificamos que el usuario tenga un token de autenticacion valido
-
+    // Verificamos que el usuario tenga un token de autenticacion valido    
     let isValid = false // Variable para verificar si el token es valido
     let userRole = null // Variable para guardar el rol del usuario
 

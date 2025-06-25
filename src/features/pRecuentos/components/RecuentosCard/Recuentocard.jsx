@@ -76,7 +76,6 @@ export function RecuentoCard({ recuento }) {
               </p>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Especificación: </span>
-
                 {recuento.especificacion}
               </p>
             </div>

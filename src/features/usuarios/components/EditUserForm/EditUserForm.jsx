@@ -11,7 +11,6 @@ import styles from "./EditUserForm.module.css"
 // Modal de edición de usuario
 export function EditUserForm({ usuario, onClose, editMode = "adminMode" }) {
 
-
   // Configuración del formulario con react-hook-form
   const {
     register,
@@ -85,7 +84,6 @@ export function EditUserForm({ usuario, onClose, editMode = "adminMode" }) {
       }
     })
   }
-
 
 
   return (
@@ -224,7 +222,6 @@ export function EditUserForm({ usuario, onClose, editMode = "adminMode" }) {
             </div>
           </div>
         }
-
       </div>
 
 
