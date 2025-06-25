@@ -12,7 +12,7 @@ export const CajaRegister = ({ onClose, id }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },watch
+    formState: { errors }, watch
   } = useForm();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -118,28 +118,37 @@ export const CajaRegister = ({ onClose, id }) => {
           error={errors.medidaAritmetica}
         />
 
-        {/* Fecha y hora de Incubación */}
-        <Input
-          type="datetime-local"
-          label="Fecha y Hora de Incubación"
-          id="fechayhoraIncubacion"
-          {...register("fechayhoraIncubacion", {
-            required: "Este campo es requerido",
-          })}
-          error={errors.fechayhoraIncubacion}
-        />
+        <div className="row">
+          <div className="col-lg-6">
+            {/* Fecha y hora de Incubación */}
+            <Input
+              type="datetime-local"
+              label="Fecha y Hora de Incubación"
+              id="fechayhoraIncubacion"
+              {...register("fechayhoraIncubacion", {
+                required: "Este campo es requerido",
+              })}
+              error={errors.fechayhoraIncubacion}
+            />
+          </div>
 
-        {/* Fecha y hora de Lectura */}
-        <Input
-          type="datetime-local"
-          label="Fecha y Hora de Lectura"
-          id="fechayhoraLectura"
-          {...register("fechayhoraLectura", {
-            required: "Este campo es requerido",
-            validate: value => !fechayhoraIncubacion || new Date(value) > new Date(fechayhoraIncubacion) || "La fecha y hora de Lectura debe ser mayor a la de incubacion *",
-          })}
-          error={errors.fechayhoraLectura}
-        />
+          <div className="col-lg-6">
+
+            {/* Fecha y hora de Lectura */}
+            <Input
+              type="datetime-local"
+              label="Fecha y Hora de Lectura"
+              id="fechayhoraLectura"
+              {...register("fechayhoraLectura", {
+                required: "Este campo es requerido",
+                validate: value => !fechayhoraIncubacion || new Date(value) > new Date(fechayhoraIncubacion) || "La fecha y hora de Lectura debe ser mayor a la de incubacion *",
+              })}
+              error={errors.fechayhoraLectura}
+            />
+          </div>
+
+        </div>
+
 
         {/* Factor de Disolución */}
         <Input

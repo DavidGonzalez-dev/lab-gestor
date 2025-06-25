@@ -14,13 +14,16 @@ export function dateFormatter(date) {
 }
 
 // Funcion para formatear las fechas con hora
-export function dateTimeFormatter(date) {
-    const formatDate = new Date(date).toISOString()
-
-    const fechaLocal = formatDate.split("T")[0];
-    const horaLocal = formatDate.split("T")[1].split(".")[0];
-
-    return fechaLocal + "-" + horaLocal;
+export function dateTimeFormatter(dateString) {
+    if (!dateString) return "Sin registro";
+    const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+    return new Date(dateString).toLocaleString("es-CO", options);
 }
 
 export function toLocalISOString(dateString) {

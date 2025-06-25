@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import { EyeIcon, TrashIcon } from "@shared/iconos"
 
 export function CardCaja({ caja, onDeleted }) {
+  
   const handleDelete = () => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -34,7 +35,7 @@ export function CardCaja({ caja, onDeleted }) {
         {caja.tipo}
       </div>
 
-      <div>
+      <div className={styles.cardContent}>
         <p><strong className={styles.texto}>Método:</strong> {caja.metodoSiembra}</p>
         <p><strong className={styles.texto}>Resultado:</strong> {caja.resultado || "Sin resultado"}</p>
       </div>

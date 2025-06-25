@@ -25,13 +25,13 @@ try {
       {
         recuento ? (
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 d-flex flex-column align-items-start gap-2">
               <PillHeading variant="primary">
                 <h1>Detalle Recuento</h1>
               </PillHeading>
               <RecuentoCard client:load recuento={recuento} />
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 d-flex flex-column align-items-center gap-2">
                 <PillHeading variant="primary">
                   <h1>Cajas Bioburden</h1>
                 </PillHeading>
