@@ -31,7 +31,7 @@ export const CheckVerificationCodeForm = () => {
                 SuccessAlert.fire({
                     title: "Todo parece correcto!",
                     text: "Tu codigo fue validado correctamente. Ahora puedes cambiar tu contraseña sin ningun problema"
-                }).then(() => {window.location.href = "/recuperacion-contraseña/nueva"})
+                }).then(() => {window.location.href = "/recuperacionContrasena/nueva"})
             }
             
         } catch (error) {

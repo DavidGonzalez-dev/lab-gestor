@@ -7,6 +7,8 @@ import { SuccessAlert, ErrorAlert } from "@shared/components/Alerts"
 import { useForm } from "react-hook-form";
 import { RegistrarControlNegativo } from "../../services";
 import { useState } from "react";
+import { toLocalISOString } from "@shared/utils"
+
 
 export const RegistroControlNegativo = ({ onClose, numeroRegistroProducto }) => {
 
@@ -19,15 +21,12 @@ export const RegistroControlNegativo = ({ onClose, numeroRegistroProducto }) => 
 
         const payload = {
             ...data,
+            fechayhoraIncubacion: toLocalISOString(data.fechayhoraIncubacion),
+            fechayhoraLectura: toLocalISOString(data.fechayhoraLectura),
             numeroRegistroProducto: numeroRegistroProducto,
         }
-        
-        const fechayhoraLecturaLocal = new Date(data.fechayhoraLectura).toISOString();
-        const fechayhoraIncubacionLocal = new Date(data.fechayhoraIncubacion).toISOString();
-        payload.fechayhoraIncubacion = fechayhoraIncubacionLocal;
-        payload.fechayhoraLectura = fechayhoraLecturaLocal;
+    
 
-        console.log(payload)
 
         try {
             setIsLoading(true)

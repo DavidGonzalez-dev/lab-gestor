@@ -103,7 +103,7 @@ export const ResetPasswordForm = () => {
             </div>
 
             <div className={styles.buttonContainer}>
-                <Button variant="buttonCancel" parentMethod={() => window.location.href = "/recuperacion-contraseña/verificacion"}>
+                <Button variant="buttonCancel" parentMethod={() => window.location.href = "/recuperacionContrasena/verificacion"}>
                     Cancelar
                     <TrashIcon />
                 </Button>
