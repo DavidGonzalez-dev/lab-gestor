@@ -36,7 +36,7 @@ export function CardCaja({ caja }) {
 
 
   return (
-    <div className={`${styles.cardDetalle} container`}>
+    <div className={`${styles.cardDetalle} container w-75`}>
 
       <h4 className={styles.cardTitle}>Tipo de Caja: {caja.tipo}</h4>
       <hr />

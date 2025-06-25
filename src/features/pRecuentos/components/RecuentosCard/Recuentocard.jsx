@@ -54,7 +54,7 @@ export function RecuentoCard({ recuento }) {
   return (
     <div>
 
-      <div className={styles.infoContainer}>
+      <div className={`${styles.infoContainer} w-75`}>
         <p className={styles.numeroRegistroProducto}><span>Numero registro producto: </span>{recuento.numeroRegistroProducto}</p>
         <hr />
         <div className="row">

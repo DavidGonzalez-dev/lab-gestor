@@ -7,11 +7,11 @@ export const RegistrarPrecuento = async (data) => {
   try {
     await api.post("/pruebasRecuento", data)
     return true
-  } 
+  }
   catch (err) {
     // Si hay respuesta del servidor
     console.log(err)
-    switch(err.response.status) {
+    switch (err.response.status) {
       case HttpStatusCode.UnprocessableEntity:
         throw new Error(err.response.data.error);
       case HttpStatusCode.Conflict:
@@ -46,11 +46,11 @@ export const EditarPrecuento = async (id, data) => {
   }
 }
 // Este servicio permite visionar una prueba de recuento por id
-export const VistaRecuentoID = async (id)=>{
+export const VistaRecuentoID = async (id) => {
   try {
     const response = await api.get(`pruebasRecuento/${id}`)
     return response.data.data
-  }  catch (err) {
+  } catch (err) {
     switch (err.response.status) {
       case HttpStatusCode.UnprocessableEntity:
         throw new Error(err.response.data.error)
@@ -59,20 +59,40 @@ export const VistaRecuentoID = async (id)=>{
       default:
         throw new Error("Error en el servidor, vuelve a intentarlo más tarde");
     }
-    }
+  }
 }
 
 // Este servicio permite eliminar el recuento
-export const EliminarRecuento =async (id) => {
+export const EliminarRecuento = async (id) => {
   try {
     await api.delete(`/pruebasRecuento/${id}`)
     return true
   } catch (err) {
-     switch(err.response.status) {
-            case HttpStatusCode.NotFound:
-                throw new Error("El Recuento ya ha sido eliminado de la base de datos del sistema, intenta recargar la pagina para reflejar los cambios!")
-            case HttpStatusCode.Conflict:
-                throw new Error("Este Recuento tiene actualmente productos relacionados, por ende no se puede borrar.")
-        }
+    switch (err.response.status) {
+      case HttpStatusCode.NotFound:
+        throw new Error("El Recuento ya ha sido eliminado de la base de datos del sistema, intenta recargar la pagina para reflejar los cambios!")
+      case HttpStatusCode.Conflict:
+        throw new Error("Este Recuento tiene actualmente productos relacionados, por ende no se puede borrar.")
+    }
+  }
+}
+
+// Este servicio nos permite actualizar el estado de una prueba de recuento
+export const UpdateEstadoPrueba = async (idPrueba, data) => {
+  try {
+
+    await api.patch(`/actualizarEstadoPruebaRecuento/${idPrueba}`, data)
+    return true
+
+  } catch (err) {
+    if (err.response.status) {
+      switch (err.response.status) {
+        case HttpStatusCode.NotFound:
+          throw new Error("Esta prueba de recuento no existe, probalemente otro usuario lo elimino, recarga la pagina para reflejar los cambios")
+        case HttpStatusCode.InternalServerError:
+          throw new Error(`Error del lado del servidor: ${err.response.data.error}`)
+      }
+    }
+    throw new Error("Lo sentimos en este momento estamos teniendo problemas con el servidor, vuelve a intentarlo mas tarde")
   }
 }
