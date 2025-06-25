@@ -15,7 +15,7 @@ export const BotonFinalizacionDeteccion = ({ idDeteccion }) => {
     return (
         <>
             <Button parentMethod={toggleModal}>
-                Terminar Analisis
+                Registrar Resultado
             </Button>
             <Modal onClose={toggleModal} title="Registrar resultado" isOpen={openModal}>
                 <FormularioRegistroResultado idDeteccion={idDeteccion} onCancel={toggleModal}/>

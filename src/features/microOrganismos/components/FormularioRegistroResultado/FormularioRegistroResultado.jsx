@@ -19,13 +19,14 @@ export const FormularioRegistroResultado = ({ idDeteccion, onCancel }) => {
 
         ConfirmAlert.fire({
             title: "¿Estas seguro de registrar el analisis de este producto?",
-            text: "Una vez registres el resultado de este analisis no podras cambiarlo"
+            text: "Recuerda que siempre puedes cambiar el resultado mediante este formlario"
         })
             .then(async result => {
 
                 if (result.isConfirmed) {
 
                     try {
+                        setIsLoading(true)
                         const success = await ActualizarResultadoOrganismo(idDeteccion, data)
                         if (success) {
                             SuccessAlert.fire({
@@ -37,6 +38,8 @@ export const FormularioRegistroResultado = ({ idDeteccion, onCancel }) => {
                             title: "Hubo un problema al actualizar el resultado",
                             text: error.mesage
                         })
+                    } finally {
+                        setIsLoading(false)
                     }
                 }
             })
@@ -44,7 +47,7 @@ export const FormularioRegistroResultado = ({ idDeteccion, onCancel }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
             <Input
                 id="resultado"
                 type="text"

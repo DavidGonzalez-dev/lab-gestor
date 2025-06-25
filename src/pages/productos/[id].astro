@@ -2,7 +2,7 @@
 import { GetProductId } from "@features/productos/services";
 import SidebarLayout from "@shared/layouts/SidebarLayout.astro";
 import { AnalisisSelect } from "@features/productos/components/AnalisisSelect/AnalisisSelect";
-
+import { BotonFinalizarProducto } from "@features/productos/components/BotonFinalizarProducto/BotonFinalizarProducto";
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
 import { TabsContainer } from "@features/productos/components/TabsContainer/TabsContainer.jsx";
@@ -20,21 +20,26 @@ try {
 
 <SidebarLayout>
     <div class="container mainContainer">
-
         <div class="header">
             <PillHeading variant="primary">
                 <h1>Informacion del Producto</h1>
-                </PillHeading>
-                {data && (
-                    <AnalisisSelect
-                    numeroRegistroProducto={data.numeroRegistroProducto}
-                    client:load
-                    />
-                )}
+            </PillHeading>
+
+            <div class="buttonContainer">
+                {data && <BotonFinalizarProducto numeroRegistro={data.numeroRegistroProducto} client:load/>}
+
+                {
+                    data && (
+                        <AnalisisSelect
+                            numeroRegistroProducto={data.numeroRegistroProducto}
+                            client:load
+                        />
+                    )
+                }
+            </div>
         </div>
 
-        <TabsContainer data={data} client:load/>
-        
+        <TabsContainer data={data} client:load />
     </div>
 </SidebarLayout>
 <style>
@@ -49,5 +54,10 @@ try {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .buttonContainer {
+        display: flex;
+        gap: 20px;
     }
 </style>
