@@ -76,3 +76,28 @@ export const EliminarOrganismo = async (id) => {
     }
   }
 }
+
+// Este servicio nos perite registrar el resultado de un recuento
+export const ActualizarResultadoOrganismo = async (id, data) => {
+  try {
+    await api.patch(`/terminarDeteccionMicroorganismos/${id}`, data);
+    return true
+
+  } catch (err) {
+
+    if (err.response.status) {
+
+      switch (err.response.status) {
+        case HttpStatusCode.UnprocessableEntity:
+          throw new Error(err.response.data.error);
+        case HttpStatusCode.NotFound:
+          throw new Error("El recuento que estás intentando actualizar no existe.");
+        default:
+          throw new Error("Error en el servidor, vuelve a intentarlo más tarde.");
+      }
+
+    }
+    throw new Error("Estamos teniendo problemas con el servidor vuelve a intentarlo mas tarde");
+    
+  }
+}
