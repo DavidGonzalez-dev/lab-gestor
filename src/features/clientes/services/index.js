@@ -31,9 +31,13 @@ export const getClientes = async () => {
 }
 
 // Este servicio nos permite obtener unformacion de un cliente en especifico
-export const getIdclient = async (id) => {
+export const getIdclient = async (id, cookies) => {
   try {
-    const response = await api.get(`clientes/${id}`)
+    const response = await api.get(`clientes/${id}`, {
+      headers: {
+        Cookie: cookies
+      }
+    })
     console.log(response.data)
     return response.data.data
   } 

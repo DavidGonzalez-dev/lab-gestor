@@ -18,9 +18,13 @@ export const registrarCaja = async (data) => {
 
 
 // Obtener caja por ID
-export const getCajaById = async (id) => {
+export const getCajaById = async (id, cookies) => {
   try {
-    const response = await api.get(`/cajasBioburden/${id}`)
+    const response = await api.get(`/cajasBioburden/${id}`, {
+      headers: {
+        Cookie: cookies
+      }
+    })
     
     return response.data.data
   } catch (err) {

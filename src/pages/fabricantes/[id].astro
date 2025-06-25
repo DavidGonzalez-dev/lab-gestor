@@ -6,11 +6,13 @@ import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 import { getFabricanteId } from "@features/fabricantes/services";
 
 const { id } = Astro.params;
+const cookies = Astro.request.headers.get("cookie") ?? ""
+
 
 // Traemos la informacion del cliente
 let fabricante = null;
 try {
-  fabricante = await getFabricanteId(id);
+  fabricante = await getFabricanteId(id, cookies);
 } catch (error) {
   console.error(error);
 }

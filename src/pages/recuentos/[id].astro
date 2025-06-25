@@ -11,11 +11,13 @@ import { VistaRecuentoID } from "@features/pRecuentos/services";
 import {TerminarPRecento} from "@features/pRecuentos/components/TerminarPRecuento/TerminarPRecuento"
 
 const { id } = Astro.params;
+const cookies = Astro.request.headers.get("cookie") ?? ""
+
 
 // Traemos la informacion del analisis
 let recuento = null;
 try {
-  recuento = await VistaRecuentoID(id);
+  recuento = await VistaRecuentoID(id, cookies);
 } catch (error) {
   console.error(error);
 }
