@@ -79,7 +79,7 @@ export const EditarRp = ({ data, onClose }) => {
           {...register("nombreRecuento", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z]+$/,
+              value: /^[a-zA-Z]+$/u,
               message: "El nombre solo puede contener letras"
             }
           })}
@@ -137,7 +137,7 @@ export const EditarRp = ({ data, onClose }) => {
           {...register("tratamiento", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z]+$/,
+              value: /^[a-zA-Z]+$/u,
               message: "El tratamiento solo puede contener letras"
             }
           })}
@@ -153,7 +153,7 @@ export const EditarRp = ({ data, onClose }) => {
           {...register("volumenDiluyente", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[a-zA-Z0-9, ]+$/,
+              value: /^[a-zA-Z0-9, ]+$/u,
               message: "Solo puede contener letras, números, comas (,) y espacios"
             }
           })}
@@ -169,7 +169,7 @@ export const EditarRp = ({ data, onClose }) => {
           {...register("tiempoDisolucion", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[0-9]+[a-zA-Z]+$/,
+              value: /^[0-9]+[a-zA-Z]+$/u,
               message: "Debe contener un número seguido de unidad (ej: 10min, 5h)"
             }
           })}

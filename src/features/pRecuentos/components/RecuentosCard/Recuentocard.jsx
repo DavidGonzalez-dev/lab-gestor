@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Button, Modal } from "@shared/components";
-import { EditIcon, TrashIcon, ArrowBackIcon } from "@shared/iconos";
+import {Button, Modal } from "@shared/components";
+import { EditIcon, TrashIcon,ArrowBackIcon } from "@shared/iconos";
 import { EditarRp } from "../editarRP/EditarPruebaRecuento";
 import Swal from "sweetalert2";
 import { EliminarRecuento } from "../../services";
 import styles from "./RecuentoCard.module.css";
 
-export function ButtonAtras(recuento) {
-  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href = `/productos/${recuento.numeroRegistroProducto}`}>
-    Atras
-    <ArrowBackIcon />
-  </Button>)
+export function ButtonAtras(recuento){
+  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href =`/productos/${recuento.numeroRegistroProducto}`}>
+          Atras
+          <ArrowBackIcon />
+        </Button>)
 }
 
 export function RecuentoCard({ recuento }) {
@@ -54,7 +54,7 @@ export function RecuentoCard({ recuento }) {
   return (
     <div>
 
-      <div className={styles.infoContainer}>
+      <div className={`${styles.infoContainer} w-75`}>
         <p className={styles.numeroRegistroProducto}><span>Numero registro producto: </span>{recuento.numeroRegistroProducto}</p>
         <hr />
         <div className="row">

@@ -1,0 +1,40 @@
+.cardCaja {
+  background: white;
+  width: 70%;
+  min-width: fit-content;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--color-primario);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardHeader {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.cardContent p{
+  margin: 0;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cardFooter {
+  display: flex;
+  gap: 8px;
+}
+
+.texto {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-primario-oscuro);
+}

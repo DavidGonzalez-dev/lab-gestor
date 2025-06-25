@@ -1,10 +1,17 @@
 import { useState } from "react"
 import {Button, Modal } from "@shared/components"
-import { EditIcon, TrashIcon } from "@shared/iconos"
+import { EditIcon, TrashIcon,ArrowBackIcon } from "@shared/iconos"
 import { EditarOrganismos} from '../editMicro/EditarOrganismo'
 import Swal from "sweetalert2";
 import {  EliminarOrganismo } from "../../services"
 import styles from "./OrganismosCard.module.css"
+
+export function ButtonAtras(Organismo){
+  return (<Button variant={"buttonCancel"} parentMethod={() => window.location.href =`/productos/${Organismo.numeroRegistroProducto}`}>
+          Atras
+          <ArrowBackIcon />
+        </Button>)
+}
 
 export function OrganismoCard({ Organismo }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,43 +50,46 @@ export function OrganismoCard({ Organismo }) {
       }
     });
   };
-
   return (
     <div>
+      <p className={styles.nuemroR}><span className={styles.texto}>Numero registro producto: </span>{Organismo.numeroRegistroProducto}</p>
       <div className={styles.infoContainer}>
-      <p className={styles.numeroRegistroProducto}><span>Numero registro producto: </span>{Organismo.numeroRegistroProducto}</p>
         <div className="row">
 
-          <div className="col-lg-6">
+          <div className="col-lg-5">
             <p className={styles.contenido}>
-              <span className={styles.texto}>Nombre Microorganismo: </span>
+              <span className={styles.texto}>Nombre Prueba: </span>
+              <br />
               {Organismo.nombreMicroorganismo}
             </p>
             <p className={styles.contenido}>
               <span className={styles.texto}>Cantidad Muestra: </span>
+              <br />
               {Organismo.cantidadMuestra}
             </p>
             <div>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Método: </span>
-
+                <br />
                 {Organismo.metodoUsado}
               </p>
               <p className={styles.contenido}>
                 <span className={styles.texto}>Especificación: </span>
-
+                <br />
                 {Organismo.especificacion}
               </p>
             </div>
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-5">
             <p className={styles.contenido}>
               <span className={styles.texto}>Tratamiento: </span>
+              <br />
               {Organismo.tratamiento} 
             </p>
             <p className={styles.contenido}> 
               <span className={styles.texto}>Volumen Diluyente: </span>
+              <br />
               {Organismo.volumenDiluyente}
             </p>
             <p className={styles.contenido}> 

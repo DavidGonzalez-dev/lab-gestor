@@ -17,12 +17,12 @@
   padding: 2rem;
   border-radius: 8px;
   border: 1px solid var(--color-primario);
-  width: 50%;
+  width: 65%;
   min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 10px;
+
 }
 
 .buttonContainer{
@@ -36,7 +36,7 @@
   white-space: pre-wrap;
 }
 .texto {
-  font-size: 1rem;
+  font-size: 17px;
   font-weight: 600;
   color: var(--color-primario-oscuro);
 }
