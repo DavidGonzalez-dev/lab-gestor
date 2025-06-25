@@ -96,7 +96,7 @@ export const GetProductId = async (numeroRegistro, cookies) => {
   try {
     const response = await api.get(`/productos/${numeroRegistro}`, {
       headers: {
-        Cookies: cookies
+        Cookie: cookies
       }
     })
     if (response.data.data) {
