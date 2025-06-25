@@ -1,0 +1,58 @@
+---
+import SidebarLayout from "@shared/layouts/SidebarLayout.astro"
+import PillHeading from "@shared/components/PillHeading/PillHeading.astro"
+import{ CardCaja} from "@features/cajasBio/components/cardCaja/CardCaja"
+import { Button } from "@shared/components"
+import { ArrowBackIcon } from "@shared/iconos"
+
+import { getCajaById } from "@features/cajasBio/services"
+
+const { id } = Astro.params;
+
+// Traemos la información de la caja
+let caja = null;
+try {
+  caja = await getCajaById(id);
+} catch (error) {
+  console.error(error);
+}
+---
+
+<SidebarLayout>
+  <div class="container mainContainer">  
+    {
+      caja ? (
+              <a
+        href={caja ? `/recuentos/${caja.idPruebaRecuento}` : ""}
+      >
+        <Button variant="buttonCancel">
+          Atras
+          <ArrowBackIcon />
+        </Button>
+      </a>
+        <div class="row">
+          <div class="col-lg-8">
+            <PillHeading variant="primary">
+              <h1>Detalle de Caja</h1>
+            </PillHeading>
+            <CardCaja client:load caja={caja} />
+          </div>
+        </div>
+      ) : (
+        <p>No se encontró información de la caja.</p>
+      )
+    }
+  </div>
+</SidebarLayout>
+
+<style>
+    a {
+    text-decoration: none;
+  }
+  .mainContainer {
+    margin-top: 5dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+</style>

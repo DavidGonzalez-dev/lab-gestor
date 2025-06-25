@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { CheckIcon, TrashIcon } from "@shared/iconos";
 import { EditOrganismo } from "../../services";
-
 import styles from "./EditarOrganismo.module.css"
 
 export const EditarOrganismos = ({ data, onClose }) => {
@@ -22,7 +21,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
 
   const onSubmit = async (payload) => {
     Swal.fire({
-      title: "¿Estás seguro que quieres actualizar este recuento?",
+      title: "¿Estás seguro que quieres actualizar este Microorganismo?",
       icon: "warning",
       confirmButtonText: "Aceptar",
       showCancelButton: true,
@@ -37,7 +36,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
           if (success) {
             Swal.fire({
               icon: "success",
-              title: "Se actualizó el recuento con éxito",
+              title: "Se actualizó el Microorganismo con éxito",
               heightAuto: false,
               scrollbarPadding: false,
             }).then(() => location.reload());
@@ -56,7 +55,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+    <form onSubmit={handleSubmit(onSubmit)}>
 
       {/* Contenedor de Inputs */}
       <div className={styles.inputContainer}>
@@ -70,7 +69,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
           {...register("nombreMicroorganismo", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s()\/\-]+$/,
+              value: /^[a-zA-Z]+$/,
               message: "El nombre solo puede contener letras"
             }
           })}
@@ -102,7 +101,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
           {...register("metodoUsado", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[\p{L}0-9-]+$/u,
+              value: /^[a-zA-Z0-9-]+$/,
               message: "Solo puede contener letras, números y guiones (-)"
             }
           })}
@@ -115,12 +114,7 @@ export const EditarOrganismos = ({ data, onClose }) => {
           label="Especificación"
           id="especificacion"
           placeHolder="Especificación"
-          {...register("especificacion", { required: "Este campo es requerido",
-             pattern: {
-              value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s()<>\-=\/.]+$/,
-              message: "La especificación solo puede contener letras, números y espacios y algunos caracteres especiales como (), <>, - y /"
-            }
-           })}
+          {...register("especificacion", { required: "Este campo es requerido" })}
           error={errors.especificacion}
         />
 
@@ -133,8 +127,8 @@ export const EditarOrganismos = ({ data, onClose }) => {
           {...register("tratamiento", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s()\/\-]+$/,
-              message: "El tratamiento solo puede contener letras, números y espacios y algunos caracteres especiales como (), <>, - y /"
+              value: /^[a-zA-Z]+$/,
+              message: "El tratamiento solo puede contener letras"
             }
           })}
           error={errors.tratamiento}
@@ -149,8 +143,8 @@ export const EditarOrganismos = ({ data, onClose }) => {
           {...register("volumenDiluyente", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[0-9]+[a-zA-Z]+$/,
-              message: "Solo puede contener letras, números y espacios"
+              value: /^[a-zA-Z0-9, ]+$/,
+              message: "Solo puede contener letras, números, comas (,) y espacios"
             }
           })}
           error={errors.volumenDiluyente}
