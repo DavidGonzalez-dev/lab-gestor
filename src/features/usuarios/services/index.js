@@ -56,10 +56,14 @@ export const DeshabilitarUsuario = async (id) => {
 }
 
 // Este servicio nos permite obtener ver la formacion de un usuario en especifico
-export const getUsuarioID = async (id) => {
+export const getUsuarioID = async (id, cookies) => {
   
   try {
-    const response = await api.get(`usuarios/${id}`)
+    const response = await api.get(`usuarios/${id}`, {
+      headers: {
+        Cookie: cookies
+      }
+    })
     return response.data
   } 
   

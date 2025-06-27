@@ -91,10 +91,14 @@ export const deleteProducto = async (numeroRegistroProducto) => {
 }
 
 // Este servicio nos permite obtener la informacion de un producto en especifico
-export const GetProductId = async (numeroRegistro) => {
+export const GetProductId = async (numeroRegistro, cookies) => {
   // Se hace el llamado a la api
   try {
-    const response = await api.get(`/productos/${numeroRegistro}`)
+    const response = await api.get(`/productos/${numeroRegistro}`, {
+      headers: {
+        Cookie: cookies
+      }
+    })
     if (response.data.data) {
       return response.data.data
     }

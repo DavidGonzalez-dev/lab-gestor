@@ -6,10 +6,11 @@ import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 import { getUsuarioID } from "@features/usuarios/services";
 
 const { id } = Astro.params;
+const cookies = Astro.request.headers.get("cookie") ?? ""
 let usuario = null;
 
 try {
-  usuario = await getUsuarioID(id);
+  usuario = await getUsuarioID(id, cookies);
 } catch (error) {
   console.error(error);
 }

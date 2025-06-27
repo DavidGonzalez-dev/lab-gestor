@@ -4,15 +4,15 @@ import Logo from "@assets/logo/logo-nav.svg";
 import LogoLight from "@assets/logo/logo-light.svg";
 import { Button } from "@shared/components";
 import {
-    CircleChekIcon,
-    TimeIcon,
-    ReportOffIcon,
-    TrazabilidadIcon,
-    FileErrorIcon,
-    UsuariosIcon,
-    ProductosIcon,
-    EstadisticasIcon,
-    FabricantesIcon,
+  CircleChekIcon,
+  TimeIcon,
+  ReportOffIcon,
+  TrazabilidadIcon,
+  FileErrorIcon,
+  UsuariosIcon,
+  ProductosIcon,
+  EstadisticasIcon,
+  FabricantesIcon,
 } from "@shared/iconos";
 ---
 
@@ -125,57 +125,61 @@ import {
             </p>
         </div>
 
-        <div class="benefits-cards">
-            <article class="benefit-card">
-                <div class="car-header">
-                    <TimeIcon />
-                    <h6>Ahorro de tiempo</h6>
-                </div>
-                <p>
-                    Si aún completas tus hojas de trabajo analítico de forma
-                    manual, LabGestor te ofrece formularios y un flujo de
-                    trabajo cómodo y eficiente para realizar tus análisis de
-                    manera más ágil y precisa.
-                </p>
-            </article>
+        <div class="benefits-cards container-fluid">
+            <div class="row">
+                <article class="benefit-card">
+                    <div class="car-header col-lg-6">
+                        <TimeIcon />
+                        <h6>Ahorro de tiempo</h6>
+                    </div>
+                    <p>
+                        Si aún completas tus hojas de trabajo analítico de forma
+                        manual, LabGestor te ofrece formularios y un flujo de
+                        trabajo cómodo y eficiente para realizar tus análisis de
+                        manera más ágil y precisa.
+                    </p>
+                </article>
 
-            <article class="benefit-card">
-                <div class="car-header">
-                    <ReportOffIcon />
-                    <h6>Adios el papel</h6>
-                </div>
-                <p>
-                    Con LabGestor no tienes que preocuparte por el consumo de
-                    papel ni por imprimir formatos para registrar tus análisis.
-                    LabGestor almacena tu información de forma segura e integra.
-                </p>
-            </article>
+                <article class="benefit-card">
+                    <div class="car-header col-lg-6">
+                        <ReportOffIcon />
+                        <h6>Adios el papel</h6>
+                    </div>
+                    <p>
+                        Con LabGestor no tienes que preocuparte por el consumo de
+                        papel ni por imprimir formatos para registrar tus análisis.
+                        LabGestor almacena tu información de forma segura e integra.
+                    </p>
+                </article>
+            </div>
+            <div class="row">
 
-            <article class="benefit-card">
-                <div class="car-header">
-                    <TrazabilidadIcon />
-                    <h6>Trazabilidad completa</h6>
-                </div>
-                <p>
-                    LabGestor cuenta con un sistema de trazabilidad interna que
-                    te permite identificar quién estuvo a cargo de cada muestra.
-                    Así, aseguras el control y la integridad de la información:
-                    nada se pierde.
-                </p>
-            </article>
+                <article class="benefit-card">
+                    <div class="car-header col-lg-6">
+                        <TrazabilidadIcon />
+                        <h6>Trazabilidad completa</h6>
+                    </div>
+                    <p>
+                        LabGestor cuenta con un sistema de trazabilidad interna que
+                        te permite identificar quién estuvo a cargo de cada muestra.
+                        Así, aseguras el control y la integridad de la información:
+                        nada se pierde.
+                    </p>
+                </article>
 
-            <article class="benefit-card">
-                <div class="car-header">
-                    <FileErrorIcon />
-                    <h6>Proteccion de datos</h6>
-                </div>
-                <p>
-                    LabGestor protege tu información de forma segura, asegurando
-                    que solo tú y tu equipo tengan acceso a los datos
-                    importantes. Nadie ajeno a tu organización podrá
-                    visualizarla. LabGestor te brinda seguridad.
-                </p>
-            </article>
+                <article class="benefit-card">
+                    <div class="car-header col-lg-6">
+                        <FileErrorIcon />
+                        <h6>Proteccion de datos</h6>
+                    </div>
+                    <p>
+                        LabGestor protege tu información de forma segura, asegurando
+                        que solo tú y tu equipo tengan acceso a los datos
+                        importantes. Nadie ajeno a tu organización podrá
+                        visualizarla. LabGestor te brinda seguridad.
+                    </p>
+                </article>
+            </div>
         </div>
     </section>
 
@@ -348,110 +352,741 @@ import {
         <img src={LogoLight.src} alt="logo-labgestor" />
     </footer>
 </Layout>
-
 <style>
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
+body{
+    overflow-x: hidden;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-    .link-primary {
-        background: var(--color-primario);
-        color: white !important;
-        padding: 10px 16px;
-        border-radius: 40px;
-        font-weight: 600;
-        transition: 0.2s;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    .link-secondary {
-        padding: 10px 16px;
-        border-radius: 40px;
-        font-weight: 600;
-        border: 1px solid var(--color-primario);
-        color: var(--color-primario) !important;
-    }
+/* --------------------------------- */
+/* Botones */
+/* --------------------------------- */
+.link-primary,
+.link-secondary,
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
 
-    #homepage-navbar {
-        background: white;
-        padding: 10px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
+.link-primary,
+button {
+  background: var(--color-primario);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
 
-    #homepage-navbar .nav-links {
-        display: flex;
-        gap: 30px;
-        list-style: none;
-        margin: 0 !important;
-    }
+.link-primary:hover,
+button:hover {
+  background: var(--color-primario-oscuro);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
 
-    #homepage-navbar .nav-links a {
-        color: #3d3b3b;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 1.1rem;
-        transition: 0.25s ease;
-    }
+.link-secondary {
+  background: transparent;
+  color: var(--color-primario);
+  border: 2px solid var(--color-primario);
+}
 
-    #homepage-navbar .nav-links a:hover {
-        color: var(--color-primario);
-        text-decoration: underline;
-    }
+.link-secondary:hover {
+  background: var(--color-primario);
+  color: #ffffff;
+}
 
-    #hero {
-        padding-top: 150px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 40px;
-        position: relative;
-    }
+/* --------------------------------- */
+/* Navbar */
+/* --------------------------------- */
+#homepage-navbar {
+  background: #ffffff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
 
-    #hero::after{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        top: 70%;
-        border-radius: 50px;
-        background: var(--color-primario);
-    }
+#homepage-navbar .nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
 
-    .hero-title {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 10px;
-        margin-top: 3rem;
-    }
+#homepage-navbar .nav-links a {
+  color: #3d3b3b;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: 0.25s ease;
+}
 
-    .hero-title .text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+#homepage-navbar .nav-links a:hover {
+  color: var(--color-primario);
+  text-decoration: underline;
+}
 
-    .hero-title h1 {
-        color: var(--color-primario);
-        font-size: 3rem;
-        width: 50%;
-        font-weight: 900;
-    }
+/* --------------------------------- */
+/* Hero Section */
+/* --------------------------------- */
+#hero {
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+}
 
-    .hero-title p {
-        color: var(--text-secondary);
-        font-size: 1.2rem;
-        width: 60%;
-        margin-bottom: 2rem;
-    }
+#hero::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 70%;
+  border-radius: 50px;
+  background: var(--color-primario);
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-top: 3rem;
+}
+
+.hero-title .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-title h1 {
+  color: var(--color-primario);
+  font-size: 3rem;
+  width: 50%;
+  font-weight: 900;
+}
+
+.hero-title p {
+  color: var(--color-secundario);
+  font-size: 1.2rem;
+  width: 60%;
+  margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* --------------------------------- */
+/* Cards Base */
+/* --------------------------------- */
+.card-base {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.card-base:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primario);
+}
+
+/* --------------------------------- */
+/* About Section */
+/* --------------------------------- */
+#about {
+  padding: 6rem 2rem;
+  background: #ffffff;
+}
+
+#about h3 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.section-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.info h2 {
+  color: var(--color-primario);
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.about-card {
+  @extend .card-base;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primario), var(--color-primario-claro));
+}
+
+.glass-span {
+  display: inline-block;
+  background: rgba(31, 92, 153, 0.1);
+  color: var(--color-primario);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.about-card .content h6 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.about-card .content p {
+  color: var(--color-secundario);
+  line-height: 1.6;
+}
+
+.about-card img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+
+/* --------------------------------- */
+/* Advantages Section */
+/* --------------------------------- */
+#advantages {
+  padding: 6rem 2rem;
+  background: #f8fafc;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header h2 {
+  color: #1e293b;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.header p {
+  font-size: 1.125rem;
+  color: var(--color-secundario);
+  line-height: 1.7;
+}
+
+.benefits-cards {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.benefits-cards .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.benefits-cards .row:last-child {
+  margin-bottom: 0;
+}
+
+.benefit-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card:hover {
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+}
+
+.car-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.car-header svg,
+.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #3b82f6;
+  flex-shrink: 0;
+  padding: 0.5rem;
+  background: #eff6ff;
+  border-radius: 12px;
+}
+
+.car-header h6 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.benefit-card p {
+  color: #64748b;
+  line-height: 1.7;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Variaciones de color para cada tarjeta */
+.benefit-card:nth-child(1) .car-header svg,
+.benefit-card:nth-child(1) .icon {
+  color: #3b82f6;
+  background: #eff6ff;
+}
+
+.benefit-card:nth-child(2) .car-header svg,
+.benefit-card:nth-child(2) .icon {
+  color: #10b981;
+  background: #ecfdf5;
+}
+
+.benefit-card:nth-child(3) .car-header svg,
+.benefit-card:nth-child(3) .icon {
+  color: #f59e0b;
+  background: #fffbeb;
+}
+
+.benefit-card:nth-child(4) .car-header svg,
+.benefit-card:nth-child(4) .icon {
+  color: #8b5cf6;
+  background: #f3f4f6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #advantages {
+    padding: 4rem 1rem;
+  }
+  
+  .benefits-cards .row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .benefit-card {
+    padding: 2rem;
+  }
+  
+  .car-header h6 {
+    font-size: 1.25rem;
+  }
+  
+  .header h2 {
+    font-size: 2rem;
+  }
+}
+
+/* --------------------------------- */
+/* Services Section */
+/* --------------------------------- */
+#services {
+  padding: 6rem 2rem;
+  background: #ffffff;
+}
+
+.services-container {
+  margin-bottom: 4rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.service-card:hover {
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.service-card .content {
+  flex: 1;
+}
+
+.service-card .title {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-direction: column;
+}
+
+.service-card .title h3 {
+  color: var(--color-primario);
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.service-card .title p {
+  color: var(--color-secundario);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.features-list {
+  list-style: none;
+  margin: 1.5rem 0 0 0;
+  padding: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.feature-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-primario);
+  flex-shrink: 0;
+}
+
+.service-card .imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.service-card .imagen img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* --------------------------------- */
+/* Call to Action */
+/* --------------------------------- */
+#call-to-action {
+  background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario-oscuro) 100%);
+  border-radius: 16px;
+  padding: 4rem;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+#call-to-action .content {
+  flex: 1;
+  z-index: 2;
+}
+
+#call-to-action .content h2 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+#call-to-action .content p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+#call-to-action .link-primary {
+  background: #ffffff;
+  color: var(--color-primario);
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+#call-to-action .link-primary:hover {
+  background: #f3f4f6;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+#call-to-action img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: auto;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+/* --------------------------------- */
+/* Footer */
+/* --------------------------------- */
+footer {
+  background: #111827;
+  padding: 2rem;
+  text-align: center;
+}
+
+footer img {
+  height: 40px;
+  opacity: 0.8;
+}
+
+/* --------------------------------- */
+/* Utilidades */
+/* --------------------------------- */
+hr {
+  border: none;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 3rem auto;
+  max-width: 1200px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.w-100 { width: 100%; }
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.col-lg-6 { flex: 0 0 auto; }
+.row { display: flex; flex-wrap: wrap; }
+
+/* --------------------------------- */
+/* Animaciones */
+/* --------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------- */
+/* Responsive Design */
+/* --------------------------------- */
+@media (max-width: 1024px) {
+  #hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .section-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .service-card {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .service-card .title {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .benefits-cards .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title h1 { font-size: 2.5rem; }
+  .header h2, .info h2 { font-size: 2rem; }
+  #about h3 { font-size: 1.5rem; }
+
+  #homepage-navbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .nav-links { gap: 1rem; }
+
+  #hero { padding: 4rem 1rem 2rem; }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .about-cards,
+  .benefits-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .service-card .title h3 { font-size: 1.5rem; }
+
+  #call-to-action {
+    padding: 2rem;
+    margin: 2rem 1rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #call-to-action img {
+    position: static;
+    opacity: 0.2;
+    max-width: 200px;
+  }
+
+  #call-to-action .content h2 { font-size: 2rem; }
+
+  #services,
+  #advantages,
+  #about {
+    padding: 4rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title h1 { font-size: 2rem; }
+  .header h2 { font-size: 1.75rem; }
+  .hero-title p { font-size: 1rem; }
+
+  .service-card { padding: 1.5rem; }
+  .service-card .title h3 { font-size: 1.25rem; }
+
+  #call-to-action {
+    padding: 1.5rem;
+    flex-direction: column;
+  }
+
+  #call-to-action img {
+    max-width: 150px;
+  }
+  #call-to-action .content h2 { font-size: 1.75rem; }
+
+  .about-card,
+  .benefit-card {
+    padding: 1.5rem;
+  }
+}
 </style>
