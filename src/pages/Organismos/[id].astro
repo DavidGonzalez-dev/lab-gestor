@@ -6,13 +6,20 @@ import PillHeading from "@shared/components/PillHeading/PillHeading.astro"
 import { VistaOrganismosID } from "@features/microOrganismos/services"
 
 const { id } = Astro.params;
+<<<<<<< HEAD
 const cookies = Astro.request.headers.get("cookie") ?? ""
 
+=======
+>>>>>>> 2a38702c1a60e17cc68e7a69b6ef95bb7750c167
 
 // Traemos la informacion del analisis
 let organismo = null;
 try {
+<<<<<<< HEAD
   organismo = await VistaOrganismosID(id, cookies);
+=======
+  organismo = await VistaOrganismosID(id);
+>>>>>>> 2a38702c1a60e17cc68e7a69b6ef95bb7750c167
 } catch (error) {
   console.error(error);
 }
