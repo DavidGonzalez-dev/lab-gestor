@@ -46,9 +46,19 @@ export const EditOrganismo = async (id, data) => {
   }
 }
 // Este servicio permite visionar una prueba de recuento por id
+<<<<<<< HEAD
+export const VistaOrganismosID = async (id, cookies) => {
+  try {
+    const response = await api.get(`deteccionMicroorganismos/${id}`, {
+      headers: {
+        Cookie: cookies
+      }
+    })
+=======
 export const VistaOrganismosID = async (id) => {
   try {
     const response = await api.get(`deteccionMicroorganismos/${id}`)
+>>>>>>> 2a38702c1a60e17cc68e7a69b6ef95bb7750c167
     return response.data.data
   } catch (err) {
     switch (err.response.status) {

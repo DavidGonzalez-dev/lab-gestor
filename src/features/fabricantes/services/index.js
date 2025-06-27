@@ -57,10 +57,14 @@ export const eliminarFabricante = async (id) => {
 }
 
 // Es te servicio nos permite obtener la informacion de un solo fabricante desde la base de datos
-export const getFabricanteId = async (id) => {
+export const getFabricanteId = async (id, cookies) => {
   
     try {
-    const response = await api.get(`fabricantes/${id}`);
+    const response = await api.get(`fabricantes/${id}`, {
+        headers: {
+            Cookie: cookies
+        }
+    });
     return response.data.data;
 
   } 
