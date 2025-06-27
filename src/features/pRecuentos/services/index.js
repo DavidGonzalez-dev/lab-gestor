@@ -46,9 +46,14 @@ export const EditarPrecuento = async (id, data) => {
   }
 }
 // Este servicio permite visionar una prueba de recuento por id
-export const VistaRecuentoID = async (id) => {
+
+export const VistaRecuentoID = async (id, cookies) => {
   try {
-    const response = await api.get(`pruebasRecuento/${id}`)
+    const response = await api.get(`pruebasRecuento/${id}`, {
+      headers: {
+        Cookie: cookies
+      }
+    })
     return response.data.data
   } catch (err) {
     switch (err.response.status) {

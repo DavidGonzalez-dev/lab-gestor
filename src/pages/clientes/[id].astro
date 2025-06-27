@@ -6,11 +6,13 @@ import {ArrowBackIcon} from "@shared/iconos"
 import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 
 const { id } = Astro.params;
+const cookies = Astro.request.headers.get("cookie") ?? ""
+
 
 // Traemos la informacion del cliente
 let client = null;
 try {
-  client = await getIdclient(id);
+  client = await getIdclient(id, cookies);
 } catch (error) {
   console.error(error);
 }

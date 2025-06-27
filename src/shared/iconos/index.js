@@ -25,6 +25,12 @@ import EditIcon from "./EditIcon.svg?react"
 import CloseIcon from "./CloseIcon.svg?react";
 import LockCheckIcon from "./LockCheckIcon.svg?react"
 import ForbidIcon from "./ForbidIcon.svg?react"
+import FileErrorIcon from "./FileErrorIcon.svg?react";
+import ReportOffIcon from "./ReportOffIcon.svg?react";
+import TimeIcon from "./TimeIcon.svg?react";
+import CircleChekIcon from "./CircleChekIcon.svg?react"
+import TrazabilidadIcon from "./TrazabilidadIcon.svg?react";
+
 
 export {
   AnalistaIcon,
@@ -53,5 +59,10 @@ export {
   ArrowForwardIcon,
   CloseIcon,
   LockCheckIcon,
-  ForbidIcon
+  ForbidIcon,
+  FileErrorIcon,
+  ReportOffIcon,
+  TimeIcon,
+  TrazabilidadIcon,
+  CircleChekIcon
 };

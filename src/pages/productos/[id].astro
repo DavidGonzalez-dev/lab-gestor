@@ -8,10 +8,12 @@ import PillHeading from "@shared/components/PillHeading/PillHeading.astro";
 import { TabsContainer } from "@features/productos/components/TabsContainer/TabsContainer.jsx";
 // Se hace trae la informacion del producto desde la API
 const { id } = Astro.params;
+const cookies = Astro.request.headers.get("cookie") ?? ""
+
 let data = null;
 
 try {
-    data = await GetProductId(id);
+    data = await GetProductId(id, cookies);
     console.log(data);
 } catch (error) {
     console.error(error);

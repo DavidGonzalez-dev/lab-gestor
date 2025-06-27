@@ -7,10 +7,14 @@ import { VistaOrganismosID } from "@features/microOrganismos/services"
 
 const { id } = Astro.params;
 
+const cookies = Astro.request.headers.get("cookie") ?? ""
+
+
 // Traemos la informacion del analisis
 let organismo = null;
 try {
-  organismo = await VistaOrganismosID(id);
+
+  organismo = await VistaOrganismosID(id, cookies);
 } catch (error) {
   console.error(error);
 }

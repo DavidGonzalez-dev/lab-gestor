@@ -8,11 +8,16 @@ import { ArrowBackIcon } from "@shared/iconos";
 import { getCajaById } from "@features/cajasBio/services";
 
 const { id } = Astro.params;
+=
+const cookies = Astro.request.headers.get("cookie") ?? ""
+
 
 // Traemos la información de la caja
 let caja = null;
 try {
-  caja = await getCajaById(id);
+
+  caja = await getCajaById(id, cookies);
+
 } catch (error) {
   console.error(error);
 }
@@ -44,23 +49,24 @@ try {
       )
     }
   </div>
+
+
+  <style>
+    a {
+      text-decoration: none;
+    }
+    .mainContainer {
+      margin-top: 5dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  </style>
 </SidebarLayout>
-
-<style>
-  a {
-    text-decoration: none;
-  }
-  .mainContainer {
-    margin-top: 5dvh;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-</style>
