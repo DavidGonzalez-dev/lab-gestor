@@ -17,8 +17,7 @@ export const registrarCaja = async (data) => {
 }
 
 
-// Obtener caja por ID
-<<<<<<< HEAD
+
 export const getCajaById = async (id, cookies) => {
   try {
     const response = await api.get(`/cajasBioburden/${id}`, {
@@ -26,11 +25,6 @@ export const getCajaById = async (id, cookies) => {
         Cookie: cookies
       }
     })
-=======
-export const getCajaById = async (id) => {
-  try {
-    const response = await api.get(`/cajasBioburden/${id}`)
->>>>>>> 2a38702c1a60e17cc68e7a69b6ef95bb7750c167
     
     return response.data.data
   } catch (err) {
