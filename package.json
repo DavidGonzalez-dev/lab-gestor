@@ -10,7 +10,6 @@
         "add": "astro add"
     },
     "dependencies": {
-        "@astrojs/node": "^9.1.3",
         "@astrojs/react": "^4.2.3",
         "@astrojs/vercel": "^8.0.4",
         "ag-grid-community": "^33.2.4",
@@ -24,6 +23,7 @@
         "zustand": "^5.0.4"
     },
     "devDependencies": {
+        "@astrojs/node": "^9.2.2",
         "@types/react": "^19.1.0",
         "@types/react-dom": "^19.1.2",
         "vite-plugin-svgr": "^4.3.0"

@@ -28,6 +28,7 @@ import ForbidIcon from "./ForbidIcon.svg?react"
 import FileErrorIcon from "./FileErrorIcon.svg?react";
 import ReportOffIcon from "./ReportOffIcon.svg?react";
 import TimeIcon from "./TimeIcon.svg?react";
+import CircleChekIcon from "./CircleChekIcon.svg?react"
 import TrazabilidadIcon from "./TrazabilidadIcon.svg?react";
 
 
@@ -62,5 +63,6 @@ export {
   FileErrorIcon,
   ReportOffIcon,
   TimeIcon,
-  TrazabilidadIcon
+  TrazabilidadIcon,
+  CircleChekIcon
 };
