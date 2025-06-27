@@ -14,6 +14,7 @@ const cookies = Astro.request.headers.get("cookie") ?? ""
 // Traemos la información de la caja
 let caja = null;
 try {
+
   caja = await getCajaById(id, cookies);
 
 } catch (error) {
@@ -47,6 +48,7 @@ try {
       )
     }
   </div>
+
 
   <style>
     a {

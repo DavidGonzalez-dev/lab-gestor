@@ -11,11 +11,13 @@ import { Button } from "@shared/components";
 import { ArrowBackIcon } from "@shared/iconos";
 
 const { id } = Astro.params;
+
 const cookies = Astro.request.headers.get("cookie") ?? ""
 
 // Traemos la informacion del analisis
 let organismo = null;
 try {
+
   organismo = await VistaOrganismosID(id, cookies);
 } catch (error) {
   console.error(error);

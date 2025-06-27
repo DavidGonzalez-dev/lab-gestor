@@ -18,6 +18,7 @@ export const registrarCaja = async (data) => {
 
 
 
+
 export const getCajaById = async (id, cookies) => {
   try {
     const response = await api.get(`/cajasBioburden/${id}`, {

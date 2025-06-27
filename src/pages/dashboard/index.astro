@@ -1,7 +1,19 @@
 ---
-import SidebarLayout from "@layouts/SidebarLayout.astro"
+import SidebarLayout from "@layouts/SidebarLayout.astro";
+import { ProductosIngresadosSemana } from "@features/estadisticas/components/BarChart/BarChart";
+import { PieChartEstadosProductos } from "@features/estadisticas/components/PieChart/PieChart";
 ---
-<SidebarLayout>
-    <h1>Hola mundo</h1>
-</SidebarLayout>
 
+<SidebarLayout>
+    <section class="container d-flex flex-column gap-4">
+        <div class="chart-container">
+            <h2>Productos Ingresados esta Semana</h2>
+            <ProductosIngresadosSemana client:load />
+        </div>
+
+        <div class="chart-container">
+            <h2>Estado de los Productos</h2>
+            <PieChartEstadosProductos client:load />
+        </div>
+    </section>
+</SidebarLayout>
